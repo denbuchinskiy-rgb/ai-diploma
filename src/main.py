@@ -32,3 +32,16 @@ save_csv("products.csv", products)
 print(load_csv("products.csv"))
 print("Количество строк:", count_csv_rows("products.csv"))
 print("Сумма столбца price:", sum_column("products.csv", 1))
+
+from json_utils import save_json, load_json, dict_to_json_text
+
+config = {
+    "model": "ASUS",
+    "temperature": 1.5,
+    "max_tokens": 300
+}
+
+save_json("config.json", config)
+
+print(load_json("config.json"))
+print(dict_to_json_text(config))

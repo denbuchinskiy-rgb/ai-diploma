@@ -3,10 +3,32 @@ from data_utils import find_by_name, filter_by_value, count_items
 students = [
     {"name": "Игорь", "city": "Екатеринбург", "age": 31},
     {"name": "Олеся", "city": "Москва", "age": 27},
-    {"name": "Ольга", "city": "Казань", "age": 19},
-    {"name": "Павел", "city": "Уфа", "age": 22}
+    {"name": "Лера", "city": "Мариуполь", "age": 18},
+    {"name": "Ярослав", "city": "Нижний Новгород", "age": 23}
 ]
 
 print(find_by_name(students, "Игорь"))
-print(filter_by_value(students, "city", "Казань"))
+print(filter_by_value(students, "city", "Москва"))
 print(count_items(students))
+
+from file_utils import save_text, load_text, append_text, count_lines
+
+save_text("project_note.txt", "Это первая строка проекта.")
+append_text("project_note.txt", "Это вторая строка проекта.")
+
+print(load_text("project_note.txt"))
+print("Количество строк:", count_lines("project_note.txt"))
+
+from csv_utils import save_csv, load_csv, count_csv_rows, sum_column
+
+products = [
+    ["title", "price", "count"],
+    ["Телевизор", 50000, 3],
+    ["Акустика", 10000, 5]
+]
+
+save_csv("products.csv", products)
+
+print(load_csv("products.csv"))
+print("Количество строк:", count_csv_rows("products.csv"))
+print("Сумма столбца price:", sum_column("products.csv", 1))

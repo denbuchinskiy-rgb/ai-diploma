@@ -46,16 +46,15 @@ save_json("config.json", config)
 print(load_json("config.json"))
 print(dict_to_json_text(config))
 
+from text_utils import normalize_text
 from data_utils import count_items
 from file_utils import save_text, load_text
 from json_utils import save_json, load_json
 
-text = "   Мой первый проект на Python   "
+text = "   Мой первая программа на Python   "
 tasks = ["изучить строки", "изучить файлы", "изучить json"]
 
-def norm_text(text):
-  return text.strip().lower()
-clean_text = norm_text(text)
+clean_text = normalize_text(text)
 task_count = count_items(tasks)
 
 save_text("project_note.txt", clean_text)
@@ -73,3 +72,9 @@ print("Очищенный текст:", clean_text)
 print("Прочитанный текст из файла:", loaded_text)
 print("Количество задач:", task_count)
 print("Загруженный JSON:", loaded_config)
+
+from user_menu import show_menu, run_choice
+
+show_menu()
+choice = input("Введите номер действия: ")
+run_choice(choice)

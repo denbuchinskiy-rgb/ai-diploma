@@ -125,8 +125,52 @@ def main():
 if __name__ == "__main__":
     main()
 
-from user_menu import show_menu, run_choice
+import sqlite3
+connection = sqlite3.connect("products_lesson01.db")
+cursor = connection.cursor()
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS products (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT,
+    category TEXT,
+    price REAL
+)
+""")
 
-show_menu()
-choice = input("Введите номер действия: ")
-run_choice(choice)
+cursor.execute(
+    "INSERT INTO products (title, category, price) VALUES (?, ?, ?)",
+    ("Творог", "Молочка", 80)
+)
+# TODO: добавьте второй товар
+cursor.execute(
+    "INSERT INTO products (title, category, price) VALUES (?, ?, ?)",
+    ("Сосиски", "Мясные продукты", 200)
+)
+# TODO: добавьте третий товар
+cursor.execute(
+    "INSERT INTO products (title, category, price) VALUES (?, ?, ?)",
+    ("Хлеб", "Хлебобулочные изделия", 40)
+)
+
+connection.commit()
+
+cursor.execute("SELECT * FROM products")
+# TODO: получите все строки через fetchall()
+products = cursor.fetchall()
+
+# TODO: выведите products
+print(products)
+
+for product in products:
+    print("ID:", product[0], "| Имя:", product[1], "| Категория:", product[2], "| Цена:", product[3])
+
+cursor.execute(
+    "SELECT * FROM products WHERE price > ?",
+    ("100",)
+)
+# TODO: получите результат в переменную expensive_products
+expen_products = cursor.fetchall()
+# TODO: выведите expensive_products
+print(expen_products)
+
+connection.close()

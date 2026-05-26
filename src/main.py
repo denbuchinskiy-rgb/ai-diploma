@@ -174,3 +174,110 @@ expen_products = cursor.fetchall()
 print(expen_products)
 
 connection.close()
+
+import sqlite3
+# TODO: создайте connection
+connection = sqlite3.connect("tovar_lesson02.db")
+# TODO: создайте cursor
+cursor = connection.cursor()
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS tovars (
+ id INTEGER PRIMARY KEY AUTOINCREMENT,
+ title TEXT,
+ category TEXT,
+ price INTEGER,
+ count INTEGER
+)
+""")
+# TODO: выполните connection.commit()
+connection.commit()
+
+cursor.execute("DELETE FROM tovars")
+# TODO: создайте список записей
+tovars = [
+    ("Ряженка", "Молочные продукты", 60, 10),
+    ("Дезодорант", "Уход за собой", 150, 20),
+    ("Полотенце", "Бытовые товары", 1000, 15),
+    ("Стив Джобс", "Книги", 2500, 5),
+    ("Дюшес", "Лимонады", 100, 40),
+    ("Молоко", "Молочные продукты", 70, 30),
+    ("Лак для волос", "Уход за собой", 200, 15),
+    ("Швабра", "Бытовые товары", 500, 10)
+]
+# TODO: добавьте записи через executemany
+cursor.executemany(
+    "INSERT INTO tovars (title, category, price, count) VALUES (?, ?, ?, ?)",
+    tovars
+)
+# TODO: выполните commit
+connection.commit()
+
+cursor.execute("SELECT * FROM tovars")
+# TODO: получите результат через fetchall()
+all_tovars = cursor.fetchall()
+# TODO: выведите строки через for
+for tovar in all_tovars:
+  print(tovar)
+
+  cursor.execute("SELECT title, category FROM tovars")
+# TODO: получите результат
+titles_and_category = cursor.fetchall()
+# TODO: выведите результат
+for row in titles_and_category:
+  print(row)
+
+  cursor.execute(
+    "SELECT* FROM tovars WHERE count > ?",
+    (10,)
+)
+# TODO: получите результат
+count_tovars = cursor.fetchall()
+
+# TODO: выведите результат
+for tovar in count_tovars:
+  print(tovar)
+
+cursor.execute("SELECT * FROM tovars WHERE category = ?",
+               ("Молочные продукты",)
+               )
+# TODO: получите результат
+milk_tovars = cursor.fetchall()
+
+# TODO: выведите результат
+for tovar in milk_tovars:
+  print(tovar)
+
+cursor.execute(
+    "SELECT * FROM tovars WHERE category = ? AND count > ?",
+    ("Молочные продукты", 10)
+)
+# TODO: вывести результат
+filtered_milk = cursor.fetchall()
+
+print("Молочка по кол-ву больше 10:")
+for tovar in filtered_milk:
+  print(tovar)
+# TODO: запрос с OR
+cursor.execute(
+    "SELECT * FROM tovars WHERE price > ? OR price = ?",
+    ("100","100")
+)
+
+# TODO: вывести результат
+filtered_price = cursor.fetchall()
+
+print("\nЦена больше 100, либо равна 100")
+for tovar in filtered_price:
+  print(tovar)
+
+cursor.execute(
+    "SELECT * FROM tovars ORDER BY count DESC LIMIT 3"
+)
+# TODO: получите результат
+top_count = cursor.fetchall()
+# TODO: выведите результат
+for tovar in top_count:
+  print(tovar)
+
+connection.close()

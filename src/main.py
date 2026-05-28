@@ -281,3 +281,94 @@ for tovar in top_count:
   print(tovar)
 
 connection.close()
+
+import sqlite3
+# TODO: создайте connection
+connection = sqlite3.connect("crud_lesson03.db")
+
+# TODO: создайте cursor
+cursor = connection.cursor()
+# TODO: выведите сообщение
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS users (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+name TEXT,
+position TEXT,
+password TEXT
+)
+""")
+# TODO: выполните commit()
+connection.commit()
+# TODO: выведите сообщение
+print("Таблица users создана")
+
+cursor.execute("DELETE FROM users")
+# TODO: commit()
+connection.commit()
+# TODO: выведите сообщение
+print("Таблица очищена")
+
+# TODO: создайте список данных
+users = [
+    ("Игорь", "Системный администратор", "vUQYlyJB"),
+    ("Влада", "Менеджер по продажам", "ExUHqHYh"),
+    ("Ольга", "Программист", "BTfpUBJB")
+]
+# TODO: используйте executemany()
+cursor.executemany(
+    "INSERT INTO users (name, position, password) VALUES (?, ?, ?)",
+    users
+)
+# TODO: commit()
+connection.commit()
+# TODO: выведите сообщение
+print("Пользователи добавлены")
+
+cursor.execute("SELECT * FROM users")
+# TODO: fetchall()
+users_data = cursor.fetchall()
+# TODO: выведите данные
+for user in users_data:
+  print(user)
+
+cursor.execute(
+    "UPDATE users SET password = ? WHERE name = ?",
+    ("pEEGSpmT", "Влада")
+)
+
+# TODO: commit()
+connection.commit()
+# TODO: выведите сообщение
+print("Пароль изменён")
+
+# TODO: SELECT с WHERE
+cursor.execute(
+    "SELECT * FROM users WHERE name = ?",
+    ("Влада",)
+)
+# TODO: fetchone()
+vlada = cursor.fetchone()
+# TODO: выведите результат
+print(vlada)
+
+# TODO: DELETE FROM ...
+cursor.execute(
+    "DELETE FROM users WHERE name = ?",
+    ("Игорь",)
+)
+# TODO: commit()
+connection.commit()
+# TODO: выведите сообщение
+print("Запись удалена")
+
+# TODO: SELECT *
+cursor.execute("SELECT * FROM users")
+
+# TODO: fetchall()
+users_after_delete = cursor.fetchall()
+# TODO: выведите результат
+for user in users_after_delete:
+  print(user)
+
+connection.close()

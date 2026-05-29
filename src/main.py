@@ -372,3 +372,98 @@ for user in users_after_delete:
   print(user)
 
 connection.close()
+
+import sqlite3
+# TODO: создайте connection
+connection = sqlite3.connect("design_lesson04.db")
+
+# TODO: создайте cursor
+cursor = connection.cursor()
+# TODO: выведите сообщение
+print("База данных подключена")
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS resumes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    full_name TEXT,
+    position TEXT,
+    experience_years INTEGER,
+    city TEXT,
+    score REAL
+)
+""")
+
+# TODO: connection.commit()
+connection.commit()
+# TODO: выведите сообщение
+print("Таблица резюме создана")
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS workouts (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  exercise TEXT,
+  workout_type TEXT,
+  duration_min INTEGER,
+  calories_burned INTEGER,
+  effort INTEGER
+)
+""")
+# TODO: connection.commit()
+connection.commit()
+# TODO: выведите сообщение
+print("Таблица workouts создана")
+
+cursor.execute("""
+SELECT name FROM sqlite_master
+WHERE type = 'table'
+""")
+# TODO: получите таблицы через fetchall()
+tables = cursor.fetchall()
+# TODO: выведите таблицы
+print("Таблицы в базе:")
+for table in tables:
+  print(table)
+
+cursor.execute(
+    "INSERT INTO resumes (full_name, position, experience_years, city, score) VALUES (?, ?, ?, ?, ?)",
+    ("Кристина Прокопьевна", "Системный администратор", 5, "Москва", 100.5)
+)
+# TODO: добавьте минимум 2 записи
+cursor.execute(
+    "INSERT INTO resumes (full_name, position, experience_years, city, score) VALUES (?, ?, ?, ?, ?)",
+    ("Игорь Смирнов", "Тимлидер", 10, "Екатеринбург", 120.5)
+)
+# TODO: connection.commit()
+connection.commit()
+# TODO: выведите сообщение
+print("Резюме добавлены")
+
+cursor.execute(
+    "INSERT INTO workouts (exercise, workout_type, duration_min, calories_burned, effort) VALUES (?, ?, ?, ?, ?)",
+    ("Приседания", "Силовая", 30, 180, "Средний"),
+)
+# TODO: добавьте минимум 2 записи
+cursor.execute(
+    "INSERT INTO workouts (exercise, workout_type, duration_min, calories_burned, effort) VALUES (?, ?, ?, ?, ?)",
+    ("Бег", "Кардио", 45, 320, "Высокий"),
+)
+# TODO: connection.commit()
+connection.commit()
+# TODO: выведите сообщение
+print("Данные добавлены")
+
+cursor.execute(f"SELECT * FROM resumes")
+# TODO: fetchall()
+rows1 = cursor.fetchall()
+# TODO: выведите строки
+for row in rows1:
+  print(row)
+
+cursor.execute(f"SELECT * FROM workouts")
+# TODO: fetchall()
+rows2 = cursor.fetchall()
+# TODO: выведите строки
+for row in rows2:
+  print(row)
+
+connection.close()

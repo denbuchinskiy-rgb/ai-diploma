@@ -467,3 +467,132 @@ for row in rows2:
   print(row)
 
 connection.close()
+
+import sqlite3
+# TODO: создайте connection
+connection = sqlite3.connect("relations_lesson05.db")
+
+# TODO: создайте cursor
+cursor = connection.cursor()
+# TODO: выведите сообщение
+print("База данных подключена")
+
+cursor.execute("PRAGMA foreign_keys = ON")
+
+# TODO: выведите сообщение
+print("FOREIGN KEY включён")
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    age FLOAT,
+    email TEXT
+)
+""")
+
+connection.commit()
+
+# TODO: выведите сообщение
+print("Таблица users создана")
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS orders (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER,
+    title TEXT,
+    count FLOAT,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+)
+""")
+
+connection.commit()
+
+# TODO: выведите сообщение
+print("Таблица orders создана")
+
+# TODO: DELETE FROM дочерняя_таблица
+cursor.execute("DELETE FROM orders")
+# TODO: DELETE FROM родительская_таблица
+cursor.execute("DELETE FROM users")
+# TODO: connection.commit()
+connection.commit()
+# TODO: выведите сообщение
+print("Таблицы очищены")
+
+# TODO: создайте список записей
+users = [
+    ("Родион", "32", "rodion@exe.com"),
+    ("Луиза", "26", "luiza@exe.com")
+]
+# TODO: используйте executemany
+cursor.executemany(
+    "INSERT INTO users (name, age, email) VALUES (?, ?, ?)",
+    users
+)
+# TODO: connection.commit()
+connection.commit()
+# TODO: выведите сообщение
+print("Пользователи добавлены")
+
+# TODO: SELECT * FROM родительская_таблица
+cursor.execute("SELECT * FROM users")
+# TODO: fetchall()
+users_data = cursor.fetchall()
+# TODO: выведите записи
+for user in users_data:
+  print(user)
+# TODO: сохраните id первой и второй записи в переменные
+rodion_id = users_data[0][0]
+luiza_id = users_data[1][0]
+
+print("ID Родиона:", rodion_id)
+print("ID Луизы:", luiza_id)
+# TODO: assert id не None
+assert rodion_id is not None
+assert luiza_id is not None
+
+# TODO: создайте список дочерних записей
+orders = [
+    (rodion_id, "Телевизор LG", 2),
+    (rodion_id, "Системный блок HP", 5),
+    (luiza_id, "Удлинитель", 10)
+]
+# TODO: используйте executemany
+cursor.executemany(
+    "INSERT INTO orders (user_id, title, count) VALUES (?, ?, ?)",
+    orders
+)
+# TODO: connection.commit()
+connection.commit()
+# TODO: выведите сообщение
+print("Заказы добавлены")
+
+# TODO: SELECT * FROM родительская_таблица
+print("Посетители:")
+cursor.execute("SELECT * FROM users")
+users_rows = cursor.fetchall()
+for row in users_rows:
+  print(row)
+# TODO: SELECT * FROM дочерняя_таблица
+print("\nПокупки:")
+cursor.execute("SELECT * FROM orders")
+orders_rows = cursor.fetchall()
+for row in orders_rows:
+  print(row)
+
+cursor.execute(
+    "SELECT * FROM orders WHERE user_id = ?",
+    (rodion_id,)
+)
+# TODO: fetchall()
+rodion_orders = cursor.fetchall()
+# TODO: выведите результат
+print("Заказы Родиона:")
+for order in rodion_orders:
+  print(order)
+# TODO: assert
+assert len(rodion_orders) == 2
+# TODO: connection.close()
+connection.close()
+print("Соединение закрыто")

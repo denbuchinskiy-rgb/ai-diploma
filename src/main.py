@@ -596,3 +596,148 @@ assert len(rodion_orders) == 2
 # TODO: connection.close()
 connection.close()
 print("Соединение закрыто")
+
+import sqlite3
+# TODO: создайте connection
+connection = sqlite3.connect("join_lesson06.db")
+
+# TODO: создайте cursor
+cursor = connection.cursor()
+# TODO: включите PRAGMA foreign_keys = ON
+cursor.execute("PRAGMA foreign_keys = ON")
+# TODO: выведите сообщение
+print("База данных подключена")
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT,
+  city TEXT
+)
+""")
+# TODO: connection.commit()
+connection.commit()
+# TODO: выведите сообщение
+print("Таблица users создана")
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS orders (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER,
+  title TEXT,
+  price INTEGER,
+  count FLOAT,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+)
+""")
+# TODO: connection.commit()
+connection.commit()
+# TODO: выведите сообщение
+print("Таблица orders создана")
+
+cursor.execute("DELETE FROM orders")
+# TODO: DELETE FROM родительская_таблица
+cursor.execute("DELETE FROM users")
+# TODO: добавьте минимум 3 родительские записи
+users = [
+    ("Роман", "Нью-Йорк"),
+    ("Екатерина", "Санкт-Петербург"),
+    ("Эдуард", "Лос-Анджелес")
+]
+
+cursor.executemany(
+    "INSERT INTO users (name, city) VALUES (?, ?)",
+    users
+)
+# TODO: connection.commit()
+connection.commit()
+# TODO: выведите сообщение
+print("Пользователи добавлены")
+
+cursor.execute("SELECT * FROM users")
+# TODO: fetchall()
+users_data = cursor.fetchall()
+# TODO: сохраните нужные id в переменные
+for user in users_data:
+  print(user)
+roman_id = users_data[0][0]
+ekaterina_id = users_data[1][0]
+# TODO: добавьте минимум 3 дочерние записи
+orders = [
+    (roman_id, "Туалетное мыло", 50, 10),
+    (roman_id, "FAIRY", 100, 5),
+    (ekaterina_id, "Швабра", 150, 1)
+]
+
+cursor.executemany(
+    "INSERT INTO orders (user_id, title, price, count) VALUES (?, ?, ?, ?)",
+    orders
+)
+# TODO: connection.commit()
+connection.commit()
+# TODO: выведите сообщение
+print("Заказы добавлены")
+
+print("USERS:")
+cursor.execute("SELECT * FROM users")
+users_rows = cursor.fetchall()
+for row in users_rows:
+  print(row)
+# TODO: SELECT * FROM дочерняя_таблица
+print("\nORDERS:")
+cursor.execute("SELECT * FROM orders")
+orders_rows = cursor.fetchall()
+# TODO: выведите результаты
+for row in orders_rows:
+    print(row)
+
+cursor.execute("""
+SELECT users.name, users.city, orders.title, orders.price
+FROM users
+INNER JOIN orders ON users.id = orders.user_id
+""")
+# TODO: fetchall()
+join_rows = cursor.fetchall()
+# TODO: выведите результат
+for row in join_rows:
+  print(row)
+
+cursor.execute("""
+SELECT users.name, users.city, orders.title, orders.price
+FROM users
+INNER JOIN orders ON users.id = orders.user_id
+WHERE users.city = ?
+""", ("Нью-Йорк",))
+# TODO: fetchall()
+newyork_orders = cursor.fetchall()
+# TODO: выведите результат
+for row in newyork_orders:
+  print(row)
+
+cursor.execute("""
+SELECT users.name, users.city, orders.title, orders.price
+FROM users
+LEFT JOIN orders ON users.id = orders.user_id
+""")
+# TODO: fetchall()
+left_join_rows = cursor.fetchall()
+# TODO: выведите результат
+for row in left_join_rows:
+  print(row)
+
+cursor.execute("""
+SELECT users.name, COUNT(orders.id), SUM(orders.price)
+FROM users
+LEFT JOIN orders ON users.id = orders.user_id
+GROUP BY users.id
+""")
+# TODO: fetchall()
+report = cursor.fetchall()
+# TODO: выведите отчёт
+print("Отчёт по пользователям:")
+for row in report:
+  print("Пользователь:", row[0], "| Количество заказов:", row[1], "| Сумма:", row[2])
+# TODO: assert
+assert len(report) == 3
+# TODO: connection.close()
+connection.close()

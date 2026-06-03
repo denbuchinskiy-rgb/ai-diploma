@@ -741,3 +741,135 @@ for row in report:
 assert len(report) == 3
 # TODO: connection.close()
 connection.close()
+
+import sqlite3
+# TODO: создайте connection
+connection = sqlite3.connect("analytics_lesson07.db")
+# TODO: создайте cursor
+cursor = connection.cursor()
+# TODO: выведите сообщение
+print("База данных подключена")
+
+# TODO: CREATE TABLE IF NOT EXISTS
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS sales (
+   id INTEGER PRIMARY KEY AUTOINCREMENT,
+   product TEXT,
+   category TEXT,
+   city TEXT,
+   quantity INTEGER,
+   price INTEGER,
+   revenue INTEGER
+)
+""")
+# TODO: connection.commit()
+connection.commit()
+# TODO: выведите сообщение
+print("Таблица sales создана")
+
+# TODO: DELETE FROM ваша_таблица
+cursor.execute("DELETE FROM sales")
+# TODO: создайте список минимум из 10 записей
+sales = [
+   ("Компьютер", "Электроника", "Москва", 10, 50000, 500000),
+   ("Смартфон", "Электроника", "Новосибирск", 25, 30000, 750000),
+   ("Холодильник", "Бытовая техника", "Екатеринбург", 8, 40000, 320000),
+   ("Пылесос", "Бытовая техника", "Казань", 15, 15000, 225000),
+   ("Фен", "Бытовая техника", "Самара", 30, 5000, 150000),
+   ("Телевизор", "Электроника", "Краснодар", 12, 45000, 540000),
+   ("Утюг", "Бытовая техника", "Омск", 22, 4500, 99000),
+   ("Наушники", "Электроника", "Ростов-на-Дону", 45, 2500, 112500),
+   ("Чайник", "Бытовая техника", "Уфа", 28, 3500, 98000),
+   ("Планшет", "Электроника", "Челябинск", 18, 22000, 396000)
+]
+
+# TODO: executemany INSERT INTO
+cursor.executemany(
+    "INSERT INTO sales (product, category, city, quantity, price, revenue) VALUES (?, ?, ?, ?, ?, ?)",
+    sales
+)
+
+# TODO: connection.commit()
+connection.commit()
+# TODO: выведите сообщение
+print("Данные продаж добавлены")
+
+# TODO: SELECT COUNT(*) FROM ваша_таблица
+cursor.execute("SELECT COUNT (*) FROM sales")
+# TODO: fetchone()
+total_rows = cursor.fetchone()[0]
+# TODO: выведите количество
+print("Количество строк:", total_rows)
+
+# TODO: SELECT SUM(числовой_столбец) FROM ваша_таблица
+cursor.execute("SELECT SUM(revenue) FROM sales")
+
+# TODO: fetchone()
+total_revenue = cursor.fetchone()[0]
+# TODO: выведите сумму
+print("Общая выручка:", total_revenue)
+
+# TODO: SELECT AVG(...), MIN(...), MAX(...) FROM ваша_таблица
+cursor.execute("SELECT AVG(price), MIN(price), MAX(price) FROM sales")
+# TODO: fetchone()
+avg_price, min_price, max_price = cursor.fetchone()
+# TODO: выведите результаты
+print("Средняя цена:", round(avg_price, 2))
+print("Минимальная цена:", min_price)
+print("Максимальная цена:", max_price)
+
+# TODO: SELECT group_field, SUM(number_field) FROM ваша_таблица GROUP BY group_field
+cursor.execute("""
+SELECT category, SUM(revenue)
+FROM sales
+GROUP BY category
+""")
+# TODO: fetchall()
+revenue_by_category = cursor.fetchall()
+# TODO: выведите результат
+for row in revenue_by_category:
+  print(row)
+
+# TODO: SELECT group_field, COUNT(*), SUM(...), AVG(...) FROM ваша_таблица GROUP BY group_field
+cursor.execute("""
+SELECT city, COUNT(*), SUM(revenue), AVG(price)
+FROM sales
+GROUP BY city
+""")
+# TODO: fetchall()
+city_report = cursor.fetchall()
+# TODO: выведите отчёт
+for row in city_report:
+  print("Город:", row[0], "| Продаж:", row[1], "| Выручка:", row[2], "| Средняя цена:", round(row[3], 2))
+
+# TODO: SELECT group_field, SUM(...) AS total FROM ваша_таблица GROUP BY group_field ORDER BY total DESC
+cursor.execute("""
+SELECT category, SUM(revenue) AS total_revenue
+FROM sales
+GROUP BY category
+ORDER BY total_revenue DESC
+""")
+# TODO: fetchall()
+sorted_categories = cursor.fetchall()
+# TODO: выведите результат
+for row in sorted_categories:
+  print(row)
+
+# TODO: SELECT group_field, SUM(...) FROM ваша_таблица GROUP BY group_field HAVING SUM(...) > порог
+cursor.execute("""
+SELECT category, SUM(revenue) AS total_revenue
+FROM sales
+GROUP BY category
+HAVING SUM(revenue) > 50000
+ORDER BY total_revenue DESC
+""")
+# TODO: fetchall()
+big_categories = cursor.fetchall()
+# TODO: выведите результат
+print("Категории с выручкой больше 50000:")
+for row in big_categories:
+    print(row)
+# TODO: assert
+assert len(big_categories) >= 1
+# TODO: connection.close()
+connection.close()

@@ -1004,3 +1004,175 @@ for product in products_after_delete:
 # TODO: connection.close()
 connection.close()
 print("Соединение закрыто")
+
+# TODO: импортируйте sqlite3
+import sqlite3
+# TODO: напишите функцию get_connection(db_name)
+def get_connection(db_name="hr_resume_tracker.db"):
+    connection = sqlite3.connect(db_name)
+    return connection
+# TODO: создайте connection
+connection = get_connection()
+# TODO: создайте cursor
+cursor = connection.cursor()
+# TODO: выведите сообщение
+print("База данных подключена")
+
+# TODO: напишите функцию create_project_table(connection)
+def create_candidates_table(connection):
+    cursor = connection.cursor()
+# TODO: внутри функции выполните CREATE TABLE IF NOT EXISTS
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS candidates (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        full_name TEXT,
+        position TEXT,
+        city TEXT,
+        experience_years INTEGER,
+        status TEXT,
+        score REAL
+    )
+""")
+# TODO: connection.commit()
+connection.commit()
+# TODO: вызовите функцию
+create_candidates_table(connection)
+# TODO: выведите сообщение
+print("Таблица candidates создана")
+
+# TODO: напишите функцию clear_table(connection)
+def clear_candidates(connection):
+  cursor = connection.cursor()
+# TODO: DELETE FROM ваша_таблица
+  cursor.execute("DELETE FROM candidates")
+# TODO: connection.commit()
+  connection.commit()
+# TODO: вызовите функцию
+clear_candidates(connection)
+# TODO: выведите сообщение
+print("Таблица candidates очищена")
+
+# TODO: напишите функцию add_record(...)
+def add_candidate(connection, full_name, position, city, experience_years, status, score):
+    cursor = connection.cursor()
+# TODO: используйте INSERT INTO с параметрами ?
+    cursor.execute(
+       """
+       INSERT INTO candidates (full_name, position, city, experience_years, status, score)
+       VALUES (?, ?, ?, ?, ?, ?)
+       """,
+       (full_name, position, city, experience_years, status, score)
+      )
+# TODO: connection.commit()
+    connection.commit()
+# TODO: добавьте минимум 5 записей
+add_candidate(connection, "Иванов Сергей Петрович", "Старший разработчик", "Москва", 7, "Активен", 92)
+add_candidate(connection, "Петрова Анна Викторовна", "Менеджер по продажам", "Санкт-Петербург", 4, "В отпуске", 85)
+add_candidate(connection, "Смирнов Дмитрий Олегович", "Аналитик данных", "Новосибирск", 6, "Активен", 88)
+add_candidate(connection, "Кузнецова Елена Игоревна", "Дизайнер интерфейсов", "Казань", 3, "На испытательном сроке", 79)
+add_candidate(connection, "Волков Андрей Николаевич", "Системный администратор", "Екатеринбург", 10, "Активен", 95)
+# TODO: выведите сообщение
+print("Кандитаты добавлены")
+
+# TODO: напишите функцию get_all_records(connection)
+def get_all_candidates(connection):
+    cursor = connection.cursor()
+# TODO: SELECT * FROM ваша_таблица
+    cursor.execute("SELECT * FROM candidates")
+# TODO: return cursor.fetchall()
+    return cursor.fetchall()
+# TODO: получите records
+candidates = get_all_candidates(connection)
+# TODO: выведите записи
+for candidate in candidates:
+  print(candidate)
+
+# TODO: напишите функцию find_by_field(connection, value)
+def find_candidates_by_status(connection, status):
+    cursor = connection.cursor()
+# TODO: SELECT * FROM table WHERE field = ?
+    cursor.execute(
+        "SELECT * FROM candidates WHERE status = ?",
+        (status,)
+    )
+    return cursor.fetchall()
+# TODO: получите filtered_records
+active_candidates = find_candidates_by_status(connection, "Активен")
+# TODO: выведите результат
+print("Активные кандидаты:")
+for candidate in active_candidates:
+  print(candidate)
+
+# TODO: напишите функцию update_record(...)
+def update_candidate_status(connection, full_name, new_status):
+    cursor = connection.cursor()
+# TODO: UPDATE ... SET ... WHERE ...
+    cursor.execute(
+        "UPDATE candidates SET status = ? WHERE full_name = ?",
+        (new_status, full_name)
+    )
+# TODO: connection.commit()
+    connection.commit()
+# TODO: проверьте изменение через SELECT
+update_candidate_status(connection, "Кузнецова Елена Игоревна", "Интервью")
+updated = find_candidates_by_status(connection, "Интервью")
+print("Кандидаты на интервью:")
+for candidate in updated:
+  print(candidate)
+
+# TODO: напишите функцию get_group_report(connection)
+def get_status_report(connection):
+    cursor = connection.cursor()
+# TODO: SELECT group_field, COUNT(*) или SUM(...)
+# TODO: GROUP BY group_field
+    cursor.execute("""
+    SELECT status, COUNT(*)
+    FROM candidates
+    GROUP BY status
+    ORDER BY COUNT(*) DESC
+    """)
+    return cursor.fetchall()
+# TODO: получите report
+status_report = get_status_report(connection)
+# TODO: выведите report
+print("Отчёт по статусам:")
+for row in status_report:
+    print (row)
+
+# TODO: напишите функцию get_top_records(connection, limit=3)
+def get_top_candidates(connection, limit=3):
+    cursor = connection.cursor()
+# TODO: SELECT ... ORDER BY number_field DESC LIMIT ?
+    cursor.execute(
+        "SELECT full_name, position, city, score FROM candidates ORDER BY score DESC LIMIT ?",
+        (limit,)
+    )
+    return cursor.fetchall()
+# TODO: получите top_records
+top_candidates = get_top_candidates(connection, 3)
+# TODO: выведите top_records
+print("Топ кандидатов:")
+for candidate in top_candidates:
+  print(candidate)
+
+# TODO: напишите функцию show_project_summary(connection)
+def show_project_summary(connection):
+  print("=== HR Resume Tracker ===")
+  print()
+# TODO: внутри вызовите свои функции
+  print("Все кандидаты:")
+  for candidate in get_all_candidates(connection):
+      print(candidate)
+# TODO: выведите понятный отчёт
+  print("\nОтчёт по статусам:")
+  for row in get_status_report(connection):
+    print(row)
+  print("\nТоп кандидатов:")
+  for candidate in get_top_candidates(connection, 3):
+    print(candidate)
+# TODO: вызовите show_project_summary(connection)
+show_project_summary(connection)
+# TODO: connection.close()
+connection.close()
+# TODO: выведите сообщение
+print("\nСоединение закрыто")

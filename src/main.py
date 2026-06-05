@@ -873,3 +873,134 @@ for row in big_categories:
 assert len(big_categories) >= 1
 # TODO: connection.close()
 connection.close()
+
+import sqlite3
+# TODO: выведите сообщение
+print("sqlite3 подключён")
+
+def get_connection(db_name="python_sql_lesson08.db"):
+    connection = sqlite3.connect(db_name)
+    return connection
+# TODO: создайте connection
+connection = get_connection()
+
+# TODO: выведите сообщение
+print("Подключение создано")
+
+def create_products_table(connection):
+  cursor = connection.cursor()
+  cursor.execute("""
+  CREATE TABLE IF NOT EXISTS products (
+       id INTEGER PRIMARY KEY AUTOINCREMENT,
+       name TEXT,
+       price INTEGER,
+       count FLOAT
+)
+""")
+# TODO: connection.commit()
+connection.commit()
+
+# TODO: вызовите функцию
+create_products_table(connection)
+print("Таблица products создана")
+
+# TODO: напишите функцию clear_table(connection)
+def clear_products(connection):
+  cursor = connection.cursor()
+# TODO: DELETE FROM ваша_таблица
+  cursor.execute("DELETE FROM products")
+  connection.commit()
+# TODO: вызовите функцию
+clear_products(connection)
+print("Таблица products очищена")
+
+# TODO: напишите функцию add_record(...)
+def add_products(connection, name, price, count):
+  cursor = connection.cursor()
+# TODO: используйте INSERT INTO с параметрами ?
+  cursor.execute("INSERT INTO products (name, price, count) VALUES (?, ?, ?)",
+                 (name, price, count)
+                 )
+# TODO: connection.commit()
+  connection.commit()
+# TODO: добавьте минимум 3 записи
+add_products(connection, "Клубника", 600, 1)
+add_products(connection, "Малина", 400, 2)
+add_products(connection, "Голубика", 500, 3)
+
+print("Продукты добавлены")
+
+# TODO: напишите функцию get_all_records(connection)
+def get_all_products(connection):
+  cursor = connection.cursor()
+  cursor.execute("SELECT * FROM products")
+  return cursor.fetchall()
+# TODO: получите все записи
+products = get_all_products(connection)
+# TODO: выведите записи
+for product in products:
+  print(product)
+
+def find_products_by_name(connection, name):
+    cursor = connection.cursor()
+# TODO: используйте WHERE поле = ?
+    cursor.execute(
+      "SELECT * FROM products WHERE name = ?",
+      (name,)
+    )
+    return cursor.fetchall()
+# TODO: получите результат
+strawberry_products = find_products_by_name(connection, "Клубника")
+# TODO: выведите результат
+for product in strawberry_products:
+  print(product)
+
+# TODO: напишите функцию find_one_record(connection, value)
+def find_products_by_price(connection, price):
+  cursor = connection.cursor()
+# TODO: используйте SELECT ... WHERE ...
+  cursor.execute(
+      "SELECT * FROM products WHERE price >= ?",
+      (500,)
+  )
+
+# TODO: fetchone()
+  return cursor.fetchone()
+# TODO: выведите результат
+price = find_products_by_price(connection, 500)
+print(price)
+
+# TODO: напишите функцию update_record(...)
+def update_product_count(connection, name, new_count):
+    cursor = connection.cursor()
+# TODO: используйте UPDATE ... SET ... WHERE ...
+    cursor.execute(
+        "UPDATE products SET count = ? WHERE name = ?",
+        (new_count, name)
+    )
+# TODO: connection.commit()
+    connection.commit()
+# TODO: проверьте изменение через SELECT
+update_product_count(connection, "Клубника", 6)
+strawberry_updated = find_products_by_price(connection, "Клубника")
+print(strawberry_updated)
+
+# TODO: напишите функцию delete_record(...)
+def delete_product(connection, name):
+    cursor = connection.cursor()
+
+# TODO: используйте DELETE FROM ... WHERE ...
+    cursor.execute(
+        "DELETE FROM products WHERE name = ?",
+        (name,)
+    )
+# TODO: connection.commit()
+    connection.commit()
+# TODO: проверьте количество записей
+delete_product(connection, "Голубика")
+products_after_delete = get_all_products(connection)
+for product in products_after_delete:
+  print(product)
+# TODO: connection.close()
+connection.close()
+print("Соединение закрыто")

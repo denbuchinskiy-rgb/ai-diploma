@@ -316,3 +316,165 @@ summary = [
 # TODO: выведите все выводы
 for item in summary:
   print("-", item)
+
+# TODO: импортируйте numpy как np
+import numpy as np
+# TODO: импортируйте matplotlib.pyplot как plt
+import matplotlib.pyplot as plt
+# TODO: выведите сообщение
+print("Библиотеки подключены")
+
+# TODO: создайте x через np.linspace()
+x = np.linspace(-5, 5, 250)
+# TODO: создайте y = x ** 2
+y = x ** 2
+# TODO: постройте график
+plt.figure(figsize=(10, 8))
+plt.plot(x, y)
+# TODO: добавьте title, xlabel, ylabel, grid
+plt.title("Степенная функция y = x²")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid(True)
+# TODO: show()
+plt.show()
+
+
+# TODO: создайте x
+x = np.linspace(-5, 5, 250)
+
+# TODO: создайте y = x ** 3
+y = x ** 3
+# TODO: постройте график
+plt.figure(figsize=(10, 8))
+plt.plot(x, y)
+plt.title("Кубическая функция y = x³")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid(True)
+# TODO: show()
+plt.show()
+
+# TODO: создайте x от 0 до 25
+x = np.linspace(0, 15, 250)
+
+# TODO: создайте y = np.sqrt(x)
+y = np.sqrt(x)
+# TODO: постройте график
+plt.figure(figsize=(10,8))
+plt.plot(x,y)
+plt.title("Функция корня y = sqrt(x)")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid(True)
+# TODO: show()
+plt.show()
+
+# TODO: создайте x
+x = np.linspace(-15, 15, 250)
+# TODO: создайте y = 2 ** x
+y = 2 ** x
+# TODO: постройте график
+plt.figure(figsize=(10, 8))
+plt.plot(x, y)
+plt.title("Показательная функция y = 2ˣ")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid(True)
+# TODO: show()
+plt.show()
+
+# TODO: создайте x от 0.1 до 20
+x = np.linspace(0.1, 15, 250)
+
+# TODO: создайте y = np.log(x)
+y = np.log(x)
+# TODO: постройте график
+plt.figure(figsize=(10, 8))
+plt.plot(x, y)
+plt.title("Логарифмическая функция y = log(x)")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid(True)
+# TODO: show()
+plt.show()
+
+# TODO: создайте x от -2*pi до 2*pi
+x = np.linspace(-4* np.pi, 4 * np.pi, 450)
+
+# TODO: создайте y = np.sin(x)
+y = np.sin(x)
+# TODO: постройте график
+plt.figure(figsize=(10, 8))
+plt.plot(x, y)
+plt.title("Функция y = sin(x)")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid(True)
+# TODO: show()
+plt.show()
+
+# TODO: создайте x от -2*pi до 2*pi
+x = np.linspace(-4 * np.pi, 4 * np.pi, 450)
+# TODO: создайте y = np.cos(x)
+y = np.cos(x)
+# TODO: постройте график
+plt.figure(figsize=(10, 8))
+plt.plot(x, y)
+plt.title("Функция y = cos(x)")
+plt.xlabel("x")
+plt.grid(True)
+# TODO: show()
+plt.show()
+
+# TODO: создайте x
+x = np.linspace(-4 * np.pi, 4 * np.pi, 450)
+# TODO: создайте y_sin и y_cos
+y_sin = np.sin(x)
+y_cos = np.cos(x)
+# TODO: постройте оба графика
+plt.figure(figsize=(10, 8))
+plt.plot(x, y_sin, label="sin(x)")
+plt.plot(x, y_cos, label="cos(x)")
+plt.title("Сравнение sin(x) и cos(x)")
+plt.xlabel("x")
+plt.ylabel("y")
+# TODO: добавьте legend
+plt.legend()
+plt.grid(True)
+# TODO: show()
+plt.show()
+
+# TODO: создайте положительный x
+x = np.linspace(0.1, 5, 250)
+# TODO: создайте y_linear = x
+y_linear = x
+
+# TODO: создайте y_square = x ** 2
+y_square = x ** 3
+# TODO: создайте y_log = np.log(x)
+y_log = np.log(x)
+# TODO: создайте y_exp = 2 ** x
+y_exp = 3 ** x
+# TODO: постройте все графики
+plt.figure(figsize=(9, 6))
+plt.plot(x, y_linear, label="y = x")
+plt.plot(x, y_square, label="y = x3")
+plt.plot(x, y_log, label="y = log(x)")
+plt.plot(x, y_exp, label="y = 3ˣ")
+plt.title("Сравнение элементарных функции")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.legend()
+plt.grid(True)
+plt.show()
+# TODO: создайте список summary из 4 выводов
+summary = [
+    "Степенные функции могут быстро расти",
+    "Показательная функция растёт очень быстро",
+    "Логарифм растёт медленно",
+    "Синус и косинус описывают колебания"
+]
+# TODO: выведите summary
+for item in summary:
+  print("-", item)

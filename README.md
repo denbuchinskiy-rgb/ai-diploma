@@ -40,4 +40,4 @@ python src/main.py
 •	файл базы данных в `data/`;
 •	GitHub-репозиторий;
 •	README.md.
----
+

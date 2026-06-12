@@ -188,3 +188,131 @@ if __name__ == "__main__":
     main()
 
 
+# TODO: импортируйте numpy как np
+import numpy as np
+# TODO: импортируйте matplotlib.pyplot как plt
+import matplotlib.pyplot as plt
+# TODO: выведите сообщение
+print("Библиотеки подключены")
+
+# TODO: создайте массив x через np.array()
+x = np.array([-10, -9, -8, -7, -6, 5, 6, 7, 8, 9, 10])
+# TODO: создайте y = 2 * x + 1
+y = 2 * x + 1
+# TODO: выведите x и y
+print("x =", x)
+print("y =", y)
+
+# TODO: создайте x через np.linspace()
+x = np.linspace(-5, 5, 150)
+# TODO: создайте y
+y = 2 * x + 1
+# TODO: plt.plot(...)
+plt.figure(figsize=(8,5))
+plt.plot(x, y)
+# TODO: добавьте title
+plt.title("Линейная функция y = 2x + 1")
+plt.xlabel("x")
+plt.ylabel("y")
+# TODO: добавьте grid
+plt.grid(True)
+# TODO: show()
+plt.show()
+
+# TODO: создайте x
+x = np.linspace(-5, 5, 150)
+# TODO: создайте y1, y2, y3
+y1 = x
+y2 = 2 * x
+y3 = -x
+# TODO: постройте 3 графика
+plt.figure(figsize=(8,5))
+plt.plot(x, y1, label="y = x")
+plt.plot(x, y2, label="y = 2x")
+plt.plot(x, y3, label="y = -x")
+# TODO: добавьте legend
+plt.legend()
+plt.grid(True)
+plt.title("Сравнение линейных функции")
+# TODO: show()
+plt.show()
+
+# TODO: создайте функции
+x = np.linspace(-5, 5, 150)
+y1 = x
+y2 = x + 5
+y3 = x - 5
+# TODO: постройте графики
+plt.figure(figsize=(8,5))
+plt.plot(x, y1, label="y = x")
+plt.plot(x, y2, label="y = x + 5")
+plt.plot(x, y3, label="y = x - 5")
+# TODO: добавьте legend
+plt.legend()
+plt.grid(True)
+plt.title("Влияние коэффициента b")
+# TODO: show()
+plt.show()
+
+# TODO: создайте x
+x = np.linspace(-5, 5, 150)
+# TODO: создайте y = x ** 2
+y = x ** 2
+# TODO: постройте график
+plt.figure(figsize=(8,5))
+plt.plot(x, y)
+plt.title("Квадратичная функция y = x²")
+plt.grid(True)
+# TODO: show()
+plt.show()
+
+# TODO: создайте y1, y2, y3
+x = np.linspace(-5, 5, 150)
+y1 = x ** 2
+y2 = 3 * x ** 2
+y3 = x ** 2 + 5
+# TODO: постройте графики
+plt.figure(figsize=(8, 5))
+plt.plot(x, y1, label="y = x²")
+plt.plot(x, y2, label="y = 3x²")
+plt.plot(x, y3, label="y = x² + 5")
+# TODO: добавьте legend
+plt.grid(True)
+plt.title("Изменение квадратичной функции")
+# TODO: show()
+plt.show()
+
+x = np.linspace(-15, 15, 150)
+y = x ** 2
+# TODO: найдите минимум
+print("Минимум:", np.min(y))
+
+# TODO: найдите максимум
+print("Максимум:", np.max(y))
+
+# TODO: создайте словарь metrics
+metrics = {
+    "epoch": [5, 6, 7, 8, 9],
+    "loss": [1.0, 0.9, 0.7, 0.5, 0.4]
+}
+# TODO: постройте график loss
+plt.figure(figsize=(8,5))
+plt.plot(metrics["epoch"], metrics["loss"])
+# TODO: добавьте title
+plt.title("Пример графика обучения модели")
+plt.xlabel("Epoch")
+plt.ylabel("Loss")
+plt.grid(True)
+# TODO: show()
+plt.show()
+
+# TODO: создайте список summary
+summary = [
+    "Функции используются в AI",
+    "Графики помогают анализировать данные",
+    "matplotlib используется для визуализации",
+    "Линейные и квадратичные функции — основа дальнейшей математики"
+]
+# TODO: выведите все выводы
+for item in summary:
+  print("-", item)

@@ -478,3 +478,121 @@ summary = [
 # TODO: выведите summary
 for item in summary:
   print("-", item)
+
+# TODO: создайте список из 6 чисел
+scores = [60, 75, 100, 85, 90, 70]
+# TODO: выведите список
+print("Оценки:", scores)
+# TODO: выведите длину списка
+print("Количество оценок:", len(scores))
+
+# TODO: используйте sum() и len()
+scores = [60, 75, 100, 85, 90, 70]
+# TODO: посчитайте average_value
+average_score = sum(scores)/ len(scores)
+# TODO: выведите результат
+print("Средний балл:", average_score)
+
+# TODO: используйте max()
+max_score = max(scores)
+
+# TODO: используйте min()
+min_score = min(scores)
+# TODO: выведите максимум и минимум
+print("Максимум:", max_score)
+print("Минимум:", min_score)
+
+# TODO: создайте пустой список result
+result = []
+# TODO: в цикле for выберите числа больше заданного порога
+for score in scores:
+  if score > 70:
+    result.append(score)
+# TODO: выведите result
+print("Оценки выше 70:", result)
+
+# TODO: создайте словарь для объекта своей темы
+candidate = {
+    "name": "Василий",
+    "city": "Ульяновск",
+    "score": 75
+}
+
+# TODO: выведите словарь
+print(candidate)
+# TODO: обратитесь к одному ключу
+print("Имя:", candidate["name"])
+
+# TODO: создайте список минимум из 4 словарей
+candidates = [
+  {"name": "Алексей", "city": "Москва", "score": 92},
+  {"name": "Мария", "city": "Санкт-Петербург", "score": 87},
+  {"name": "Дмитрий", "city": "Казань", "score": 95},
+  {"name": "Ольга", "city": "Новосибирск", "score": 81},
+  {"name": "Андрей", "city": "Екатеринбург", "score": 89}
+]
+# TODO: выведите каждый словарь через for
+for candidate in candidates:
+  print(candidate)
+
+# TODO: создайте пустой список filtered_items
+filtered_items = []
+# TODO: в цикле отберите записи по городу, категории, статусу или типу
+for candidate in candidates:
+  if candidate["city"] == "Санкт-Петербург":
+    filtered_items.append(candidate)
+# TODO: выведите результат
+print("Кандитаты из Санкт-Петербурга:")
+for candidate in filtered_items:
+    print(candidate)
+
+# TODO: используйте sorted()
+candidates = [
+  {"name": "Алексей", "city": "Москва", "score": 92},
+  {"name": "Мария", "city": "Санкт-Петербург", "score": 87},
+  {"name": "Дмитрий", "city": "Казань", "score": 95},
+  {"name": "Ольга", "city": "Новосибирск", "score": 81},
+  {"name": "Андрей", "city": "Екатеринбург", "score": 89}
+]
+# TODO: отсортируйте по числовому полю
+sorted_candidates = sorted(
+    candidates,
+    key=lambda item: item["score"],
+    reverse=True
+)
+# TODO: выведите результат
+for candidate in sorted_candidates:
+  print(candidate)
+
+# TODO: создайте список с повторяющимися значениями
+cities = ["Москва", "Санкт-Петербург", "Москва", "Новосибирск","Санкт-Петербург"]
+# TODO: преобразуйте его в set
+unique_cities = set(cities)
+# TODO: выведите уникальные значения
+print("Уникальные города:", unique_cities)
+
+# TODO: возьмите список словарей из своей темы
+candidates = [
+  {"name": "Алексей", "city": "Москва", "score": 92},
+  {"name": "Мария", "city": "Санкт-Петербург", "score": 87},
+  {"name": "Дмитрий", "city": "Казань", "score": 95},
+  {"name": "Ольга", "city": "Новосибирск", "score": 81},
+  {"name": "Андрей", "city": "Екатеринбург", "score": 89}
+]
+# TODO: отфильтруйте записи по условию
+city = "Екатеринбург"
+filtered = []
+for candidate in candidates:
+  if candidate["city"] == city:
+    filtered.append(candidate)
+# TODO: отсортируйте их по числовому показателю
+sorted_candidates = sorted(
+    filtered,
+    key=lambda item: item["score"],
+    reverse=True
+)
+# TODO: выберите лучший результат
+best_candidate = sorted_candidates[0]
+# TODO: выведите результат
+print("Лучший кандидат из города", city)
+print(best_candidate)

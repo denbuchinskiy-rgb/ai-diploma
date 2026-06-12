@@ -596,3 +596,152 @@ best_candidate = sorted_candidates[0]
 # TODO: выведите результат
 print("Лучший кандидат из города", city)
 print(best_candidate)
+
+# TODO: импортируйте numpy как np
+import numpy as np
+# TODO: импортируйте pandas как pd
+import pandas as pd
+# TODO: импортируйте matplotlib.pyplot как plt
+import matplotlib.pyplot as plt
+# TODO: выведите сообщение
+print("Библиотеки подключены")
+
+# TODO: создайте список x_values около числа 2
+x_values =[1.5, 1.9, 1.99, 2.0, 2.01, 3.01, 3.1, 3.5]
+# TODO: создайте список y_values для функции y = 3 * x
+y_values = []
+for x in x_values:
+   y_values.append(3 * x)
+# TODO: создайте DataFrame
+table = pd.DataFrame({
+    "x": x_values,
+    "y = 3x": y_values
+})
+# TODO: покажите таблицу
+table
+
+# TODO: создайте x через np.linspace()
+x = np.linspace(0, 5, 150)
+# TODO: создайте y = 3 * x
+y = 3 * x
+# TODO: постройте график
+plt.figure(figsize=(10, 8))
+plt.plot(x, y, label="y = 3x")
+# TODO: отметьте точку x=2, y=6
+plt.scatter([2], [6], label="точка x=2, y=6")
+# TODO: show()
+plt.title("Предел на примере y = 3x")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid(True)
+plt.legend()
+plt.show()
+
+# TODO: создайте left_x около числа 2
+left_x = [1.9, 1.99, 1.999]
+# TODO: создайте right_x около числа 2
+right_x = [2.1, 2.01, 2.001]
+# TODO: посчитайте left_y и right_y
+left_y = [2 * x for x in left_x]
+right_y = [2 * x for x in left_y]
+# TODO: создайте DataFrame
+table = pd.DataFrame({
+    "x слева": left_x,
+    "y слева": left_y,
+    "x справа": right_x,
+    "y справа": right_y
+})
+# TODO: покажите таблицу
+table
+
+# TODO: создайте x_values около числа 3
+x_values = [2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0]
+# TODO: посчитайте y_values = x ** 2
+y_values = [x ** 2 for x in x_values]
+# TODO: создайте DataFrame
+table = pd.DataFrame({
+    "x": x_values,
+    "y = x²": y_values
+})
+# TODO: покажите таблицу
+table
+
+# TODO: создайте x
+x = np.linspace(-2, 6, 250)
+# TODO: создайте y = x ** 2
+y = x ** 2
+# TODO: постройте график
+plt.figure(figsize=(10, 8))
+plt.plot(x, y, label="y = x²")
+
+# TODO: отметьте точку x=3, y=9
+plt.scatter([3],[9], label="x=3, y=9")
+# TODO: show()
+plt.title("Предел на примере y = x²")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid(True)
+plt.legend()
+plt.show()
+
+# TODO: создайте x_values около 2, но без самого 2
+x_values = [1.5, 1.75, 1.9, 1.95, 2.05, 2.1, 2.25, 2.5]
+# TODO: посчитайте y_values для функции
+y_values = []
+for x in x_values:
+    y = (x ** 2 - 4)/(x - 2)
+    y_values.append(y)
+# TODO: создайте DataFrame
+table = pd.DataFrame({
+    "x": x_values,
+    "y": y_values
+})
+# TODO: покажите таблицу
+table
+
+# TODO: создайте x_left до 2
+x_left = np.linspace(-2, 1.99, 100)
+# TODO: создайте x_right после 2
+x_right = np.linspace(2.01, 4, 100)
+# TODO: посчитайте y_left и y_right
+y_left = (x_left ** 2 - 1) / (x_left - 1)
+y_right = (x_right ** 2 - 1) / (x_right - 1)
+# TODO: постройте график
+plt.figure(figsize=(8,5))
+plt.plot(x_left, y_left)
+plt.plot(x_right, y_right)
+# TODO: отметьте точку предела x=2, y=4
+plt.scatter([2], [3], facecolors='none', edgecolors='black', label="предел = 2")
+# TODO: show()
+plt.title("Функция не определена в x=1, но предел есть")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid(True)
+plt.legend()
+plt.show()
+
+# TODO: создайте список epochs
+epochs = [7, 8, 9, 10, 11, 12, 13]
+# TODO: создайте список loss, который уменьшается
+loss = [1.00, 0.50, 0.25, 0.12, 0.06, 0.03, 0.01]
+# TODO: постройте график
+plt.figure(figsize=(10, 8))
+plt.plot(epochs, loss, marker="o")
+# TODO: show()
+plt.title("Ошибка модели стремится к 0")
+plt.xlabel("Эпоха")
+plt.ylabel("Loss")
+plt.grid(True)
+plt.show()
+
+# TODO: создайте список summary из 5 выводов
+summary = [
+    "Предел показывает, к чему стремится функция",
+    "К точке можно приближаться слева и справа",
+    "Функция может иметь предел, даже если не определена в точке",
+    "Пределы нужны для понимания производной и оптимизации",
+    "В AI идея предела связана с уменьшением ошибки модели"
+]
+# TODO: выведите каждый вывод
+for item in summary:
+  print("-", item)

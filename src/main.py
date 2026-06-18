@@ -905,3 +905,168 @@ summary = [
 # TODO: выведите выводы через for
 for item in summary:
   print("-", item)
+
+# TODO: импортируйте numpy как np
+import numpy as np
+# TODO: импортируйте pandas как pd
+import pandas as pd
+# TODO: импортируйте matplotlib.pyplot как plt
+import matplotlib.pyplot as plt
+# TODO: выведите сообщение
+print("Библиотеки подключены")
+
+# TODO: создайте x через np.linspace()
+x = np.linspace(-10, 10, 350)
+# TODO: создайте y = x ** 2
+y = x ** 2
+# TODO: постройте график
+plt.figure(figsize=(10, 8))
+plt.plot(x, y)
+# TODO: добавьте title, xlabel, ylabel, grid
+plt.title("Непрерывная функция y = x²")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid(True)
+# TODO: show()
+plt.show()
+
+# TODO: создайте x от -2*pi до 2*pi
+x = np.linspace(-2 * np.pi, 2 * np.pi, 350)
+# TODO: создайте y = np.cos(x)
+y = np.cos(x)
+# TODO: постройте график
+plt.figure(figsize=(10, 8))
+plt.plot(x, y)
+plt.title("Непрерывная функция y = cos(x)")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid(True)
+# TODO: show()
+plt.show()
+
+# TODO: создайте x_left от -5 до -0.1
+x_left = np.linspace(-6, -0.11, 350)
+# TODO: создайте x_right от 0.1 до 5
+x_right = np.linspace(0.11, 6, 350)
+# TODO: создайте y_left = 1 / x_left
+y_left = 1 / x_left
+# TODO: создайте y_right = 1 / x_right
+y_right = 1 / x_right
+# TODO: постройте график
+plt.figure(figsize=(10, 8))
+plt.plot(x_left, y_left)
+plt.plot(x_right, y_right)
+# TODO: show()
+plt.title("Функция с разрывом y = 1/x")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid(True)
+plt.show()
+
+# TODO: создайте x_values около 0, без самого 0
+x_values = [0.91, 0.95, 0.96, 0.99, 1.01, 1.1, 1.3, 1.6]
+# TODO: посчитайте y_values = 1 / x
+y_values = [1 / x for x in x_values]
+# TODO: создайте DataFrame
+table = pd.DataFrame({
+    "x": x_values,
+    "y = 1/x": y_values
+})
+# TODO: покажите таблицу
+table
+
+# TODO: создайте x_left до 2
+x_left = np.linspace(-2, 1.99, 250)
+# TODO: создайте x_right после 2
+x_right = np.linspace(2.01, 5, 250)
+# TODO: посчитайте y_left и y_right
+y_left = (x_left ** 2 - 4) / (x_left - 2)
+y_right = (x_right ** 2 - 4) / (x_right - 2)
+# TODO: постройте график
+plt.figure(figsize=(10, 8))
+plt.plot(x_left, y_left)
+plt.plot(x_right, y_right)
+# TODO: отметьте дырку в точке x=2, y=4
+plt.scatter([2], [4], facecolors="none", edgecolors="black", label="дырка")
+# TODO: show()
+plt.title("Функция с дыркой")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# TODO: создайте x
+x = np.linspace(-10, 10, 350)
+# TODO: создайте список y
+y = []
+# TODO: если x < 1, y = 0, иначе y = 2
+for value in x:
+  if value < 0:
+     y.append(-1)
+  else:
+     y.append(1)
+# TODO: постройте график
+plt.figure(figsize=(10, 8))
+plt.plot(x, y)
+# TODO: show()
+plt.title("Функция со скачком")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid(True)
+plt.show()
+
+# TODO: создайте x
+x = np.linspace(-10, 10, 350)
+# TODO: создайте y_smooth = x ** 2
+y_smooth = x ** 2
+# TODO: создайте y_jump со скачком
+y_jump = []
+for value in x:
+    if value < 0:
+       y_jump.append(-1)
+    else:
+       y_jump.append(1)
+# TODO: постройте два графика на одном рисунке
+plt.figure(figsize=(10, 8))
+plt.plot(x, y_smooth, label="непрерывная: x²")
+plt.plot(x, y_jump, label="разрывная: скачок")
+# TODO: добавьте legend
+plt.title("Сравнение непрерывной и разрывной функции")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.legend()
+# TODO: show()
+plt.grid(True)
+plt.show()
+
+# TODO: создайте epochs
+epochs = [10, 11, 12, 13, 14, 15, 16]
+# TODO: создайте smooth_loss, который уменьшается плавно
+smooth_loss = [0.8, 0.7, 0.6, 0.4, 0.3, 0.2, 0.1]
+
+# TODO: создайте jump_loss, который скачет
+jump_loss = [0.9, 0.5, 0.8, 0.4, 0.7, 0.3, 0.6]
+# TODO: постройте оба графика
+plt.figure(figsize=(10, 8))
+plt.plot(epochs, smooth_loss, marker="o", label="плавное обучение")
+plt.plot(epochs, jump_loss, marker="o", label="скачки ошибки")
+# TODO: show()
+plt.title("Плавное и нестабильное изменение ошибки")
+plt.xlabel("Эпоха")
+plt.ylabel("Loss")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# TODO: создайте список summary из 5 выводов
+summary = [
+    "Непрерывную функцию можно представить как плавный график",
+    "Разрыв — это дырка, скачок или обрыв графика",
+    "Функция 1/x имеет разрыв при x=0",
+    "Функции с резкими скачками сложнее анализировать",
+    "Непрерывность важна для производной, оптимизации и AI"
+]
+# TODO: выведите каждый вывод
+for item in summary:
+  print("-", item)

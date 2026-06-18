@@ -1225,3 +1225,161 @@ summary = [
 # TODO: выведите каждый вывод
 for item in summary:
   print("-", item)
+
+# TODO: импортируйте numpy как np
+import numpy as np
+# TODO: импортируйте pandas как pd
+import pandas as pd
+# TODO: импортируйте matplotlib.pyplot как plt
+import matplotlib.pyplot as plt
+# TODO: выведите сообщение
+print("Библиотеки подключены")
+
+# TODO: создайте x через np.linspace()
+x = np.linspace(-10, 10, 250)
+# TODO: создайте f = 7
+f = np.ones_like(x) * 7
+# TODO: создайте df = 0
+df = np.zeros_like(x)
+# TODO: постройте графики f и df
+plt.figure(figsize=(10, 8))
+plt.plot(x, f, label="f(x)=7")
+plt.plot(x, df, label="f'(x)=0")
+# TODO: show()
+plt.title("Производная константы")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# TODO: создайте x
+x = np.linspace(-10, 10, 250)
+# TODO: создайте f = 3 * x + 2
+f = 3 * x + 2
+# TODO: создайте df = 3
+df = np.ones_like(x) * 3
+# TODO: постройте графики
+plt.figure(figsize=(10, 8))
+plt.plot(x, f, label="f(x)=3x+2")
+plt.plot(x, df, label="f'(x)=3")
+# TODO: show()
+plt.title("Производная линейной функции")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# TODO: создайте x
+x = np.linspace(-10, 10, 250)
+# TODO: создайте f = x ** 2
+f = x ** 3
+# TODO: создайте df = 2 * x
+df = 3 * x
+# TODO: постройте графики
+plt.figure(figsize=(10, 8))
+plt.plot(x, f, label="f(x)=x²")
+plt.plot(x, df, label="f'(x)=2x")
+# TODO: show()
+plt.title("Производная функции x²")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# TODO: создайте x
+x = np.linspace(-10, 10, 350)
+# TODO: создайте f = x ** 3
+f = x ** 3
+# TODO: создайте df = 3 * x ** 2
+df = 3 * x ** 2
+# TODO: постройте графики
+plt.figure(figsize=(10, 8))
+plt.plot(x, f, label="f(x)=x³")
+plt.plot(x, df, label="f'(x)=3x²")
+# TODO: show()
+plt.title("Производная функции x³")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# TODO: создайте x
+x = np.linspace(-10, 10, 250)
+# TODO: создайте f = 4 * x ** 2
+f = 4 * x ** 2
+# TODO: создайте df = 8 * x
+df = 8 * x
+# TODO: постройте графики
+plt.plot(x, f, label="f(x)=4x²")
+plt.plot(x, df, label="f'(x)=8x")
+# TODO: show()
+plt.title("Производная функции с коэффициентом")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# TODO: создайте x
+x = np.linspace(-10, 10, 250)
+# TODO: создайте f = x ** 2 + 3 * x
+f = x ** 2 + 3 * x
+# TODO: создайте df = 2 * x + 3
+df = 2 * x + 3
+# TODO: постройте графики
+plt.figure(figsize=(10, 8))
+plt.plot(x, f, label="f(x)=x²+3x")
+plt.plot(x, df, label="f'(x)=2x+3")
+# TODO: show()
+plt.title("Производная суммы")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# TODO: создайте список points
+points = [-3.5, -2.5, -1.5, 0, 1.5, 2.5, 3.5]
+# TODO: посчитайте f_values для x**2 + 3*x
+f_values = [x ** 2 + 3 * x for x in points]
+# TODO: посчитайте df_values для 2*x + 3
+df_values = [2 * x + 3 for x in points]
+# TODO: создайте DataFrame
+table = pd.DataFrame({
+    "x": points,
+    "f(x)=x²+3x": f_values,
+    "f'(x)=2x+3": df_values
+})
+# TODO: покажите таблицу
+table
+
+# TODO: для каждой точки из points посчитайте derivative = 2*x + 3
+points = [-3.5, -2.5, -1.5, 0, 1.5, 2.5, 3.5]
+for x in points:
+  derivative = 2 * x + 3
+# TODO: через if определите: функция растёт, убывает или возможный экстремум
+  if derivative > 0:
+    message = "функция растёт"
+  elif derivative < 0:
+    message = "функция убывает"
+  else:
+    message = "возможная точка экстремума"
+# TODO: выведите результат
+  print("x =", x, "| f'(x) =", derivative, "|", message)
+
+# TODO: создайте список rules из 6 правил
+rules = [
+    "Производная константы равна 0",
+    "Производная x равна 1",
+    "Производная x² равна 2x",
+    "Производная x³ равна 3x²",
+    "Производная суммы равна сумме производных",
+    "Производная помогает понять рост и убывание функции"
+    ]
+# TODO: выведите правила через for
+for rule in rules:
+    print("-", rule)

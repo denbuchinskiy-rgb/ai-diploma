@@ -1070,3 +1070,158 @@ summary = [
 # TODO: выведите каждый вывод
 for item in summary:
   print("-", item)
+
+# TODO: импортируйте numpy как np
+import numpy as np
+# TODO: импортируйте pandas как pd
+import pandas as pd
+# TODO: импортируйте matplotlib.pyplot как plt
+import matplotlib.pyplot as plt
+# TODO: выведите сообщение
+print("Библиотеки подключены")
+
+# TODO: создайте x через np.linspace()
+x = np.linspace(-10, 10, 350)
+# TODO: создайте y = x ** 2
+y = x ** 2
+# TODO: постройте график
+plt.figure(figsize=(10, 8))
+plt.plot(x, y)
+# TODO: добавьте title, xlabel, ylabel, grid
+plt.title("Функция y = x²")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid(True)
+# TODO: show()
+plt.show()
+
+# TODO: создайте x_values около точки x = 3
+x_values = [2.8, 2.9, 3.0, 3.1, 3.2]
+# TODO: создайте y_values = x ** 2
+y_values = [x ** 2 for x in x_values]
+# TODO: создайте DataFrame
+table = pd.DataFrame({
+    "x": x_values,
+    "y = x²": y_values
+})
+# TODO: покажите таблицу
+table
+
+# TODO: напишите функцию f(x), которая возвращает x ** 2
+def f(x):
+    return x ** 2
+# TODO: задайте x0 = 3
+x0 = 3
+# TODO: задайте h = 0.001
+h = 0.001
+# TODO: посчитайте derivative = (f(x0 + h) - f(x0)) / h
+derivative = (f(x0 + h) - f(x0)) / h
+# TODO: выведите derivative
+print("Приближённая производная в x=2:", derivative)
+
+# TODO: напишите функцию numerical_derivative(func, x, h=0.001)
+def numerical_derivative(func, x, h=0.001):
+  return (func(x + h) - func(x)) / h
+# TODO: создайте список points
+points = [-3.5, -2.5, -1.5, 0, 1.5, 2.5, 3,5]
+# TODO: посчитайте derivatives
+derivatives = [numerical_derivative(f, point) for point in points]
+# TODO: создайте DataFrame
+table = pd.DataFrame({
+    "x": points,
+    "приближённая производная": derivatives,
+    "точная производная 2x": [2 * point for point in points]
+})
+# TODO: покажите таблицу
+table
+
+# TODO: создайте x
+x = np.linspace(-10, 10, 350)
+# TODO: создайте y = x ** 2
+y = x ** 2
+# TODO: создайте dy = 2 * x
+dy = 2 * x
+# TODO: постройте оба графика
+plt.figure(figsize=(10, 8))
+plt.plot(x, y, label="y = x²")
+plt.plot(x, dy, label="y' = 2x")
+plt.title("Функция и производная")
+plt.xlabel("x")
+plt.ylabel("y")
+# TODO: добавьте legend и grid
+plt.legend()
+plt.grid(True)
+# TODO: show()
+plt.show()
+
+# TODO: задайте функцию f(x) = x ** 2
+x = np.linspace(-5, 10, 350)
+def f(x):
+    return x ** 2
+# TODO: выберите x0 = 3
+x0 = 3
+# TODO: посчитайте y0
+y0 = f(x0)
+# TODO: посчитайте slope = 2 * x0
+slope = 2 * x0
+# TODO: создайте tangent
+tangent = slope * (x - x0) + y0
+# TODO: постройте функцию и касательную
+plt.figure(figsize=(10, 8))
+plt.plot(x, f(x), label="y = x²")
+plt.plot(x, tangent, label="касательная в x=2")
+plt.scatter([x0], [y0], label="точка касания")
+# TODO: show()
+plt.title("Касательная к графику")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# TODO: создайте список x_points
+x_points = [-4, -2, 0, 2, 4]
+# TODO: для каждой точки посчитайте derivative_value = 2 * point
+for point in x_points:
+  derivative_value = 2 * point
+# TODO: через if определите: функция растёт, убывает или горизонтальная касательная
+  if derivative_value > 0:
+    message = "функция растёт"
+  elif derivative_value < 0:
+    message = "функция убывает"
+  else:
+    message = "точка минимума или горизонтальная касательная"
+# TODO: выведите результат
+  print("x =", point, "| производная =", derivative_value, "|", message)
+
+# TODO: создайте x
+x = np.linspace(-10, 10, 350)
+# TODO: создайте loss = x ** 2
+loss = x ** 2
+# TODO: создайте gradient = 2 * x
+gradiant = 2 * x
+# TODO: постройте графики loss и gradient
+plt.figure(figsize=(10, 8))
+plt.plot(x, loss, label="loss = x²")
+plt.plot(x, gradiant, label="gradiant = 2x")
+# TODO: отметьте минимум
+plt.scatter([0], [0], label="минимум ошибки")
+# TODO: show()
+plt.title("Ошибка модели и производная")
+plt.xlabel("параметр модели")
+plt.ylabel("значение")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# TODO: создайте список summary из 5 выводов
+summary = [
+    "Производная показывает скорость изменения функции",
+    "Производная связана с наклоном касательной",
+    "Численную производную можно посчитать через маленький шаг h",
+    "Если производная положительная, функция растёт",
+    "Производная нужна для оптимизации и обучения AI-моделей"
+    ]
+# TODO: выведите каждый вывод
+for item in summary:
+  print("-", item)

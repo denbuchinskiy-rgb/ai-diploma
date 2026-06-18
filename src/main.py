@@ -745,3 +745,163 @@ summary = [
 # TODO: выведите каждый вывод
 for item in summary:
   print("-", item)
+
+# TODO: импортируйте numpy как np
+import numpy as np
+# TODO: импортируйте pandas как pd
+import pandas as pd
+# TODO: импортируйте matplotlib.pyplot как plt
+import matplotlib.pyplot as plt
+# TODO: выведите сообщение
+print("Библиотеки подключены")
+
+# TODO: создайте x_values около числа 3
+x_values = [2.9, 2.99, 2.999, 3.0, 3.001, 3.01, 3.1]
+# TODO: создайте f_values для f(x)=x
+f_values = [x for x in x_values]
+# TODO: создайте g_values для g(x)=3*x
+g_values = [3 * x for x in x_values]
+# TODO: создайте h_values = f + g
+h_values = [f + g for f, g in zip(f_values, g_values)]
+# TODO: создайте DataFrame
+table = pd.DataFrame({
+    "x": x_values,
+    "f(x)=x": f_values,
+    "g(x)=3x": g_values,
+    "h(x)=f(x)+g(x)": h_values
+})
+# TODO: покажите таблицу
+table
+
+# TODO: создайте x через np.linspace()
+x = np.linspace(-10, 10, 250)
+# TODO: создайте f = x
+f = x
+# TODO: создайте g = 3 * x
+g = 3 * x
+# TODO: создайте h = f + g
+h = f + g
+# TODO: постройте три графика
+plt.figure(figsize=(10, 8))
+plt.plot(x, f, label="f(x)=x")
+plt.plot(x, g, label="g(x)=3x")
+plt.plot(x, h, label="h(x)=f(x)+g(x)=3x")
+# TODO: добавьте legend, grid, title
+plt.title("Предел суммы функции")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.legend()
+plt.grid(True)
+# TODO: show()
+plt.show()
+
+# TODO: создайте x_values около числа 2
+x_values = [2.9, 2.99, 2.999, 3.0, 3.001, 3.01, 3.1]
+# TODO: создайте f_values = x
+f_values = [x for x in x_values]
+
+# TODO: создайте g_values = x + 2
+g_values = [x + 2 for x in x_values]
+# TODO: создайте h_values = f * g
+h_values = [f * g for f, g in zip(f_values, g_values)]
+# TODO: создайте DataFrame
+table = pd.DataFrame({
+    "x": x_values,
+    "f(x)=x": f_values,
+    "g(x)=x+2": g_values,
+    "h(x)=f(x)*g(x)": h_values
+})
+# TODO: покажите таблицу
+table
+
+# TODO: создайте x_values около числа 1
+x_values = [0.5, 0.6, 0.7, 0.8, 0.9, 1.05, 1.1]
+# TODO: создайте y_values для функции y = (3 * x) / x
+y_values = [(3 * x) / x for x in x_values]
+# TODO: создайте DataFrame
+table = pd.DataFrame({
+    "x": x_values,
+    "y=(3x)/x": y_values
+})
+# TODO: покажите таблицу
+table
+
+# TODO: создайте x_values около 3, но без самого 3
+x_values = [2.5, 2.6, 2.7, 2.8, 2.9, 3.05, 3.1, 3.2]
+# TODO: посчитайте y_values
+y_values = []
+for x in x_values:
+  y = (x ** 2 - 9) / (x - 3)
+  y_values.append(y)
+# TODO: создайте DataFrame
+table = pd.DataFrame({
+    "x": x_values,
+    "y": y_values
+})
+# TODO: покажите таблицу
+table
+
+# TODO: создайте x_left до 3
+x_left = np.linspace(-3, 2.99, 250)
+# TODO: создайте x_right после 3
+x_right = np.linspace(3.01, 5, 250)
+# TODO: посчитайте y_left и y_right
+y_left = (x_left ** 2 - 4) / (x_left - 2)
+y_right = (x_right ** 2 - 4) / (x_right - 2)
+# TODO: постройте график
+plt.figure(figsize=(10, 8))
+plt.plot(x_left, y_left)
+plt.plot(x_right, y_right)
+# TODO: отметьте точку предела x=3, y=6
+plt.scatter([3], [5], facecolors="none", edgecolors="black", label="предел = 5")
+# TODO: show()
+plt.title("Неопределенность 0/0 и предел")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# TODO: создайте x_values около 3
+x_values = [2.8, 2.9, 3.1, 3.2]
+# TODO: посчитайте original_values для (x**2 - 9)/(x - 3)
+original_values = [(x ** 2 - 9) / (x - 3) for x in x_values]
+# TODO: посчитайте simple_values для x + 3
+simple_values = [x + 3 for x in x_values]
+# TODO: создайте DataFrame
+table = pd.DataFrame({
+    "x": x_values,
+    "исходная функция": original_values,
+    "упрощённая x+2": simple_values
+})
+# TODO: покажите таблицу
+table
+
+# TODO: создайте список epochs
+epoch = [10, 11, 12, 13, 14, 15, 16, 17]
+# TODO: создайте список metric, который постепенно растёт и стабилизируется
+metric = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.77]
+# TODO: постройте график
+plt.figure(figsize=(8, 5))
+plt.plot(epoch, metric, marker="o")
+# TODO: добавьте горизонтальную линию возможного предела
+plt.axhline(0.77, linestyle="--", label="возможный предел 0.77")
+# TODO: show()
+plt.title("Метрика модели приближается к пределу")
+plt.xlabel("Эпоха")
+plt.ylabel("Metric")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# TODO: создайте список summary из 5 выводов
+summary = [
+    "Предел суммы равен сумме пределов",
+    "Предел произведения равен произведению пределов",
+    "Предел частного можно считать, если знаменатель не стремится к нулю",
+    "Неопределённость 0/0 часто можно упростить",
+    "Пределы помогают понять поведение функций и моделей"
+]
+# TODO: выведите выводы через for
+for item in summary:
+  print("-", item)

@@ -1383,3 +1383,160 @@ rules = [
 # TODO: выведите правила через for
 for rule in rules:
     print("-", rule)
+
+import numpy as np
+# TODO: импортируйте pandas как pd
+import pandas as pd
+# TODO: импортируйте matplotlib.pyplot как plt
+import matplotlib.pyplot as plt
+# TODO: выведите сообщение
+print("Библиотеки подключены")
+
+# TODO: создайте x через np.linspace()
+x = np.linspace(-10, 10, 350)
+# TODO: создайте y = x ** 2
+y = x ** 2
+# TODO: постройте график
+plt.figure(figsize=(10, 8))
+plt.plot(x, y, label="f(x)=x²")
+# TODO: отметьте минимум в точке x=0, y=0
+plt.scatter([0], [0], label="минимум")
+# TODO: show()
+plt.title("Функция с минимумом")
+plt.xlabel("x")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# TODO: создайте x
+x = np.linspace(-5, 10, 350)
+# TODO: создайте y = (x - 3) ** 2 + 2
+y = (x - 3) ** 2 + 2
+# TODO: постройте график
+plt.figure(figsize=(10, 8))
+plt.plot(x, y, label="f(x)=(x-3)²+2")
+# TODO: отметьте минимум
+plt.scatter([3], [2], label="минимум x=3, y=2")
+# TODO: show()
+plt.title("Смещенный минимум функции")
+plt.xlabel("x")
+plt.ylabel("f(x)")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# TODO: создайте x_values около 3
+x_values = [-1.5, 0, 1.5, 2.5, 3.5, 4.5, 5.5]
+# TODO: посчитайте y_values для (x - 3) ** 2 + 2
+y_values = [(x - 3) ** 2 + 2 for x in x_values]
+# TODO: создайте DataFrame
+table = pd.DataFrame({
+    "x": x_values,
+    "f(x)": y_values
+})
+# TODO: покажите таблицу
+table
+
+# TODO: напишите функцию derivative(x) для f(x)=(x-3)**2+2
+def derivative(x):
+
+# Подсказка: производная равна 2 * (x - 3)
+   return 2 * (x - 3)
+# TODO: создайте список points
+points = [-1.5, 0, 1.5, 2.5, 3.5, 4.5, 5.5]
+# TODO: посчитайте derivatives
+derivatives = [derivative(x) for x in points]
+# TODO: создайте DataFrame
+table = pd.DataFrame({
+    "x": points,
+    "f'(x)": derivatives
+})
+# TODO: покажите таблицу
+table
+
+# TODO: для каждой точки из points посчитайте производную
+points = [-1.5, 0, 1.5, 2.5, 3.5, 4.5, 5.5]
+for x in points:
+  d = derivative(x)
+# TODO: если производная < 0 — функция убывает
+  if d < 0:
+    message = "функция убывает"
+# TODO: если производная > 0 — функция растёт
+  elif d > 0:
+    message = "функция растёт"
+# TODO: если производная == 0 — критическая точка
+  else:
+    message = "критическая точка"
+# TODO: выведите результат
+  print("x =", x, "| производная =", d, "|", message)
+
+# TODO: создайте x
+x = np.linspace(-10, 10, 350)
+# TODO: создайте y = -x ** 2 + 9
+y = -x ** 2 + 9
+# TODO: постройте график
+plt.figure(figsize=(10,8))
+plt.plot(x, y, label="f(x)=-x²+9")
+# TODO: отметьте максимум
+plt.scatter([0], [9], label="максимум")
+# TODO: show()
+plt.title("Функция с максимумом")
+plt.xlabel("x")
+plt.ylabel("f(x)")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# TODO: напишите функцию f(x)
+def f(x):
+  return (x - 3) ** 2 + 2
+# TODO: напишите функцию df(x)
+def df(x):
+  return 2 * (x - 3)
+# TODO: задайте x_current
+x_current = -5
+# TODO: задайте learning_rate
+learning_rate = 0.2
+# TODO: создайте history_x и history_y
+history_x = []
+history_y = []
+# TODO: выполните цикл из 15 шагов
+for step in range(15):
+    history_x.append(x_current)
+    history_y.append(f(x_current))
+    gradient = df(x_current)
+# TODO: обновляйте x_current по формуле:
+# x_current = x_current - learning_rate * gradient
+    x_current = x_current - learning_rate * gradient
+# TODO: выведите финальное x и f(x)
+print("Финальное x:", x_current)
+print("Финальное f(x):", f(x_current))
+
+# TODO: создайте x и y для функции
+x = np.linspace( -5, 10, 350)
+y = f(x)
+# TODO: постройте график функции
+plt.figure(figsize=(10, 8))
+plt.plot(x, y, label="f(x)=(x-3)²+2")
+# TODO: добавьте точки history_x, history_y
+plt.scatter(history_x, history_y, label="шаги оптимизации")
+# TODO: show()
+plt.title("Градиентный спуск приближается к минимуму")
+plt.xlabel("x")
+plt.ylabel("f(x)")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# TODO: создайте список summary из 5 выводов
+summary = [
+    "Оптимизация — это поиск лучшего значения",
+    "Минимум функции важен для уменьшения ошибки модели",
+    "Производная помогает понять направление движения",
+    "Критическая точка возникает там, где производная равна 0",
+    "Градиентный спуск двигается против направления роста функции"
+]
+# TODO: выведите каждый вывод
+for item in summary:
+  print("-", item)
+

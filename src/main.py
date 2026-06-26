@@ -187,416 +187,6 @@ print("Соединение с базой данных закрыто.")
 if __name__ == "__main__":
     main()
 
-
-# TODO: импортируйте numpy как np
-import numpy as np
-# TODO: импортируйте matplotlib.pyplot как plt
-import matplotlib.pyplot as plt
-# TODO: выведите сообщение
-print("Библиотеки подключены")
-
-# TODO: создайте массив x через np.array()
-x = np.array([-10, -9, -8, -7, -6, 5, 6, 7, 8, 9, 10])
-# TODO: создайте y = 2 * x + 1
-y = 2 * x + 1
-# TODO: выведите x и y
-print("x =", x)
-print("y =", y)
-
-# TODO: создайте x через np.linspace()
-x = np.linspace(-5, 5, 150)
-# TODO: создайте y
-y = 2 * x + 1
-# TODO: plt.plot(...)
-plt.figure(figsize=(8,5))
-plt.plot(x, y)
-# TODO: добавьте title
-plt.title("Линейная функция y = 2x + 1")
-plt.xlabel("x")
-plt.ylabel("y")
-# TODO: добавьте grid
-plt.grid(True)
-# TODO: show()
-plt.show()
-
-# TODO: создайте x
-x = np.linspace(-5, 5, 150)
-# TODO: создайте y1, y2, y3
-y1 = x
-y2 = 2 * x
-y3 = -x
-# TODO: постройте 3 графика
-plt.figure(figsize=(8,5))
-plt.plot(x, y1, label="y = x")
-plt.plot(x, y2, label="y = 2x")
-plt.plot(x, y3, label="y = -x")
-# TODO: добавьте legend
-plt.legend()
-plt.grid(True)
-plt.title("Сравнение линейных функции")
-# TODO: show()
-plt.show()
-
-# TODO: создайте функции
-x = np.linspace(-5, 5, 150)
-y1 = x
-y2 = x + 5
-y3 = x - 5
-# TODO: постройте графики
-plt.figure(figsize=(8,5))
-plt.plot(x, y1, label="y = x")
-plt.plot(x, y2, label="y = x + 5")
-plt.plot(x, y3, label="y = x - 5")
-# TODO: добавьте legend
-plt.legend()
-plt.grid(True)
-plt.title("Влияние коэффициента b")
-# TODO: show()
-plt.show()
-
-# TODO: создайте x
-x = np.linspace(-5, 5, 150)
-# TODO: создайте y = x ** 2
-y = x ** 2
-# TODO: постройте график
-plt.figure(figsize=(8,5))
-plt.plot(x, y)
-plt.title("Квадратичная функция y = x²")
-plt.grid(True)
-# TODO: show()
-plt.show()
-
-# TODO: создайте y1, y2, y3
-x = np.linspace(-5, 5, 150)
-y1 = x ** 2
-y2 = 3 * x ** 2
-y3 = x ** 2 + 5
-# TODO: постройте графики
-plt.figure(figsize=(8, 5))
-plt.plot(x, y1, label="y = x²")
-plt.plot(x, y2, label="y = 3x²")
-plt.plot(x, y3, label="y = x² + 5")
-# TODO: добавьте legend
-plt.grid(True)
-plt.title("Изменение квадратичной функции")
-# TODO: show()
-plt.show()
-
-x = np.linspace(-15, 15, 150)
-y = x ** 2
-# TODO: найдите минимум
-print("Минимум:", np.min(y))
-
-# TODO: найдите максимум
-print("Максимум:", np.max(y))
-
-# TODO: создайте словарь metrics
-metrics = {
-    "epoch": [5, 6, 7, 8, 9],
-    "loss": [1.0, 0.9, 0.7, 0.5, 0.4]
-}
-# TODO: постройте график loss
-plt.figure(figsize=(8,5))
-plt.plot(metrics["epoch"], metrics["loss"])
-# TODO: добавьте title
-plt.title("Пример графика обучения модели")
-plt.xlabel("Epoch")
-plt.ylabel("Loss")
-plt.grid(True)
-# TODO: show()
-plt.show()
-
-# TODO: создайте список summary
-summary = [
-    "Функции используются в AI",
-    "Графики помогают анализировать данные",
-    "matplotlib используется для визуализации",
-    "Линейные и квадратичные функции — основа дальнейшей математики"
-]
-# TODO: выведите все выводы
-for item in summary:
-  print("-", item)
-
-# TODO: импортируйте numpy как np
-import numpy as np
-# TODO: импортируйте matplotlib.pyplot как plt
-import matplotlib.pyplot as plt
-# TODO: выведите сообщение
-print("Библиотеки подключены")
-
-# TODO: создайте x через np.linspace()
-x = np.linspace(-5, 5, 250)
-# TODO: создайте y = x ** 2
-y = x ** 2
-# TODO: постройте график
-plt.figure(figsize=(10, 8))
-plt.plot(x, y)
-# TODO: добавьте title, xlabel, ylabel, grid
-plt.title("Степенная функция y = x²")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.grid(True)
-# TODO: show()
-plt.show()
-
-
-# TODO: создайте x
-x = np.linspace(-5, 5, 250)
-
-# TODO: создайте y = x ** 3
-y = x ** 3
-# TODO: постройте график
-plt.figure(figsize=(10, 8))
-plt.plot(x, y)
-plt.title("Кубическая функция y = x³")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.grid(True)
-# TODO: show()
-plt.show()
-
-# TODO: создайте x от 0 до 25
-x = np.linspace(0, 15, 250)
-
-# TODO: создайте y = np.sqrt(x)
-y = np.sqrt(x)
-# TODO: постройте график
-plt.figure(figsize=(10,8))
-plt.plot(x,y)
-plt.title("Функция корня y = sqrt(x)")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.grid(True)
-# TODO: show()
-plt.show()
-
-# TODO: создайте x
-x = np.linspace(-15, 15, 250)
-# TODO: создайте y = 2 ** x
-y = 2 ** x
-# TODO: постройте график
-plt.figure(figsize=(10, 8))
-plt.plot(x, y)
-plt.title("Показательная функция y = 2ˣ")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.grid(True)
-# TODO: show()
-plt.show()
-
-# TODO: создайте x от 0.1 до 20
-x = np.linspace(0.1, 15, 250)
-
-# TODO: создайте y = np.log(x)
-y = np.log(x)
-# TODO: постройте график
-plt.figure(figsize=(10, 8))
-plt.plot(x, y)
-plt.title("Логарифмическая функция y = log(x)")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.grid(True)
-# TODO: show()
-plt.show()
-
-# TODO: создайте x от -2*pi до 2*pi
-x = np.linspace(-4* np.pi, 4 * np.pi, 450)
-
-# TODO: создайте y = np.sin(x)
-y = np.sin(x)
-# TODO: постройте график
-plt.figure(figsize=(10, 8))
-plt.plot(x, y)
-plt.title("Функция y = sin(x)")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.grid(True)
-# TODO: show()
-plt.show()
-
-# TODO: создайте x от -2*pi до 2*pi
-x = np.linspace(-4 * np.pi, 4 * np.pi, 450)
-# TODO: создайте y = np.cos(x)
-y = np.cos(x)
-# TODO: постройте график
-plt.figure(figsize=(10, 8))
-plt.plot(x, y)
-plt.title("Функция y = cos(x)")
-plt.xlabel("x")
-plt.grid(True)
-# TODO: show()
-plt.show()
-
-# TODO: создайте x
-x = np.linspace(-4 * np.pi, 4 * np.pi, 450)
-# TODO: создайте y_sin и y_cos
-y_sin = np.sin(x)
-y_cos = np.cos(x)
-# TODO: постройте оба графика
-plt.figure(figsize=(10, 8))
-plt.plot(x, y_sin, label="sin(x)")
-plt.plot(x, y_cos, label="cos(x)")
-plt.title("Сравнение sin(x) и cos(x)")
-plt.xlabel("x")
-plt.ylabel("y")
-# TODO: добавьте legend
-plt.legend()
-plt.grid(True)
-# TODO: show()
-plt.show()
-
-# TODO: создайте положительный x
-x = np.linspace(0.1, 5, 250)
-# TODO: создайте y_linear = x
-y_linear = x
-
-# TODO: создайте y_square = x ** 2
-y_square = x ** 3
-# TODO: создайте y_log = np.log(x)
-y_log = np.log(x)
-# TODO: создайте y_exp = 2 ** x
-y_exp = 3 ** x
-# TODO: постройте все графики
-plt.figure(figsize=(9, 6))
-plt.plot(x, y_linear, label="y = x")
-plt.plot(x, y_square, label="y = x3")
-plt.plot(x, y_log, label="y = log(x)")
-plt.plot(x, y_exp, label="y = 3ˣ")
-plt.title("Сравнение элементарных функции")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.legend()
-plt.grid(True)
-plt.show()
-# TODO: создайте список summary из 4 выводов
-summary = [
-    "Степенные функции могут быстро расти",
-    "Показательная функция растёт очень быстро",
-    "Логарифм растёт медленно",
-    "Синус и косинус описывают колебания"
-]
-# TODO: выведите summary
-for item in summary:
-  print("-", item)
-
-# TODO: создайте список из 6 чисел
-scores = [60, 75, 100, 85, 90, 70]
-# TODO: выведите список
-print("Оценки:", scores)
-# TODO: выведите длину списка
-print("Количество оценок:", len(scores))
-
-# TODO: используйте sum() и len()
-scores = [60, 75, 100, 85, 90, 70]
-# TODO: посчитайте average_value
-average_score = sum(scores)/ len(scores)
-# TODO: выведите результат
-print("Средний балл:", average_score)
-
-# TODO: используйте max()
-max_score = max(scores)
-
-# TODO: используйте min()
-min_score = min(scores)
-# TODO: выведите максимум и минимум
-print("Максимум:", max_score)
-print("Минимум:", min_score)
-
-# TODO: создайте пустой список result
-result = []
-# TODO: в цикле for выберите числа больше заданного порога
-for score in scores:
-  if score > 70:
-    result.append(score)
-# TODO: выведите result
-print("Оценки выше 70:", result)
-
-# TODO: создайте словарь для объекта своей темы
-candidate = {
-    "name": "Василий",
-    "city": "Ульяновск",
-    "score": 75
-}
-
-# TODO: выведите словарь
-print(candidate)
-# TODO: обратитесь к одному ключу
-print("Имя:", candidate["name"])
-
-# TODO: создайте список минимум из 4 словарей
-candidates = [
-  {"name": "Алексей", "city": "Москва", "score": 92},
-  {"name": "Мария", "city": "Санкт-Петербург", "score": 87},
-  {"name": "Дмитрий", "city": "Казань", "score": 95},
-  {"name": "Ольга", "city": "Новосибирск", "score": 81},
-  {"name": "Андрей", "city": "Екатеринбург", "score": 89}
-]
-# TODO: выведите каждый словарь через for
-for candidate in candidates:
-  print(candidate)
-
-# TODO: создайте пустой список filtered_items
-filtered_items = []
-# TODO: в цикле отберите записи по городу, категории, статусу или типу
-for candidate in candidates:
-  if candidate["city"] == "Санкт-Петербург":
-    filtered_items.append(candidate)
-# TODO: выведите результат
-print("Кандитаты из Санкт-Петербурга:")
-for candidate in filtered_items:
-    print(candidate)
-
-# TODO: используйте sorted()
-candidates = [
-  {"name": "Алексей", "city": "Москва", "score": 92},
-  {"name": "Мария", "city": "Санкт-Петербург", "score": 87},
-  {"name": "Дмитрий", "city": "Казань", "score": 95},
-  {"name": "Ольга", "city": "Новосибирск", "score": 81},
-  {"name": "Андрей", "city": "Екатеринбург", "score": 89}
-]
-# TODO: отсортируйте по числовому полю
-sorted_candidates = sorted(
-    candidates,
-    key=lambda item: item["score"],
-    reverse=True
-)
-# TODO: выведите результат
-for candidate in sorted_candidates:
-  print(candidate)
-
-# TODO: создайте список с повторяющимися значениями
-cities = ["Москва", "Санкт-Петербург", "Москва", "Новосибирск","Санкт-Петербург"]
-# TODO: преобразуйте его в set
-unique_cities = set(cities)
-# TODO: выведите уникальные значения
-print("Уникальные города:", unique_cities)
-
-# TODO: возьмите список словарей из своей темы
-candidates = [
-  {"name": "Алексей", "city": "Москва", "score": 92},
-  {"name": "Мария", "city": "Санкт-Петербург", "score": 87},
-  {"name": "Дмитрий", "city": "Казань", "score": 95},
-  {"name": "Ольга", "city": "Новосибирск", "score": 81},
-  {"name": "Андрей", "city": "Екатеринбург", "score": 89}
-]
-# TODO: отфильтруйте записи по условию
-city = "Екатеринбург"
-filtered = []
-for candidate in candidates:
-  if candidate["city"] == city:
-    filtered.append(candidate)
-# TODO: отсортируйте их по числовому показателю
-sorted_candidates = sorted(
-    filtered,
-    key=lambda item: item["score"],
-    reverse=True
-)
-# TODO: выберите лучший результат
-best_candidate = sorted_candidates[0]
-# TODO: выведите результат
-print("Лучший кандидат из города", city)
-print(best_candidate)
-
 # TODO: импортируйте numpy как np
 import numpy as np
 # TODO: импортируйте pandas как pd
@@ -606,937 +196,159 @@ import matplotlib.pyplot as plt
 # TODO: выведите сообщение
 print("Библиотеки подключены")
 
-# TODO: создайте список x_values около числа 2
-x_values =[1.5, 1.9, 1.99, 2.0, 2.01, 3.01, 3.1, 3.5]
-# TODO: создайте список y_values для функции y = 3 * x
-y_values = []
-for x in x_values:
-   y_values.append(3 * x)
-# TODO: создайте DataFrame
-table = pd.DataFrame({
-    "x": x_values,
-    "y = 3x": y_values
-})
-# TODO: покажите таблицу
-table
+# TODO: напишите функцию loss_function(x)
+def loss_function(x):
+  return (x - 4) ** 2 + 1
+# TODO: задайте x0 = 4
+x0 = 4
+# TODO: посчитайте minimum_value
+minimum_value = loss_function(x0)
+# TODO: выведите x0 и minimum_value
+print("Минимум находится при x =", x0)
+print("Минимальное значение loss =", minimum_value)
 
 # TODO: создайте x через np.linspace()
-x = np.linspace(0, 5, 150)
-# TODO: создайте y = 3 * x
-y = 3 * x
+x = np.linspace(-3, 10, 350)
+# TODO: создайте loss = loss_function(x)
+loss = loss_function(x)
 # TODO: постройте график
 plt.figure(figsize=(10, 8))
-plt.plot(x, y, label="y = 3x")
-# TODO: отметьте точку x=2, y=6
-plt.scatter([2], [6], label="точка x=2, y=6")
-# TODO: show()
-plt.title("Предел на примере y = 3x")
+plt.plot(x, loss, label="loss(x) = (x - 4)² + 1")
+# TODO: отметьте минимум x=4, y=1
+plt.scatter([4], [1], label="минимум")
+# TODO: добавьте title, xlabel, ylabel, legend, grid
+plt.title("Функция ошибки модели")
 plt.xlabel("x")
-plt.ylabel("y")
-plt.grid(True)
+plt.ylabel("loss")
 plt.legend()
+plt.grid(True)
+# TODO: show()
 plt.show()
 
-# TODO: создайте left_x около числа 2
-left_x = [1.9, 1.99, 1.999]
-# TODO: создайте right_x около числа 2
-right_x = [2.1, 2.01, 2.001]
-# TODO: посчитайте left_y и right_y
-left_y = [2 * x for x in left_x]
-right_y = [2 * x for x in left_y]
-# TODO: создайте DataFrame
+# TODO: напишите функцию loss_derivative(x)
+def loss_derivative(x):
+    return 2 * (x - 4)
+# TODO: создайте список points
+points = [-1.5, 0, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5]
+# TODO: посчитайте derivative_values
+derivative_values = [loss_derivative(point) for point in points]
+# TODO: создайте DataFrame со столбцами x, loss(x), loss'(x)
 table = pd.DataFrame({
-    "x слева": left_x,
-    "y слева": left_y,
-    "x справа": right_x,
-    "y справа": right_y
+    "x": points,
+    "loss(x)": [loss_function(point) for point in points],
+    "loss'(x)": derivative_values
 })
 # TODO: покажите таблицу
 table
 
-# TODO: создайте x_values около числа 3
-x_values = [2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0]
-# TODO: посчитайте y_values = x ** 2
-y_values = [x ** 2 for x in x_values]
-# TODO: создайте DataFrame
-table = pd.DataFrame({
-    "x": x_values,
-    "y = x²": y_values
-})
-# TODO: покажите таблицу
-table
+# TODO: создайте пустой список analysis
+analysis = []
+# TODO: для каждой точки из points посчитайте derivative
+for point in points:
+  derivative = loss_derivative(point)
+# TODO: если derivative < 0, статус = loss убывает
+  if derivative < 0:
+       status = "loss убывает"
+# TODO: если derivative > 0, статус = loss растёт
+  elif derivative > 0:
+       status = "loss растёт"
+# TODO: если derivative == 0, статус = минимум
+  else:
+       status = "критическая точка / минимум"
+# TODO: добавьте словарь в analysis
+  analysis.append({
+      "x": point,
+      "derivative": derivative,
+      "status": status
+  })
+# TODO: выведите analysis
+for item in analysis:
+  print(item)
 
-# TODO: создайте x
-x = np.linspace(-2, 6, 250)
-# TODO: создайте y = x ** 2
-y = x ** 2
-# TODO: постройте график
+x_current = -2
+# TODO: задайте learning_rate = 0.2
+learning_rate = 0.2
+# TODO: задайте steps = 20
+steps = 20
+# TODO: создайте пустой список history
+history = []
+# TODO: в цикле сохраните step, x, loss, derivative
+for step in range(steps):
+    current_loss = loss_function(x_current)
+    current_derivative = loss_derivative(x_current)
+    history.append({
+        "step": step,
+        "x": x_current,
+        "loss": current_loss,
+        "derivative": current_derivative
+    })
+# TODO: обновите x_current по формуле:
+# x_current = x_current - learning_rate * derivative
+    x_current = x_current - learning_rate * current_derivative
+
+# TODO: выведите финальное x и финальный loss
+print("Финальное x:", x_current)
+print("Финальный loss:", loss_function(x_current))
+
+# TODO: создайте history_df = pd.DataFrame(history)
+history_df = pd.DataFrame(history)
+# TODO: покажите первые 10 строк
+history_df.head(10)
+
+# TODO: создайте x и loss для графика функции
+x = np.linspace(-5, 10, 350)
+loss = loss_function(x)
+# TODO: постройте график функции loss
 plt.figure(figsize=(10, 8))
-plt.plot(x, y, label="y = x²")
+plt.plot(x, loss, label="loss(x)")
 
-# TODO: отметьте точку x=3, y=9
-plt.scatter([3],[9], label="x=3, y=9")
-# TODO: show()
-plt.title("Предел на примере y = x²")
+# TODO: добавьте точки из history_df
+plt.scatter(history_df["x"], history_df["loss"], label="шаги оптимизации")
+# TODO: отметьте истинный минимум x=4, y=1
+plt.scatter([4],[1], label="истинный минимум")
+# TODO: добавьте legend и grid
+plt.title("Оптимизация функции ошибки")
 plt.xlabel("x")
-plt.ylabel("y")
-plt.grid(True)
+plt.ylabel("loss")
 plt.legend()
-plt.show()
-
-# TODO: создайте x_values около 2, но без самого 2
-x_values = [1.5, 1.75, 1.9, 1.95, 2.05, 2.1, 2.25, 2.5]
-# TODO: посчитайте y_values для функции
-y_values = []
-for x in x_values:
-    y = (x ** 2 - 4)/(x - 2)
-    y_values.append(y)
-# TODO: создайте DataFrame
-table = pd.DataFrame({
-    "x": x_values,
-    "y": y_values
-})
-# TODO: покажите таблицу
-table
-
-# TODO: создайте x_left до 2
-x_left = np.linspace(-2, 1.99, 100)
-# TODO: создайте x_right после 2
-x_right = np.linspace(2.01, 4, 100)
-# TODO: посчитайте y_left и y_right
-y_left = (x_left ** 2 - 1) / (x_left - 1)
-y_right = (x_right ** 2 - 1) / (x_right - 1)
-# TODO: постройте график
-plt.figure(figsize=(8,5))
-plt.plot(x_left, y_left)
-plt.plot(x_right, y_right)
-# TODO: отметьте точку предела x=2, y=4
-plt.scatter([2], [3], facecolors='none', edgecolors='black', label="предел = 2")
-# TODO: show()
-plt.title("Функция не определена в x=1, но предел есть")
-plt.xlabel("x")
-plt.ylabel("y")
 plt.grid(True)
-plt.legend()
-plt.show()
-
-# TODO: создайте список epochs
-epochs = [7, 8, 9, 10, 11, 12, 13]
-# TODO: создайте список loss, который уменьшается
-loss = [1.00, 0.50, 0.25, 0.12, 0.06, 0.03, 0.01]
-# TODO: постройте график
-plt.figure(figsize=(10, 8))
-plt.plot(epochs, loss, marker="o")
 # TODO: show()
-plt.title("Ошибка модели стремится к 0")
-plt.xlabel("Эпоха")
-plt.ylabel("Loss")
-plt.grid(True)
 plt.show()
 
-# TODO: создайте список summary из 5 выводов
+# TODO: создайте словарь project_report
+project_report = {
+    "project_name": "Анализ функции ошибки модели",
+    "start_x": history_df["x"].iloc[0],
+    "final_x": history_df["x"].iloc[-1],
+    "start_loss": history_df["loss"].iloc[0],
+    "final_loss": history_df["loss"].iloc[-1],
+    "steps": steps,
+    "minimum_x": 3,
+    "minimum_loss": 2
+}
+# В словаре должны быть:
+# project_name
+# start_x
+# final_x
+# start_loss
+# final_loss
+# steps
+# minimum_x
+# minimum_loss
+
+# TODO: выведите словарь через for
+for key, value in project_report.items():
+  print(key, ":", value)
+
+# TODO: создайте список summary из 6 выводов
 summary = [
-    "Предел показывает, к чему стремится функция",
-    "К точке можно приближаться слева и справа",
-    "Функция может иметь предел, даже если не определена в точке",
-    "Пределы нужны для понимания производной и оптимизации",
-    "В AI идея предела связана с уменьшением ошибки модели"
-]
-# TODO: выведите каждый вывод
-for item in summary:
-  print("-", item)
-
-# TODO: импортируйте numpy как np
-import numpy as np
-# TODO: импортируйте pandas как pd
-import pandas as pd
-# TODO: импортируйте matplotlib.pyplot как plt
-import matplotlib.pyplot as plt
-# TODO: выведите сообщение
-print("Библиотеки подключены")
-
-# TODO: создайте x_values около числа 3
-x_values = [2.9, 2.99, 2.999, 3.0, 3.001, 3.01, 3.1]
-# TODO: создайте f_values для f(x)=x
-f_values = [x for x in x_values]
-# TODO: создайте g_values для g(x)=3*x
-g_values = [3 * x for x in x_values]
-# TODO: создайте h_values = f + g
-h_values = [f + g for f, g in zip(f_values, g_values)]
-# TODO: создайте DataFrame
-table = pd.DataFrame({
-    "x": x_values,
-    "f(x)=x": f_values,
-    "g(x)=3x": g_values,
-    "h(x)=f(x)+g(x)": h_values
-})
-# TODO: покажите таблицу
-table
-
-# TODO: создайте x через np.linspace()
-x = np.linspace(-10, 10, 250)
-# TODO: создайте f = x
-f = x
-# TODO: создайте g = 3 * x
-g = 3 * x
-# TODO: создайте h = f + g
-h = f + g
-# TODO: постройте три графика
-plt.figure(figsize=(10, 8))
-plt.plot(x, f, label="f(x)=x")
-plt.plot(x, g, label="g(x)=3x")
-plt.plot(x, h, label="h(x)=f(x)+g(x)=3x")
-# TODO: добавьте legend, grid, title
-plt.title("Предел суммы функции")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.legend()
-plt.grid(True)
-# TODO: show()
-plt.show()
-
-# TODO: создайте x_values около числа 2
-x_values = [2.9, 2.99, 2.999, 3.0, 3.001, 3.01, 3.1]
-# TODO: создайте f_values = x
-f_values = [x for x in x_values]
-
-# TODO: создайте g_values = x + 2
-g_values = [x + 2 for x in x_values]
-# TODO: создайте h_values = f * g
-h_values = [f * g for f, g in zip(f_values, g_values)]
-# TODO: создайте DataFrame
-table = pd.DataFrame({
-    "x": x_values,
-    "f(x)=x": f_values,
-    "g(x)=x+2": g_values,
-    "h(x)=f(x)*g(x)": h_values
-})
-# TODO: покажите таблицу
-table
-
-# TODO: создайте x_values около числа 1
-x_values = [0.5, 0.6, 0.7, 0.8, 0.9, 1.05, 1.1]
-# TODO: создайте y_values для функции y = (3 * x) / x
-y_values = [(3 * x) / x for x in x_values]
-# TODO: создайте DataFrame
-table = pd.DataFrame({
-    "x": x_values,
-    "y=(3x)/x": y_values
-})
-# TODO: покажите таблицу
-table
-
-# TODO: создайте x_values около 3, но без самого 3
-x_values = [2.5, 2.6, 2.7, 2.8, 2.9, 3.05, 3.1, 3.2]
-# TODO: посчитайте y_values
-y_values = []
-for x in x_values:
-  y = (x ** 2 - 9) / (x - 3)
-  y_values.append(y)
-# TODO: создайте DataFrame
-table = pd.DataFrame({
-    "x": x_values,
-    "y": y_values
-})
-# TODO: покажите таблицу
-table
-
-# TODO: создайте x_left до 3
-x_left = np.linspace(-3, 2.99, 250)
-# TODO: создайте x_right после 3
-x_right = np.linspace(3.01, 5, 250)
-# TODO: посчитайте y_left и y_right
-y_left = (x_left ** 2 - 4) / (x_left - 2)
-y_right = (x_right ** 2 - 4) / (x_right - 2)
-# TODO: постройте график
-plt.figure(figsize=(10, 8))
-plt.plot(x_left, y_left)
-plt.plot(x_right, y_right)
-# TODO: отметьте точку предела x=3, y=6
-plt.scatter([3], [5], facecolors="none", edgecolors="black", label="предел = 5")
-# TODO: show()
-plt.title("Неопределенность 0/0 и предел")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.legend()
-plt.grid(True)
-plt.show()
-
-# TODO: создайте x_values около 3
-x_values = [2.8, 2.9, 3.1, 3.2]
-# TODO: посчитайте original_values для (x**2 - 9)/(x - 3)
-original_values = [(x ** 2 - 9) / (x - 3) for x in x_values]
-# TODO: посчитайте simple_values для x + 3
-simple_values = [x + 3 for x in x_values]
-# TODO: создайте DataFrame
-table = pd.DataFrame({
-    "x": x_values,
-    "исходная функция": original_values,
-    "упрощённая x+2": simple_values
-})
-# TODO: покажите таблицу
-table
-
-# TODO: создайте список epochs
-epoch = [10, 11, 12, 13, 14, 15, 16, 17]
-# TODO: создайте список metric, который постепенно растёт и стабилизируется
-metric = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.77]
-# TODO: постройте график
-plt.figure(figsize=(8, 5))
-plt.plot(epoch, metric, marker="o")
-# TODO: добавьте горизонтальную линию возможного предела
-plt.axhline(0.77, linestyle="--", label="возможный предел 0.77")
-# TODO: show()
-plt.title("Метрика модели приближается к пределу")
-plt.xlabel("Эпоха")
-plt.ylabel("Metric")
-plt.legend()
-plt.grid(True)
-plt.show()
-
-# TODO: создайте список summary из 5 выводов
-summary = [
-    "Предел суммы равен сумме пределов",
-    "Предел произведения равен произведению пределов",
-    "Предел частного можно считать, если знаменатель не стремится к нулю",
-    "Неопределённость 0/0 часто можно упростить",
-    "Пределы помогают понять поведение функций и моделей"
+    "Функции помогают описывать зависимости",
+    "Графики помогают видеть поведение данных",
+    "Структуры данных помогают хранить результаты анализа",
+    "Производная показывает направление изменения функции",
+    "Оптимизация помогает найти минимум ошибки",
+    "Эти идеи являются основой машинного обучения"
 ]
 # TODO: выведите выводы через for
 for item in summary:
   print("-", item)
-
-# TODO: импортируйте numpy как np
-import numpy as np
-# TODO: импортируйте pandas как pd
-import pandas as pd
-# TODO: импортируйте matplotlib.pyplot как plt
-import matplotlib.pyplot as plt
-# TODO: выведите сообщение
-print("Библиотеки подключены")
-
-# TODO: создайте x через np.linspace()
-x = np.linspace(-10, 10, 350)
-# TODO: создайте y = x ** 2
-y = x ** 2
-# TODO: постройте график
-plt.figure(figsize=(10, 8))
-plt.plot(x, y)
-# TODO: добавьте title, xlabel, ylabel, grid
-plt.title("Непрерывная функция y = x²")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.grid(True)
-# TODO: show()
-plt.show()
-
-# TODO: создайте x от -2*pi до 2*pi
-x = np.linspace(-2 * np.pi, 2 * np.pi, 350)
-# TODO: создайте y = np.cos(x)
-y = np.cos(x)
-# TODO: постройте график
-plt.figure(figsize=(10, 8))
-plt.plot(x, y)
-plt.title("Непрерывная функция y = cos(x)")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.grid(True)
-# TODO: show()
-plt.show()
-
-# TODO: создайте x_left от -5 до -0.1
-x_left = np.linspace(-6, -0.11, 350)
-# TODO: создайте x_right от 0.1 до 5
-x_right = np.linspace(0.11, 6, 350)
-# TODO: создайте y_left = 1 / x_left
-y_left = 1 / x_left
-# TODO: создайте y_right = 1 / x_right
-y_right = 1 / x_right
-# TODO: постройте график
-plt.figure(figsize=(10, 8))
-plt.plot(x_left, y_left)
-plt.plot(x_right, y_right)
-# TODO: show()
-plt.title("Функция с разрывом y = 1/x")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.grid(True)
-plt.show()
-
-# TODO: создайте x_values около 0, без самого 0
-x_values = [0.91, 0.95, 0.96, 0.99, 1.01, 1.1, 1.3, 1.6]
-# TODO: посчитайте y_values = 1 / x
-y_values = [1 / x for x in x_values]
-# TODO: создайте DataFrame
-table = pd.DataFrame({
-    "x": x_values,
-    "y = 1/x": y_values
-})
-# TODO: покажите таблицу
-table
-
-# TODO: создайте x_left до 2
-x_left = np.linspace(-2, 1.99, 250)
-# TODO: создайте x_right после 2
-x_right = np.linspace(2.01, 5, 250)
-# TODO: посчитайте y_left и y_right
-y_left = (x_left ** 2 - 4) / (x_left - 2)
-y_right = (x_right ** 2 - 4) / (x_right - 2)
-# TODO: постройте график
-plt.figure(figsize=(10, 8))
-plt.plot(x_left, y_left)
-plt.plot(x_right, y_right)
-# TODO: отметьте дырку в точке x=2, y=4
-plt.scatter([2], [4], facecolors="none", edgecolors="black", label="дырка")
-# TODO: show()
-plt.title("Функция с дыркой")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.legend()
-plt.grid(True)
-plt.show()
-
-# TODO: создайте x
-x = np.linspace(-10, 10, 350)
-# TODO: создайте список y
-y = []
-# TODO: если x < 1, y = 0, иначе y = 2
-for value in x:
-  if value < 0:
-     y.append(-1)
-  else:
-     y.append(1)
-# TODO: постройте график
-plt.figure(figsize=(10, 8))
-plt.plot(x, y)
-# TODO: show()
-plt.title("Функция со скачком")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.grid(True)
-plt.show()
-
-# TODO: создайте x
-x = np.linspace(-10, 10, 350)
-# TODO: создайте y_smooth = x ** 2
-y_smooth = x ** 2
-# TODO: создайте y_jump со скачком
-y_jump = []
-for value in x:
-    if value < 0:
-       y_jump.append(-1)
-    else:
-       y_jump.append(1)
-# TODO: постройте два графика на одном рисунке
-plt.figure(figsize=(10, 8))
-plt.plot(x, y_smooth, label="непрерывная: x²")
-plt.plot(x, y_jump, label="разрывная: скачок")
-# TODO: добавьте legend
-plt.title("Сравнение непрерывной и разрывной функции")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.legend()
-# TODO: show()
-plt.grid(True)
-plt.show()
-
-# TODO: создайте epochs
-epochs = [10, 11, 12, 13, 14, 15, 16]
-# TODO: создайте smooth_loss, который уменьшается плавно
-smooth_loss = [0.8, 0.7, 0.6, 0.4, 0.3, 0.2, 0.1]
-
-# TODO: создайте jump_loss, который скачет
-jump_loss = [0.9, 0.5, 0.8, 0.4, 0.7, 0.3, 0.6]
-# TODO: постройте оба графика
-plt.figure(figsize=(10, 8))
-plt.plot(epochs, smooth_loss, marker="o", label="плавное обучение")
-plt.plot(epochs, jump_loss, marker="o", label="скачки ошибки")
-# TODO: show()
-plt.title("Плавное и нестабильное изменение ошибки")
-plt.xlabel("Эпоха")
-plt.ylabel("Loss")
-plt.legend()
-plt.grid(True)
-plt.show()
-
-# TODO: создайте список summary из 5 выводов
-summary = [
-    "Непрерывную функцию можно представить как плавный график",
-    "Разрыв — это дырка, скачок или обрыв графика",
-    "Функция 1/x имеет разрыв при x=0",
-    "Функции с резкими скачками сложнее анализировать",
-    "Непрерывность важна для производной, оптимизации и AI"
-]
-# TODO: выведите каждый вывод
-for item in summary:
-  print("-", item)
-
-# TODO: импортируйте numpy как np
-import numpy as np
-# TODO: импортируйте pandas как pd
-import pandas as pd
-# TODO: импортируйте matplotlib.pyplot как plt
-import matplotlib.pyplot as plt
-# TODO: выведите сообщение
-print("Библиотеки подключены")
-
-# TODO: создайте x через np.linspace()
-x = np.linspace(-10, 10, 350)
-# TODO: создайте y = x ** 2
-y = x ** 2
-# TODO: постройте график
-plt.figure(figsize=(10, 8))
-plt.plot(x, y)
-# TODO: добавьте title, xlabel, ylabel, grid
-plt.title("Функция y = x²")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.grid(True)
-# TODO: show()
-plt.show()
-
-# TODO: создайте x_values около точки x = 3
-x_values = [2.8, 2.9, 3.0, 3.1, 3.2]
-# TODO: создайте y_values = x ** 2
-y_values = [x ** 2 for x in x_values]
-# TODO: создайте DataFrame
-table = pd.DataFrame({
-    "x": x_values,
-    "y = x²": y_values
-})
-# TODO: покажите таблицу
-table
-
-# TODO: напишите функцию f(x), которая возвращает x ** 2
-def f(x):
-    return x ** 2
-# TODO: задайте x0 = 3
-x0 = 3
-# TODO: задайте h = 0.001
-h = 0.001
-# TODO: посчитайте derivative = (f(x0 + h) - f(x0)) / h
-derivative = (f(x0 + h) - f(x0)) / h
-# TODO: выведите derivative
-print("Приближённая производная в x=2:", derivative)
-
-# TODO: напишите функцию numerical_derivative(func, x, h=0.001)
-def numerical_derivative(func, x, h=0.001):
-  return (func(x + h) - func(x)) / h
-# TODO: создайте список points
-points = [-3.5, -2.5, -1.5, 0, 1.5, 2.5, 3,5]
-# TODO: посчитайте derivatives
-derivatives = [numerical_derivative(f, point) for point in points]
-# TODO: создайте DataFrame
-table = pd.DataFrame({
-    "x": points,
-    "приближённая производная": derivatives,
-    "точная производная 2x": [2 * point for point in points]
-})
-# TODO: покажите таблицу
-table
-
-# TODO: создайте x
-x = np.linspace(-10, 10, 350)
-# TODO: создайте y = x ** 2
-y = x ** 2
-# TODO: создайте dy = 2 * x
-dy = 2 * x
-# TODO: постройте оба графика
-plt.figure(figsize=(10, 8))
-plt.plot(x, y, label="y = x²")
-plt.plot(x, dy, label="y' = 2x")
-plt.title("Функция и производная")
-plt.xlabel("x")
-plt.ylabel("y")
-# TODO: добавьте legend и grid
-plt.legend()
-plt.grid(True)
-# TODO: show()
-plt.show()
-
-# TODO: задайте функцию f(x) = x ** 2
-x = np.linspace(-5, 10, 350)
-def f(x):
-    return x ** 2
-# TODO: выберите x0 = 3
-x0 = 3
-# TODO: посчитайте y0
-y0 = f(x0)
-# TODO: посчитайте slope = 2 * x0
-slope = 2 * x0
-# TODO: создайте tangent
-tangent = slope * (x - x0) + y0
-# TODO: постройте функцию и касательную
-plt.figure(figsize=(10, 8))
-plt.plot(x, f(x), label="y = x²")
-plt.plot(x, tangent, label="касательная в x=2")
-plt.scatter([x0], [y0], label="точка касания")
-# TODO: show()
-plt.title("Касательная к графику")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.legend()
-plt.grid(True)
-plt.show()
-
-# TODO: создайте список x_points
-x_points = [-4, -2, 0, 2, 4]
-# TODO: для каждой точки посчитайте derivative_value = 2 * point
-for point in x_points:
-  derivative_value = 2 * point
-# TODO: через if определите: функция растёт, убывает или горизонтальная касательная
-  if derivative_value > 0:
-    message = "функция растёт"
-  elif derivative_value < 0:
-    message = "функция убывает"
-  else:
-    message = "точка минимума или горизонтальная касательная"
-# TODO: выведите результат
-  print("x =", point, "| производная =", derivative_value, "|", message)
-
-# TODO: создайте x
-x = np.linspace(-10, 10, 350)
-# TODO: создайте loss = x ** 2
-loss = x ** 2
-# TODO: создайте gradient = 2 * x
-gradiant = 2 * x
-# TODO: постройте графики loss и gradient
-plt.figure(figsize=(10, 8))
-plt.plot(x, loss, label="loss = x²")
-plt.plot(x, gradiant, label="gradiant = 2x")
-# TODO: отметьте минимум
-plt.scatter([0], [0], label="минимум ошибки")
-# TODO: show()
-plt.title("Ошибка модели и производная")
-plt.xlabel("параметр модели")
-plt.ylabel("значение")
-plt.legend()
-plt.grid(True)
-plt.show()
-
-# TODO: создайте список summary из 5 выводов
-summary = [
-    "Производная показывает скорость изменения функции",
-    "Производная связана с наклоном касательной",
-    "Численную производную можно посчитать через маленький шаг h",
-    "Если производная положительная, функция растёт",
-    "Производная нужна для оптимизации и обучения AI-моделей"
-    ]
-# TODO: выведите каждый вывод
-for item in summary:
-  print("-", item)
-
-# TODO: импортируйте numpy как np
-import numpy as np
-# TODO: импортируйте pandas как pd
-import pandas as pd
-# TODO: импортируйте matplotlib.pyplot как plt
-import matplotlib.pyplot as plt
-# TODO: выведите сообщение
-print("Библиотеки подключены")
-
-# TODO: создайте x через np.linspace()
-x = np.linspace(-10, 10, 250)
-# TODO: создайте f = 7
-f = np.ones_like(x) * 7
-# TODO: создайте df = 0
-df = np.zeros_like(x)
-# TODO: постройте графики f и df
-plt.figure(figsize=(10, 8))
-plt.plot(x, f, label="f(x)=7")
-plt.plot(x, df, label="f'(x)=0")
-# TODO: show()
-plt.title("Производная константы")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.legend()
-plt.grid(True)
-plt.show()
-
-# TODO: создайте x
-x = np.linspace(-10, 10, 250)
-# TODO: создайте f = 3 * x + 2
-f = 3 * x + 2
-# TODO: создайте df = 3
-df = np.ones_like(x) * 3
-# TODO: постройте графики
-plt.figure(figsize=(10, 8))
-plt.plot(x, f, label="f(x)=3x+2")
-plt.plot(x, df, label="f'(x)=3")
-# TODO: show()
-plt.title("Производная линейной функции")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.legend()
-plt.grid(True)
-plt.show()
-
-# TODO: создайте x
-x = np.linspace(-10, 10, 250)
-# TODO: создайте f = x ** 2
-f = x ** 3
-# TODO: создайте df = 2 * x
-df = 3 * x
-# TODO: постройте графики
-plt.figure(figsize=(10, 8))
-plt.plot(x, f, label="f(x)=x²")
-plt.plot(x, df, label="f'(x)=2x")
-# TODO: show()
-plt.title("Производная функции x²")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.legend()
-plt.grid(True)
-plt.show()
-
-# TODO: создайте x
-x = np.linspace(-10, 10, 350)
-# TODO: создайте f = x ** 3
-f = x ** 3
-# TODO: создайте df = 3 * x ** 2
-df = 3 * x ** 2
-# TODO: постройте графики
-plt.figure(figsize=(10, 8))
-plt.plot(x, f, label="f(x)=x³")
-plt.plot(x, df, label="f'(x)=3x²")
-# TODO: show()
-plt.title("Производная функции x³")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.legend()
-plt.grid(True)
-plt.show()
-
-# TODO: создайте x
-x = np.linspace(-10, 10, 250)
-# TODO: создайте f = 4 * x ** 2
-f = 4 * x ** 2
-# TODO: создайте df = 8 * x
-df = 8 * x
-# TODO: постройте графики
-plt.plot(x, f, label="f(x)=4x²")
-plt.plot(x, df, label="f'(x)=8x")
-# TODO: show()
-plt.title("Производная функции с коэффициентом")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.legend()
-plt.grid(True)
-plt.show()
-
-# TODO: создайте x
-x = np.linspace(-10, 10, 250)
-# TODO: создайте f = x ** 2 + 3 * x
-f = x ** 2 + 3 * x
-# TODO: создайте df = 2 * x + 3
-df = 2 * x + 3
-# TODO: постройте графики
-plt.figure(figsize=(10, 8))
-plt.plot(x, f, label="f(x)=x²+3x")
-plt.plot(x, df, label="f'(x)=2x+3")
-# TODO: show()
-plt.title("Производная суммы")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.legend()
-plt.grid(True)
-plt.show()
-
-# TODO: создайте список points
-points = [-3.5, -2.5, -1.5, 0, 1.5, 2.5, 3.5]
-# TODO: посчитайте f_values для x**2 + 3*x
-f_values = [x ** 2 + 3 * x for x in points]
-# TODO: посчитайте df_values для 2*x + 3
-df_values = [2 * x + 3 for x in points]
-# TODO: создайте DataFrame
-table = pd.DataFrame({
-    "x": points,
-    "f(x)=x²+3x": f_values,
-    "f'(x)=2x+3": df_values
-})
-# TODO: покажите таблицу
-table
-
-# TODO: для каждой точки из points посчитайте derivative = 2*x + 3
-points = [-3.5, -2.5, -1.5, 0, 1.5, 2.5, 3.5]
-for x in points:
-  derivative = 2 * x + 3
-# TODO: через if определите: функция растёт, убывает или возможный экстремум
-  if derivative > 0:
-    message = "функция растёт"
-  elif derivative < 0:
-    message = "функция убывает"
-  else:
-    message = "возможная точка экстремума"
-# TODO: выведите результат
-  print("x =", x, "| f'(x) =", derivative, "|", message)
-
-# TODO: создайте список rules из 6 правил
-rules = [
-    "Производная константы равна 0",
-    "Производная x равна 1",
-    "Производная x² равна 2x",
-    "Производная x³ равна 3x²",
-    "Производная суммы равна сумме производных",
-    "Производная помогает понять рост и убывание функции"
-    ]
-# TODO: выведите правила через for
-for rule in rules:
-    print("-", rule)
-
-import numpy as np
-# TODO: импортируйте pandas как pd
-import pandas as pd
-# TODO: импортируйте matplotlib.pyplot как plt
-import matplotlib.pyplot as plt
-# TODO: выведите сообщение
-print("Библиотеки подключены")
-
-# TODO: создайте x через np.linspace()
-x = np.linspace(-10, 10, 350)
-# TODO: создайте y = x ** 2
-y = x ** 2
-# TODO: постройте график
-plt.figure(figsize=(10, 8))
-plt.plot(x, y, label="f(x)=x²")
-# TODO: отметьте минимум в точке x=0, y=0
-plt.scatter([0], [0], label="минимум")
-# TODO: show()
-plt.title("Функция с минимумом")
-plt.xlabel("x")
-plt.legend()
-plt.grid(True)
-plt.show()
-
-# TODO: создайте x
-x = np.linspace(-5, 10, 350)
-# TODO: создайте y = (x - 3) ** 2 + 2
-y = (x - 3) ** 2 + 2
-# TODO: постройте график
-plt.figure(figsize=(10, 8))
-plt.plot(x, y, label="f(x)=(x-3)²+2")
-# TODO: отметьте минимум
-plt.scatter([3], [2], label="минимум x=3, y=2")
-# TODO: show()
-plt.title("Смещенный минимум функции")
-plt.xlabel("x")
-plt.ylabel("f(x)")
-plt.legend()
-plt.grid(True)
-plt.show()
-
-# TODO: создайте x_values около 3
-x_values = [-1.5, 0, 1.5, 2.5, 3.5, 4.5, 5.5]
-# TODO: посчитайте y_values для (x - 3) ** 2 + 2
-y_values = [(x - 3) ** 2 + 2 for x in x_values]
-# TODO: создайте DataFrame
-table = pd.DataFrame({
-    "x": x_values,
-    "f(x)": y_values
-})
-# TODO: покажите таблицу
-table
-
-# TODO: напишите функцию derivative(x) для f(x)=(x-3)**2+2
-def derivative(x):
-
-# Подсказка: производная равна 2 * (x - 3)
-   return 2 * (x - 3)
-# TODO: создайте список points
-points = [-1.5, 0, 1.5, 2.5, 3.5, 4.5, 5.5]
-# TODO: посчитайте derivatives
-derivatives = [derivative(x) for x in points]
-# TODO: создайте DataFrame
-table = pd.DataFrame({
-    "x": points,
-    "f'(x)": derivatives
-})
-# TODO: покажите таблицу
-table
-
-# TODO: для каждой точки из points посчитайте производную
-points = [-1.5, 0, 1.5, 2.5, 3.5, 4.5, 5.5]
-for x in points:
-  d = derivative(x)
-# TODO: если производная < 0 — функция убывает
-  if d < 0:
-    message = "функция убывает"
-# TODO: если производная > 0 — функция растёт
-  elif d > 0:
-    message = "функция растёт"
-# TODO: если производная == 0 — критическая точка
-  else:
-    message = "критическая точка"
-# TODO: выведите результат
-  print("x =", x, "| производная =", d, "|", message)
-
-# TODO: создайте x
-x = np.linspace(-10, 10, 350)
-# TODO: создайте y = -x ** 2 + 9
-y = -x ** 2 + 9
-# TODO: постройте график
-plt.figure(figsize=(10,8))
-plt.plot(x, y, label="f(x)=-x²+9")
-# TODO: отметьте максимум
-plt.scatter([0], [9], label="максимум")
-# TODO: show()
-plt.title("Функция с максимумом")
-plt.xlabel("x")
-plt.ylabel("f(x)")
-plt.legend()
-plt.grid(True)
-plt.show()
-
-# TODO: напишите функцию f(x)
-def f(x):
-  return (x - 3) ** 2 + 2
-# TODO: напишите функцию df(x)
-def df(x):
-  return 2 * (x - 3)
-# TODO: задайте x_current
-x_current = -5
-# TODO: задайте learning_rate
-learning_rate = 0.2
-# TODO: создайте history_x и history_y
-history_x = []
-history_y = []
-# TODO: выполните цикл из 15 шагов
-for step in range(15):
-    history_x.append(x_current)
-    history_y.append(f(x_current))
-    gradient = df(x_current)
-# TODO: обновляйте x_current по формуле:
-# x_current = x_current - learning_rate * gradient
-    x_current = x_current - learning_rate * gradient
-# TODO: выведите финальное x и f(x)
-print("Финальное x:", x_current)
-print("Финальное f(x):", f(x_current))
-
-# TODO: создайте x и y для функции
-x = np.linspace( -5, 10, 350)
-y = f(x)
-# TODO: постройте график функции
-plt.figure(figsize=(10, 8))
-plt.plot(x, y, label="f(x)=(x-3)²+2")
-# TODO: добавьте точки history_x, history_y
-plt.scatter(history_x, history_y, label="шаги оптимизации")
-# TODO: show()
-plt.title("Градиентный спуск приближается к минимуму")
-plt.xlabel("x")
-plt.ylabel("f(x)")
-plt.legend()
-plt.grid(True)
-plt.show()
-
-# TODO: создайте список summary из 5 выводов
-summary = [
-    "Оптимизация — это поиск лучшего значения",
-    "Минимум функции важен для уменьшения ошибки модели",
-    "Производная помогает понять направление движения",
-    "Критическая точка возникает там, где производная равна 0",
-    "Градиентный спуск двигается против направления роста функции"
-]
-# TODO: выведите каждый вывод
-for item in summary:
-  print("-", item)
-

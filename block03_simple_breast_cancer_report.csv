@@ -1,0 +1,6 @@
+metric,value
+rows,569
+feature,mean texture
+threshold,28.71
+accuracy,0.629
+mistakes,211

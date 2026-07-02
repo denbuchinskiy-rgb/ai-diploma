@@ -1,0 +1,6 @@
+metric,value
+rows,442.0
+baseline_mae,65.76
+simple_bmi_mae,64.73
+mae_improvement,1.04
+bmi_target_corr,0.188

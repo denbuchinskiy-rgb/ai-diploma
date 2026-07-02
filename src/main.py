@@ -452,3 +452,125 @@ print("Файл сохранён:", report_path)
 print("\nВывод:")
 print("Мы сделали простой ИИ-подобный алгоритм на одном признаке.")
 print("Он работает лучше случайного выбора, но ошибается и не является медицинской диагностикой.")
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_diabetes
+
+print("Библиотеки загружены")
+
+data = load_diabetes(as_frame=True)
+
+# TODO: создайте DataFrame
+df = data.frame.copy()
+
+print("Размер таблицы:", df.shape)
+print(df.head())
+
+# TODO: посчитайте min, max, mean, median для target
+target_stats = {
+    "min": df["target"].min(),
+    "max": df["target"].max(),
+    "mean": df["target"].mean(),
+    "median": df["target"].median(),
+}
+
+stats_df = pd.DataFrame([target_stats]).T
+stats_df.columns = ["value"]
+print(stats_df.round(5))
+
+plt.figure(figsize=(10, 8))
+plt.hist(df["target"], bins=50)
+plt.title("Распределение target")
+plt.xlabel("target")
+plt.ylabel("Количество")
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+# TODO: baseline_prediction = среднее target
+baseline_prediction = df["target"].mean()
+
+
+# TODO: создайте колонку baseline_pred
+df["baseline_pred"] = baseline_prediction
+
+print("Baseline prediction:", round(baseline_prediction, 10))
+print(df[["target", "baseline_pred"]].head())
+
+# TODO: посчитайте абсолютную ошибку baseline
+df["baseline_abs_error"] = (df["target"] - df["baseline_pred"]).abs()
+
+# TODO: MAE = среднее абсолютной ошибки
+baseline_mae = df["baseline_abs_error"].mean()
+
+print("Baseline MAE:", round(baseline_mae, 2))
+print(df[["target", "baseline_pred", "baseline_abs_error"]].head())
+
+feature = "age"
+
+plt.figure(figsize=(10, 8))
+
+# TODO: постройте scatter plot bmi и target
+plt.scatter(df[feature], df["target"], alpha=0.7)
+
+plt.title("Связь age и target")
+plt.xlabel(feature)
+plt.ylabel("target")
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+# TODO: посчитайте корреляцию bmi с target
+correlation = df[feature].corr(df["target"])
+print("Correlation age-target:", round(correlation, 3))
+
+age_mean = df[feature].mean()
+
+# TODO: создайте группу high_bmi / low_bmi
+df["age_group"] = df[feature].apply(lambda x: "high_age" if x > age_mean else "low_age")
+
+# TODO: средний target по группам
+group_means = df.groupby("age_group")["target"].mean()
+
+# TODO: simple_pred по группе bmi
+df["simple_pred"] = df["age_group"].map(group_means)
+
+print(group_means.round(2))
+print(df[[feature, "age_group", "target", "simple_pred"]].head(10))
+
+# TODO: посчитайте ошибку simple_pred
+df["simple_abs_error"] = (df["target"] - df["simple_pred"]).abs()
+
+# TODO: посчитайте MAE простой модели
+simple_mae = df["simple_abs_error"].mean()
+
+comparison = pd.DataFrame([
+    {"model": "baseline_mean", "MAE": baseline_mae},
+    {"model": "simple_age_groups", "MAE": simple_mae},
+])
+
+print(comparison.round(2))
+
+improvement = baseline_mae - simple_mae
+print("Улучшение MAE:", round(improvement, 2))
+
+report = pd.DataFrame([
+    {"metric": "rows", "value": len(df)},
+    {"metric": "baseline_mae", "value": round(baseline_mae, 2)},
+    {"metric": "simple_bmi_mae", "value": round(simple_mae, 2)},
+    {"metric": "mae_improvement", "value": round(improvement, 2)},
+    {"metric": "bmi_target_corr", "value": round(correlation, 3)},
+])
+
+report_path = "block03_simple_diabetes_report.csv"
+
+# TODO: сохраните отчёт в CSV
+report.to_csv(report_path, index=False)
+
+print(report)
+print("Файл сохранён:", report_path)
+
+print("\nВывод:")
+print("Мы сделали простой числовой прогноз по одному признаку.")
+print("Это учебная математика и информатика, а не медицинская рекомендация.")

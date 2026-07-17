@@ -88,3 +88,41 @@ def describe(values: list[float]) -> dict:
 
 print("describe(sample) =", describe(sample))
 print("describe(sample_out) =", describe(sample_out))
+
+import numpy as np
+# TODO: сгенерируйте 1000 значений нормального распределения
+data = np.random.normal(loc=3, scale=10, size=1000)
+len(data)
+
+# TODO: вычислите mean и std
+mean = np.mean(data)
+std = np.std(data)
+mean, std
+
+import matplotlib.pyplot as plt
+# TODO: постройте гистограмму data
+plt.hist(data, bins=30)
+plt.title("Normal Distribution")
+plt.show()
+
+# TODO: добавьте выброс 10
+data_out = np.append(data, 10)
+len(data_out)
+
+# TODO: постройте гистограмму data_out
+plt.hist(data_out, bins=30)
+plt.title("With Outlier")
+plt.show()
+
+# TODO: вычислите медиану
+median = np.median(data_out)
+median
+
+# TODO: сгенерируйте uniform и постройте гистограмму
+uniform = np.random.uniform(-5, 5, 1000)
+plt.hist(uniform, bins=30)
+plt.title("Uniform Distribution")
+plt.show()
+
+# TODO: сравните средние
+np.mean(data), np.mean(uniform)

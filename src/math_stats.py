@@ -503,3 +503,345 @@ mean_estimate = float(np.mean(estimates))
 # Печатаем среднюю оценку.
 print("mean estimate =", round(mean_estimate, 3))
 
+# Создаём список records.
+# records — это список наблюдений.
+# Одно наблюдение = один пользователь.
+records = [
+    # Пользователь 1: кликнул и купил.
+    {"click": 1, "buy": 1},
+
+    # Пользователь 2: кликнул, но не купил.
+    {"click": 1, "buy": 0},
+
+    # Пользователь 3: кликнул и купил.
+    {"click": 1, "buy": 1},
+
+    # Пользователь 4: не кликнул и не купил.
+    {"click": 0, "buy": 0},
+
+    # Пользователь 5: кликнул, но не купил.
+    {"click": 1, "buy": 0},
+
+    # Пользователь 6: не кликнул и не купил.
+    {"click": 0, "buy": 0},
+
+    # Пользователь 7: кликнул и купил.
+    {"click": 1, "buy": 1},
+
+    # Пользователь 8: не кликнул и не купил.
+    {"click": 0, "buy": 0},
+
+    # Пользователь 9: кликнул, но не купил.
+    {"click": 1, "buy": 0},
+
+    # Пользователь 10: кликнул и купил.
+    {"click": 1, "buy": 1},
+
+    # Пользователь 11: не кликнул и не купил.
+    {"click": 0, "buy": 0},
+
+    # Пользователь 12: кликнул, но не купил.
+    {"click": 1, "buy": 0},
+
+    {"click": 0, "buy": 0},
+
+    {"click": 1, "buy": 1},
+]
+
+# TODO: посчитайте количество пользователей.
+# Подсказка: используйте len(records).
+n = len(records)
+
+# Печатаем количество пользователей.
+print("Количество пользователей n =", n)
+
+# Определяем функцию build_binary_counts.
+# Функция принимает:
+# recs  — список записей,
+# a_key — название поля для события A,
+# b_key — название поля для события B.
+def build_binary_counts(recs, a_key, b_key):
+
+    # TODO: посчитайте общее количество записей.
+    # Подсказка: используйте len(recs).
+    n = len(recs)
+
+    # count_A будет хранить количество случаев, где A = 1.
+    count_A = 0
+
+    # count_B будет хранить количество случаев, где B = 1.
+    count_B = 0
+
+    # count_A_and_B будет хранить количество случаев, где A = 1 и B = 1 одновременно.
+    count_A_and_B = 0
+
+    # Запускаем цикл по всем записям.
+    for r in recs:
+
+        # Берём значение события A из текущей записи.
+        a = int(r[a_key])
+
+        # Берём значение события B из текущей записи.
+        b = int(r[b_key])
+
+        # Проверяем, что A имеет только значения 0 или 1.
+        if a not in (0, 1):
+            raise ValueError("A должно быть 0 или 1")
+
+        # Проверяем, что B имеет только значения 0 или 1.
+        if b not in (0, 1):
+            raise ValueError("B должно быть 0 или 1")
+
+        # TODO: если A произошло, увеличьте счётчик A.
+        if a == 1:
+            count_A += 1
+
+        # TODO: если B произошло, увеличьте счётчик B.
+        if b == 1:
+            count_B += 1
+
+        # TODO: если A и B произошли одновременно, увеличьте общий счётчик.
+        if a == 1 and b == 1:
+            count_A_and_B += 1
+
+    # Возвращаем все результаты в одном словаре.
+    return {
+        "n": n,
+        "count_A": count_A,
+        "count_B": count_B,
+        "count_A_and_B": count_A_and_B,
+    }
+
+
+# В нашем примере:
+# A = bought, то есть покупка.
+# B = clicked, то есть клик.
+counts = build_binary_counts(records, "buy", "click")
+
+# Выводим словарь со счётчиками.
+print(counts)
+
+# Определяем функцию для расчёта вероятности по счётчикам.
+def prob_from_counts(count, n):
+
+    # Проверяем, что общее количество наблюдений больше нуля.
+    if n <= 0:
+        raise ValueError("n должно быть больше 0")
+
+    # Проверяем, что количество события не меньше 0.
+    if count < 0:
+        raise ValueError("count не может быть отрицательным")
+
+    # Проверяем, что количество события не больше общего количества наблюдений.
+    if count > n:
+        raise ValueError("count не может быть больше n")
+
+    # TODO: верните вероятность как частоту.
+    # Подсказка: вероятность = count / n.
+    return count / n
+
+
+# TODO: посчитайте prior: вероятность покупки вообще.
+# Это P(A) = P(bought).
+prior = prob_from_counts(counts["count_A"], counts["n"])
+
+# TODO: посчитайте evidence: вероятность клика вообще.
+# Это P(B) = P(clicked).
+evidence = prob_from_counts(counts["count_B"], counts["n"])
+
+# Печатаем результаты.
+print("P(buy)  =", prior)
+print("P(click) =", evidence)
+
+# Определяем функцию условной вероятности.
+def prob_conditional(count_A_and_B, count_A):
+
+    # Проверяем, что событие A хотя бы раз встретилось.
+    if count_A <= 0:
+        raise ValueError("count_A должно быть больше 0")
+
+    # Проверяем, что пересечение событий не отрицательное.
+    if count_A_and_B < 0:
+        raise ValueError("count_A_and_B не может быть отрицательным")
+
+    # Проверяем, что пересечение не больше количества A.
+    if count_A_and_B > count_A:
+        raise ValueError("count_A_and_B не может быть больше count_A")
+
+    # TODO: верните условную вероятность.
+    # Подсказка: count_A_and_B / count_A.
+    return count_A_and_B / count_A
+
+
+# TODO: посчитайте likelihood:
+# P(B|A) = P(clicked|bought).
+likelihood = prob_conditional(
+    counts["count_A_and_B"],
+    counts['count_A']
+)
+
+# Печатаем результат.
+print("P(click | buy) =", likelihood)
+
+# Определяем функцию формулы Байеса.
+def bayes_posterior(prior, likelihood, evidence):
+
+    # Проверяем prior.
+    if prior < 0 or prior > 1:
+        raise ValueError("prior должен быть от 0 до 1")
+
+    # Проверяем likelihood.
+    if likelihood < 0 or likelihood > 1:
+        raise ValueError("likelihood должен быть от 0 до 1")
+
+    # Проверяем evidence.
+    if evidence < 0 or evidence > 1:
+        raise ValueError("evidence должен быть от 0 до 1")
+
+    # Делить на ноль нельзя.
+    if evidence == 0:
+        raise ValueError("evidence не должен быть равен 0")
+
+    # TODO: примените формулу Байеса.
+    # Подсказка: posterior = likelihood * prior / evidence.
+    posterior = likelihood * prior / evidence
+
+    # Возвращаем итоговую вероятность.
+    return posterior
+
+
+# TODO: посчитайте P(bought|clicked) по формуле Байеса.
+posterior = bayes_posterior(prior, likelihood, evidence)
+
+# Печатаем результат.
+print("P(buy | click) via Bayes =", posterior)
+
+# TODO: посчитайте P(bought|clicked) напрямую из данных.
+# Подсказка: count_A_and_B / count_B.
+direct = counts["count_A_and_B"] / counts["count_B"]
+
+# Печатаем прямой расчёт.
+print("direct =", direct)
+
+# Печатаем расчёт через формулу Байеса.
+print("bayes  =", posterior)
+
+# TODO: посчитайте модуль разницы.
+# Подсказка: abs(direct - posterior).
+difference = abs(direct - posterior)
+
+# Печатаем разницу.
+print("diff   =", difference)
+
+# Определяем функцию скоринга вероятности покупки.
+def score_buy_probability(recs, clicked_value):
+
+    # Проверяем, что clicked_value равен 0 или 1.
+    if clicked_value not in (0, 1):
+        raise ValueError("clicked_value должен быть 0 или 1")
+
+    # TODO: отберите только те записи, где clicked имеет нужное значение.
+    # Подсказка: используйте list comprehension.
+    subset = [r for r in recs if int(r["click"]) == clicked_value]
+
+    # Проверяем, что такая группа не пустая.
+    if len(subset) == 0:
+        raise ValueError("Нет записей для такого clicked_value")
+
+    # TODO: посчитайте, сколько пользователей в группе купили.
+    buy_count = sum(1 for r in subset if int (r["buy"]) == 1)
+
+    # TODO: посчитайте вероятность покупки внутри группы.
+    probability_buy = buy_count / len(subset)
+
+    # Возвращаем вероятность.
+    return probability_buy
+
+
+# TODO: посчитайте вероятность покупки среди тех, кто кликнул.
+p_buy_click1 = score_buy_probability(records, 1)
+
+# TODO: посчитайте вероятность покупки среди тех, кто не кликнул.
+p_buy_click0 = score_buy_probability(records, 0)
+
+# Печатаем результаты.
+print("P(buy | click=1) =", p_buy_click1)
+print("P(buy | click=0) =", p_buy_click0)
+
+# Импортируем модуль для графиков.
+import matplotlib.pyplot as plt
+
+# Список названий столбцов графика.
+labels = ["P(buy)", "P(buy | click=1)"]
+
+# TODO: создайте список значений для столбцов.
+# Подсказка: нужны prior и p_buy_click1.
+values = [prior, p_buy_click1]
+
+# Создаём график размером 7 на 4.
+plt.figure(figsize=(7, 4))
+
+# TODO: постройте столбчатую диаграмму.
+# Подсказка: plt.bar(labels, values)
+plt.bar(labels, values)
+
+# Ограничиваем ось Y от 0 до 1, потому что вероятность не может быть больше 1.
+plt.ylim(0, 1)
+
+# Добавляем заголовок графика.
+plt.title("Как клик меняет вероятность покупки")
+
+# Подписываем ось Y.
+plt.ylabel("Вероятность")
+
+# Добавляем сетку, чтобы легче читать значения.
+plt.grid(True)
+
+# Автоматически улучшаем расположение элементов.
+plt.tight_layout()
+
+# Показываем график.
+plt.show()
+
+# Определяем функцию сглаживания Лапласа.
+def laplace_smooth_prob(successes, trials):
+
+    # Проверяем, что количество испытаний не отрицательное.
+    if trials < 0:
+        raise ValueError("trials не может быть отрицательным")
+
+    # Проверяем, что количество успехов не отрицательное.
+    if successes < 0:
+        raise ValueError("successes не может быть отрицательным")
+
+    # Проверяем, что успехов не больше, чем испытаний.
+    if successes > trials:
+        raise ValueError("successes не может быть больше trials")
+
+    # TODO: примените формулу сглаживания Лапласа.
+    # Подсказка: (successes + 1) / (trials + 2).
+    probability_smooth = (successes + 1) / (trials + 3)
+
+    # Возвращаем сглаженную вероятность.
+    return probability_smooth
+
+
+# TODO: отберите записи, где пользователь не кликнул.
+subset_click0 = [r for r in records if int(r["click"]) == 0]
+
+# TODO: посчитайте, сколько пользователей без клика купили.
+successes_click0 = sum(1 for r in subset_click0 if int(r["buy"]) == 1)
+
+# Считаем обычную вероятность покупки без клика.
+raw_probability_click0 = p_buy_click0
+
+# TODO: посчитайте сглаженную вероятность покупки без клика.
+smooth_probability_click0 = laplace_smooth_prob(successes_click0, len(subset_click0))
+
+# Печатаем обычную вероятность.
+print("Обычная P(buy | click=0) =", raw_probability_click0)
+
+# Печатаем сглаженную вероятность.
+print("Сглаженная P(buy | click=0) =", smooth_probability_click0)
+
+

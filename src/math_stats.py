@@ -844,4 +844,313 @@ print("Обычная P(buy | click=0) =", raw_probability_click0)
 # Печатаем сглаженную вероятность.
 print("Сглаженная P(buy | click=0) =", smooth_probability_click0)
 
+# Импортируем numpy.
+# Он нужен для работы с массивами и случайными числами.
+import numpy as np
 
+# TODO: создайте генератор случайных чисел.
+# Подсказка: np.random.default_rng(42)
+rng = np.random.default_rng(56)
+
+# TODO: создайте 50 наблюдений нормального распределения.
+# loc=10.0, scale=2.0, size=50
+data = rng.normal(loc=15.0, scale=5.0, size=100)
+
+# TODO: посчитайте размер выборки.
+# Подсказка: len(data)
+n = len(data)
+
+# Печатаем размер выборки.
+print("Размер выборки n =", n)
+
+# Печатаем первые 5 значений.
+print("Первые 5 значений:", data[:5])
+
+# Определяем функцию mean.
+# values — список или массив чисел.
+def mean(values) -> float:
+
+    # Если данных нет, среднее посчитать нельзя.
+    if len(values) == 0:
+        raise ValueError("mean: empty values")
+
+    # TODO: посчитайте сумму всех значений.
+    total = sum(values)
+
+    # TODO: посчитайте количество значений.
+    count = len(values)
+
+    # TODO: разделите сумму на количество.
+    result = total / count
+
+    # Возвращаем результат как float.
+    return float(result)
+
+
+# TODO: посчитайте среднее по нашей выборке.
+m = mean(data)
+
+# Печатаем среднее.
+print("Среднее =", round(m, 3))
+
+# Определяем функцию выборочной дисперсии.
+def variance_sample(values) -> float:
+
+    # TODO: посчитайте количество значений.
+    n = len(values)
+
+    # Для дисперсии нужно минимум 2 значения.
+    if n < 2:
+        raise ValueError("variance_sample: need at least 2 values")
+
+    # TODO: посчитайте среднее.
+    m = mean(values)
+
+    # TODO: посчитайте сумму квадратов отклонений от среднего.
+    # Подсказка: sum((x - m) ** 2 for x in values)
+    squared_deviation_sum = sum((x - m) ** 2 for x in values)
+
+    # TODO: разделите на n - 1.
+    result = squared_deviation_sum / (n - 1)
+
+    # Возвращаем результат как float.
+    return float(result)
+
+
+# Определяем функцию выборочного стандартного отклонения.
+def std_sample(values) -> float:
+
+    # TODO: сначала посчитайте выборочную дисперсию.
+    variance = variance_sample(values)
+
+    # TODO: стандартное отклонение — квадратный корень из дисперсии.
+    result = variance ** 0.5
+
+    # Возвращаем результат.
+    return result
+
+
+# TODO: посчитайте стандартное отклонение по нашей выборке.
+s = std_sample(data)
+
+# Печатаем результат.
+print("Стандартное отклонение =", round(s, 3))
+
+# Определяем функцию стандартной ошибки среднего.
+def sem(values) -> float:
+
+    # TODO: посчитайте количество значений.
+    n = len(values)
+
+    # Если данных нет, SEM посчитать нельзя.
+    if n <= 0:
+        raise ValueError("sem: empty values")
+
+    # TODO: посчитайте выборочное стандартное отклонение.
+    s = std_sample(values)
+
+    # TODO: посчитайте корень из n.
+    sqrt_n = n ** 0.5
+
+    # TODO: разделите стандартное отклонение на корень из n.
+    result = s / sqrt_n
+
+    # Возвращаем результат.
+    return result
+
+
+# TODO: посчитайте SEM по нашей выборке.
+sem_val = sem(data)
+
+# Печатаем SEM.
+print("SEM =", round(sem_val, 4))
+
+# Определяем функцию приближённого CI для среднего.
+def ci_mean_normal_approx(values, z: float = 1.96):
+
+    # TODO: посчитайте среднее.
+    m = mean(values)
+
+    # TODO: посчитайте стандартную ошибку среднего.
+    se = sem(values)
+
+    # TODO: посчитайте нижнюю границу интервала.
+    low = m - z * se
+
+    # TODO: посчитайте верхнюю границу интервала.
+    high = m + z *se
+
+    # Возвращаем границы интервала.
+    return low, high
+
+
+# TODO: постройте 95% CI для нашей выборки.
+ci_norm = ci_mean_normal_approx(data)
+
+# Распаковываем границы интервала.
+ci_low_norm, ci_high_norm = ci_norm
+
+# Печатаем результат.
+print("Normal approx CI =", (round(ci_low_norm, 3), round(ci_high_norm, 3)))
+
+# Определяем функцию bootstrap-средних.
+def bootstrap_means(values, n_boot: int = 2000, seed: int = 0):
+
+    # TODO: создайте генератор случайных чисел.
+    rng = np.random.default_rng(seed)
+
+    # TODO: преобразуйте values в numpy-массив.
+    values = np.asarray(values)
+
+    # TODO: посчитайте размер исходной выборки.
+    n = len(values)
+
+    # Если данных нет, bootstrap невозможен.
+    if n == 0:
+        raise ValueError("bootstrap_means: empty values")
+
+    # Создаём пустой список для средних.
+    means = []
+
+    # Запускаем цикл n_boot раз.
+    for _ in range(n_boot):
+
+        # TODO: случайно выберите n индексов от 0 до n-1.
+        idx = rng.integers(0, n, size=n)
+
+        # TODO: возьмите элементы по выбранным индексам.
+        sample_b = values[idx]
+
+        # TODO: посчитайте среднее bootstrap-выборки.
+        sample_mean = mean(sample_b)
+
+        # TODO: добавьте среднее в список.
+        means.append(sample_mean)
+
+    # Возвращаем список средних.
+    return means
+
+
+# TODO: создайте 2000 bootstrap-средних.
+boot_means = bootstrap_means(data, n_boot=2000, seed=1)
+
+# Печатаем количество средних и первое значение.
+print("Количество bootstrap-средних:", len(boot_means))
+print("Первое bootstrap-среднее:", round(boot_means[0], 3))
+
+# Определяем функцию bootstrap CI для среднего.
+def bootstrap_ci_mean(values, n_boot: int = 2000, alpha: float = 0.05, seed: int = 0):
+
+    # TODO: получите много bootstrap-средних.
+    means = bootstrap_means(values, n_boot=n_boot, seed=seed)
+
+    # TODO: посчитайте нижний квантиль alpha / 2.
+    low = float(np.quantile(means, alpha / 2))
+
+    # TODO: посчитайте верхний квантиль 1 - alpha / 2.
+    high = float(np.quantile(means, 1 - alpha / 2))
+
+    # Возвращаем границы интервала.
+    return low, high
+
+
+# TODO: постройте bootstrap CI.
+ci_boot = bootstrap_ci_mean(data, n_boot=2000, alpha=0.05, seed=1)
+
+# Распаковываем границы.
+ci_low_boot, ci_high_boot = ci_boot
+
+# Печатаем результат.
+print("Bootstrap CI =", (round(ci_low_boot, 3), round(ci_high_boot, 3)))
+
+# Импортируем matplotlib для графиков.
+import matplotlib.pyplot as plt
+
+# TODO: сохраните среднее исходной выборки.
+m_hat = mean(data)
+
+# Создаём график размером 8 на 4.
+plt.figure(figsize=(8, 4))
+
+# TODO: постройте гистограмму bootstrap-средних.
+plt.hist(boot_means, bins=30)
+
+# TODO: добавьте вертикальную линию исходного среднего.
+plt.axvline(m_hat, linestyle="--", label="mean")
+
+# TODO: добавьте вертикальную линию нижней границы CI.
+plt.axvline(ci_low_boot, linestyle="--", label="CI low")
+
+# TODO: добавьте вертикальную линию верхней границы CI.
+plt.axvline(ci_high_boot, linestyle="--", label="CI high")
+
+# Добавляем заголовок.
+plt.title("Bootstrap-средние и 95% доверительный интервал")
+
+# Подписываем ось X.
+plt.xlabel("Среднее bootstrap-выборки")
+
+# Подписываем ось Y.
+plt.ylabel("Количество")
+
+# Добавляем легенду.
+plt.legend()
+
+# Добавляем сетку.
+plt.grid(True)
+
+# Улучшаем расположение элементов.
+plt.tight_layout()
+
+# Показываем график.
+plt.show()
+
+# Печатаем значения.
+print("mean =", round(m_hat, 3))
+print("bootstrap CI =", (round(ci_low_boot, 3), round(ci_high_boot, 3)))
+
+# TODO: создайте новый генератор случайных чисел.
+rng2 = np.random.default_rng(12)
+
+# TODO: создайте маленькую выборку из 20 значений.
+data20 = rng2.normal(15.0, 2.0, 50)
+
+# TODO: создайте большую выборку из 200 значений.
+data200 = rng2.normal(15.0, 2.0, 250)
+
+# TODO: постройте bootstrap CI для маленькой выборки.
+ci20 = bootstrap_ci_mean(data20, n_boot=1500, seed=2)
+
+# TODO: постройте bootstrap CI для большой выборки.
+ci200 = bootstrap_ci_mean(data200, n_boot=1500, seed=2)
+
+# TODO: посчитайте ширину CI для n=20.
+width20 = ci20[1] - ci20[0]
+
+# TODO: посчитайте ширину CI для n=200.
+width200 = ci200[1] - ci200[0]
+
+# Создаём график.
+plt.figure(figsize=(6, 4))
+
+# TODO: постройте столбчатую диаграмму ширин.
+plt.bar(["n=50", "n=250"], [width20, width200])
+
+# Добавляем заголовок.
+plt.title("Чем больше данных, тем уже CI")
+
+# Подписываем ось Y.
+plt.ylabel("Ширина доверительного интервала")
+
+# Добавляем сетку.
+plt.grid(True)
+
+# Улучшаем расположение.
+plt.tight_layout()
+
+# Показываем график.
+plt.show()
+
+# Печатаем ширины интервалов.
+print("width n=20  =", round(width20, 3))
+print("width n=200 =", round(width200, 3))

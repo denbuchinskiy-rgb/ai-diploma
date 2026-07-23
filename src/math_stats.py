@@ -1154,3 +1154,311 @@ plt.show()
 # Печатаем ширины интервалов.
 print("width n=20  =", round(width20, 3))
 print("width n=200 =", round(width200, 3))
+
+# Импортируем numpy.
+# Эта библиотека нужна для массивов и случайных чисел.
+import numpy as np
+
+# TODO: создайте генератор случайных чисел.
+# Подсказка: np.random.default_rng(1)
+rng = np.random.default_rng(5)
+
+# Задаём количество наблюдений.
+n = 250
+
+# TODO: создайте признак x.
+# Подсказка: rng.normal(0.0, 1.0, n)
+x = rng.normal(0.0, 1.0, n)
+
+# TODO: создайте шум.
+# Подсказка: rng.normal(0.0, 0.7, n)
+noise = rng.normal(0.0, 0.7, n)
+
+# Задаём коэффициент связи между x и y.
+a = 3.0
+
+# TODO: создайте y по формуле y = a * x + noise.
+y = a * x + noise
+
+# Печатаем размеры массивов.
+print("len(x) =", len(x))
+print("len(y) =", len(y))
+
+# Печатаем первые значения, чтобы увидеть данные.
+print("x[0] =", round(float(x[0]), 3))
+print("y[0] =", round(float(y[0]), 3))
+
+# Определяем функцию mean.
+# values — это список или массив чисел.
+def mean(values) -> float:
+
+    # Если данных нет, среднее посчитать нельзя.
+    if len(values) == 0:
+        raise ValueError("mean: empty")
+
+    # TODO: посчитайте сумму всех значений.
+    total = sum(values)
+
+    # TODO: посчитайте количество значений.
+    count = len(values)
+
+    # TODO: разделите сумму на количество.
+    result = total / count
+
+    # Возвращаем результат как float.
+    return float(result)
+
+
+# TODO: посчитайте среднее x.
+mx = mean(x)
+
+# TODO: посчитайте среднее y.
+my = mean(y)
+
+# Печатаем результаты.
+print("mean(x) =", round(mx, 3))
+print("mean(y) =", round(my, 3))
+
+# Определяем функцию выборочной дисперсии.
+def variance_sample(values) -> float:
+
+    # TODO: посчитайте количество значений.
+    n = len(values)
+
+    # Для выборочной дисперсии нужно минимум 2 значения.
+    if n < 2:
+        raise ValueError("variance_sample: need >= 2")
+
+    # TODO: посчитайте среднее.
+    m = mean(values)
+
+    # TODO: посчитайте сумму квадратов отклонений.
+    # Подсказка: sum((v - m) ** 2 for v in values)
+    squared_deviation_sum = sum((v - m) ** 2 for v in values)
+
+    # TODO: разделите на n - 1.
+    result = squared_deviation_sum / (n - 1)
+
+    # Возвращаем результат как float.
+    return float(result)
+
+
+# Определяем функцию стандартного отклонения.
+def std_sample(values) -> float:
+
+    # TODO: сначала посчитайте дисперсию.
+    variance = variance_sample(values)
+
+    # TODO: стандартное отклонение — квадратный корень из дисперсии.
+    result = variance ** 0.5
+
+    # Возвращаем результат.
+    return result
+
+
+# TODO: посчитайте стандартное отклонение x.
+sx = std_sample(x)
+
+# TODO: посчитайте стандартное отклонение y.
+sy = std_sample(y)
+
+# Печатаем результаты.
+print("std(x) =", round(sx, 3))
+print("std(y) =", round(sy, 3))
+
+# Определяем функцию выборочной ковариации.
+def cov_sample(x_values, y_values) -> float:
+
+    # Проверяем, что массивы имеют одинаковую длину.
+    if len(x_values) != len(y_values):
+        raise ValueError("cov_sample: lengths differ")
+
+    # TODO: посчитайте количество пар.
+    n = len(x_values)
+
+    # Для ковариации нужно минимум 2 пары.
+    if n < 2:
+        raise ValueError("cov_sample: need >= 2")
+
+    # TODO: посчитайте среднее x.
+    mx = mean(x_values)
+
+    # TODO: посчитайте среднее y.
+    my = mean(y_values)
+
+    # Создаём переменную для суммы произведений отклонений.
+    deviation_product_sum = 0.0
+
+    # zip(x_values, y_values) даёт пары xi, yi.
+    for xi, yi in zip(x_values, y_values):
+
+        # TODO: посчитайте произведение отклонений и добавьте к сумме.
+        deviation_product_sum += (xi - mx) * (yi - my)
+
+    # TODO: разделите на n - 1.
+    result = deviation_product_sum / (n - 1)
+
+    # Возвращаем результат.
+    return result
+
+
+# TODO: посчитайте ковариацию x и y.
+cov_xy = cov_sample(x, y)
+
+# Печатаем результат.
+print("cov(x, y) =", round(cov_xy, 3))
+
+# Определяем функцию корреляции Пирсона.
+def corr_pearson(x_values, y_values) -> float:
+
+    # TODO: посчитайте стандартное отклонение x.
+    sx = std_sample(x_values)
+
+    # TODO: посчитайте стандартное отклонение y.
+    sy = std_sample(y_values)
+
+    # Если одно из стандартных отклонений равно 0,
+    # корреляция не определена.
+    if sx == 0 or sy == 0:
+        raise ValueError("corr_pearson: std is zero")
+
+    # TODO: посчитайте ковариацию.
+    covariance = cov_sample(x_values, y_values)
+
+    # TODO: разделите ковариацию на произведение стандартных отклонений.
+    result = covariance / (sx * sy)
+
+    # Возвращаем корреляцию.
+    return result
+
+
+# TODO: посчитайте корреляцию между x и y.
+r_xy = corr_pearson(x, y)
+
+# Печатаем результат.
+print("corr(x, y) =", round(r_xy, 3))
+
+# Импортируем matplotlib для графиков.
+import matplotlib.pyplot as plt
+
+# Создаём график размером 7 на 5.
+plt.figure(figsize=(7, 5))
+
+# TODO: постройте scatter plot.
+# Подсказка: plt.scatter(x, y)
+plt.scatter(x, y)
+
+# Добавляем заголовок.
+plt.title("Положительная связь: y = 2*x + noise")
+
+# Подписываем ось X.
+plt.xlabel("x")
+
+# Подписываем ось Y.
+plt.ylabel("y")
+
+# Добавляем сетку.
+plt.grid(True)
+
+# Улучшаем расположение элементов.
+plt.tight_layout()
+
+# Показываем график.
+plt.show()
+
+# Печатаем корреляцию.
+print("corr r =", round(r_xy, 3))
+
+# TODO: создайте новый шум для второго примера.
+# Подсказка: rng.normal(0.0, 0.7, n)
+noise2 = rng.normal(0.3, 0.5, n)
+
+# TODO: создайте y2 с отрицательной связью.
+# Подсказка: -1.5 * x + noise2
+y2 = -1.5 * x + noise2
+
+# TODO: посчитайте корреляцию между x и y2.
+r_xy2 = corr_pearson(x, y2)
+
+# Печатаем результат.
+print("corr(x, y2) =", round(r_xy2, 3))
+
+# Создаём график размером 7 на 5.
+plt.figure(figsize=(7, 5))
+
+# TODO: постройте scatter plot для отрицательной связи.
+plt.scatter(x, y2)
+
+# Добавляем заголовок.
+plt.title("Отрицательная связь: y2 = -1.5*x + noise")
+
+# Подписываем ось X.
+plt.xlabel("x")
+
+# Подписываем ось Y.
+plt.ylabel("y2")
+
+# Добавляем сетку.
+plt.grid(True)
+
+# Улучшаем расположение.
+plt.tight_layout()
+
+# Показываем график.
+plt.show()
+
+# Печатаем корреляцию.
+print("corr r =", round(r_xy2, 3))
+
+# Список уровней шума.
+noise_scales = [0.5, 0.7, 1.1, 2.1, 6.0]
+
+# Здесь будем хранить модули корреляций.
+rs = []
+
+# Запускаем цикл по всем уровням шума.
+for noise_scale in noise_scales:
+
+    # TODO: создайте шум с текущим уровнем разброса.
+    current_noise = rng.normal(0.5, noise_scale, n)
+
+    # TODO: создайте y3 с тем же правилом y = 2*x + noise.
+    y3 = 3.0 * x + current_noise
+
+    # TODO: посчитайте корреляцию.
+    r = corr_pearson(x, y3)
+
+    # TODO: добавьте модуль корреляции в список.
+    rs.append(abs(r))
+
+# Создаём график размером 7 на 4.
+plt.figure(figsize=(7, 4))
+
+# TODO: постройте столбчатую диаграмму.
+plt.bar([str(v) for v in noise_scales], rs)
+
+# Корреляция по модулю находится от 0 до 1.
+plt.ylim(0, 1)
+
+# Добавляем заголовок.
+plt.title("Чем больше шум, тем слабее корреляция")
+
+# Подписываем ось X.
+plt.xlabel("Уровень шума")
+
+# Подписываем ось Y.
+plt.ylabel("|corr(x, y)|")
+
+# Добавляем сетку.
+plt.grid(True)
+
+# Улучшаем расположение.
+plt.tight_layout()
+
+# Показываем график.
+plt.show()
+
+# Печатаем таблицу результатов.
+result_table = list(zip(noise_scales, [round(v, 3) for v in rs]))
+print(result_table)
+

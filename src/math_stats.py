@@ -1721,4 +1721,344 @@ plt.tight_layout()
 # Показываем график.
 plt.show()
 
+# Импортируем numpy.
+# Он нужен для массивов и случайных чисел.
+import numpy as np
+
+# TODO: создайте генератор случайных чисел.
+# Подсказка: np.random.default_rng(123)
+rng = np.random.default_rng(123)
+
+# Задаём размер группы A.
+nA = 100
+
+# Задаём размер группы B.
+nB = 100
+
+# TODO: создайте группу A.
+# Подсказка: rng.normal(50.0, 10.0, nA)
+A = rng.normal(60.0, 15.0, nA)
+
+# TODO: создайте группу B.
+# Подсказка: rng.normal(54.0, 10.0, nB)
+B = rng.normal(64.0, 15.0, nB)
+
+# Печатаем первые значения.
+print("A[:5] =", A[:5])
+print("B[:5] =", B[:5])
+
+# Функция среднего значения.
+def mean(values) -> float:
+
+    # Если список пустой, среднее посчитать нельзя.
+    if len(values) == 0:
+        raise ValueError("mean: empty")
+
+    # TODO: суммируйте значения и разделите на количество.
+    result = sum(values) / len(values)
+
+    # Возвращаем результат как float.
+    return float(result)
+
+
+# TODO: посчитайте среднее группы A.
+mean_A = mean(A)
+
+# TODO: посчитайте среднее группы B.
+mean_B = mean(B)
+
+# TODO: посчитайте наблюдаемую разницу средних.
+diff_obs = mean_B - mean_A
+
+# Печатаем результаты.
+print("mean(A) =", round(mean_A, 3))
+print("mean(B) =", round(mean_B, 3))
+print("diff_obs = mean(B) - mean(A) =", round(diff_obs, 3))
+
+# TODO: соедините группы A и B в один общий массив.
+# Подсказка: np.concatenate([A, B])
+pool = np.concatenate([A, B])
+
+# TODO: перемешайте общий массив.
+# Подсказка: rng.permutation(pool)
+perm = rng.permutation(pool)
+
+# TODO: первые nA значений назначьте в случайную группу A.
+A_perm = perm[:nA]
+
+# TODO: остальные значения назначьте в случайную группу B.
+B_perm = perm[nA:]
+
+# TODO: посчитайте разницу средних после одной перестановки.
+diff_perm = mean(B_perm) - mean(A_perm)
+
+# Печатаем результат.
+print("diff_perm =", round(diff_perm, 3))
+
+# Функция перестановочного теста для разницы средних.
+def permutation_test_diff_means(A, B, n_perm: int = 2000, seed: int = 0):
+
+    # TODO: создайте генератор случайных чисел.
+    rng = np.random.default_rng(seed)
+
+    # TODO: преобразуйте A в numpy-массив.
+    A = np.asarray(A)
+
+    # TODO: преобразуйте B в numpy-массив.
+    B = np.asarray(B)
+
+    # TODO: сохраните размер группы A.
+    nA = len(A)
+
+    # TODO: сохраните размер группы B.
+    nB = len(B)
+
+    # Проверяем, что группы не пустые.
+    if nA == 0 or nB == 0:
+        raise ValueError("permutation_test: empty group")
+
+    # TODO: соедините группы в общий массив.
+    pool = np.concatenate([A,B])
+
+    # Создаём пустой список для случайных разниц.
+    diffs = []
+
+    # Делаем n_perm перестановок.
+    for _ in range(n_perm):
+
+        # TODO: перемешайте общий массив.
+        perm = rng.permutation(pool)
+
+        # TODO: первые nA значений идут в переставленную группу A.
+        A_perm = perm[:nA]
+
+        # TODO: остальные значения идут в переставленную группу B.
+        B_perm = perm[nA:]
+
+        # TODO: посчитайте случайную разницу средних.
+        diff = mean(B_perm) - mean(A_perm)
+
+        # TODO: добавьте её в список.
+        diffs.append(diff)
+
+    # Возвращаем список случайных разниц.
+    return diffs
+
+
+# TODO: запустите 2000 перестановок.
+diffs = permutation_test_diff_means(A, B, n_perm=2000, seed=1)
+
+# Печатаем количество разниц и первую разницу.
+print("len(diffs) =", len(diffs))
+print("diffs[0] =", round(diffs[0], 3))
+
+# Функция расчёта двустороннего p-value.
+def p_value_two_sided(diff_obs: float, diffs_perm) -> float:
+
+    # Преобразуем diffs_perm в список.
+    diffs_perm = list(diffs_perm)
+
+    # Если список пустой, p-value считать нельзя.
+    if len(diffs_perm) == 0:
+        raise ValueError("p_value_two_sided: empty diffs")
+
+    # TODO: посчитайте, сколько случайных разниц не меньше наблюдаемой по модулю.
+    # Подсказка: abs(d) >= abs(diff_obs)
+    count = sum(1 for d in diffs_perm if abs(d) >= abs(diff_obs))
+
+    # TODO: разделите количество таких случаев на общее количество перестановок.
+    result = count / len(diffs_perm)
+
+    # Возвращаем p-value.
+    return result
+
+
+# TODO: посчитайте p-value для нашего наблюдаемого diff_obs.
+p_val = p_value_two_sided(diff_obs, diffs)
+
+# Печатаем результат.
+print("diff_obs =", round(diff_obs, 3))
+print("p_value =", round(p_val, 5))
+
+# Импортируем matplotlib для графиков.
+import matplotlib.pyplot as plt
+
+# Создаём график размером 8 на 4.
+plt.figure(figsize=(8, 4))
+
+# TODO: постройте гистограмму перестановочных разниц.
+plt.hist(diffs, bins=30)
+
+# TODO: нарисуйте линию наблюдаемой разницы.
+plt.axvline(diff_obs, linestyle="--", label="-diff_obs")
+
+# TODO: нарисуйте линию противоположной разницы для двустороннего теста.
+plt.axvline(-diff_obs, linestyle="--", label="-diff_obs")
+
+# Добавляем заголовок.
+plt.title("Перестановочное распределение при H0")
+
+# Подписываем ось X.
+plt.xlabel("diff = mean(B) - mean(A)")
+
+# Подписываем ось Y.
+plt.ylabel("Количество")
+
+# Добавляем легенду.
+plt.legend()
+
+# Добавляем сетку.
+plt.grid(True)
+
+# Улучшаем расположение.
+plt.tight_layout()
+
+# Показываем график.
+plt.show()
+
+# Печатаем результаты.
+print("diff_obs =", round(diff_obs, 3))
+print("p_value =", round(p_val, 4))
+
+# Функция принятия решения.
+def decision(p_value: float, alpha: float = 0.05) -> str:
+
+    # Проверяем корректность p_value.
+    if p_value < 0 or p_value > 1:
+        raise ValueError("p_value must be from 0 to 1")
+
+    # Проверяем корректность alpha.
+    if alpha <= 0 or alpha >= 1:
+        raise ValueError("alpha must be from 0 to 1")
+
+    # TODO: если p-value меньше alpha, верните текст о значимости.
+    if p_value < alpha:
+        return "значимо: отклоняем H0"
+
+    # Иначе мы не доказали эффект.
+    return "не значимо: не отклоняем H0"
+
+
+# TODO: получите решение.
+test_decision = decision(p_val, alpha=0.05)
+
+# Печатаем решение.
+print(test_decision)
+
+# Функция выборочного стандартного отклонения.
+def std_sample(values) -> float:
+
+    # Преобразуем values в список.
+    values = list(values)
+
+    # TODO: посчитайте количество значений.
+    n = len(values)
+
+    # Для стандартного отклонения нужно минимум 2 значения.
+    if n < 2:
+        raise ValueError("std_sample: need >= 2")
+
+    # TODO: посчитайте среднее.
+    m = mean(values)
+
+    # TODO: посчитайте выборочную дисперсию.
+    variance = sum((v - m) ** 2 for v in values) / (n - 1)
+
+    # TODO: верните квадратный корень из дисперсии.
+    return float(variance * 0.5)
+
+
+# Функция Cohen's d.
+def cohens_d(A, B) -> float:
+
+    # Преобразуем группы в списки.
+    A = list(A)
+    B = list(B)
+
+    # TODO: посчитайте стандартное отклонение группы A.
+    sA = std_sample(A)
+
+    # TODO: посчитайте стандартное отклонение группы B.
+    sB = std_sample(B)
+
+    # TODO: посчитайте pooled standard deviation.
+    pooled = ((sA ** 2 + sB ** 2)/ 2) ** 0.5
+
+    # Если pooled = 0, d считать нельзя.
+    if pooled == 0:
+        raise ValueError("cohens_d: pooled std is 0")
+
+    # TODO: посчитайте Cohen's d.
+    d = (mean(B) - mean(A)) / pooled
+
+    # Возвращаем результат.
+    return float(d)
+
+
+# TODO: посчитайте размер эффекта.
+d = cohens_d(A, B)
+
+# Печатаем результат.
+print("Cohen's d =", round(d, 3))
+
+# Функция симуляции A/B-теста и расчёта p-value.
+def ab_sim_pvalue(n: int, seed: int) -> float:
+
+    # TODO: создайте генератор случайных чисел.
+    rng = np.random.default_rng(seed)
+
+    # TODO: создайте группу A.
+    A_sim = rng.normal(55.0, 15.0, n)
+
+    # TODO: создайте группу B.
+    B_sim = rng.normal(60.0, 15.0, n)
+
+    # TODO: посчитайте наблюдаемую разницу.
+    diff_obs_sim = mean(B_sim) - mean(A_sim)
+
+    # TODO: постройте перестановочное распределение.
+    diffs_sim = permutation_test_diff_means(A_sim, B_sim, n_perm=1200, seed=seed + 1)
+
+    # TODO: посчитайте p-value.
+    p = p_value_two_sided(diff_obs_sim, diffs_sim)
+
+    # Возвращаем p-value.
+    return p
+
+
+# Размеры выборок для сравнения.
+ns = [30, 60, 150]
+
+# TODO: посчитайте p-value для каждого размера выборки.
+pvals = [ab_sim_pvalue(n, seed=10 + n) for n in ns]
+
+# Создаём график.
+plt.figure(figsize=(10, 8))
+
+# TODO: постройте столбчатую диаграмму.
+plt.bar([str(n) for n in ns], pvals)
+
+# p-value находится от 0 до 1.
+plt.ylim(0, 1)
+
+# Добавляем заголовок.
+plt.title("p-value обычно уменьшается при росте размера выборки")
+
+# Подписываем ось X.
+plt.xlabel("Размер группы n")
+
+# Подписываем ось Y.
+plt.ylabel("p-value")
+
+# Добавляем сетку.
+plt.grid(True)
+
+# Улучшаем расположение.
+plt.tight_layout()
+
+# Показываем график.
+plt.show()
+
+# Печатаем результаты.
+print(list(zip(ns, [round(p, 4) for p in pvals])))
 

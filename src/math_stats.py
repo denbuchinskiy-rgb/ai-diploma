@@ -1462,3 +1462,263 @@ plt.show()
 result_table = list(zip(noise_scales, [round(v, 3) for v in rs]))
 print(result_table)
 
+# Импортируем numpy.
+# Он нужен для числовых массивов и случайных чисел.
+import numpy as np
+
+# TODO: создайте генератор случайных чисел.
+# Подсказка: np.random.default_rng(42)
+rng = np.random.default_rng(42)
+
+# Задаём количество точек.
+n = 150
+
+# TODO: создайте x: 80 чисел от 0 до 10.
+# Подсказка: np.linspace(0, 10, n)
+x = np.linspace(0, 15, n)
+
+# TODO: создайте случайный шум.
+# Подсказка: rng.normal(0, 2, n)
+noise = rng.normal(0, 5, n)
+
+# TODO: создайте y по правилу y = 3*x + 5 + noise.
+y = 3 * x + 5 + noise
+
+# Печатаем первые значения.
+print("x[:5] =", x[:5])
+print("y[:5] =", y[:5])
+
+# Импортируем matplotlib для графиков.
+import matplotlib.pyplot as plt
+
+# Создаём график размером 7 на 5.
+plt.figure(figsize=(7, 5))
+
+# TODO: постройте scatter plot.
+# Подсказка: plt.scatter(x, y)
+plt.scatter(x, y)
+
+# Добавляем заголовок.
+plt.title("Данные для линейной регрессии")
+
+# Подписываем ось X.
+plt.xlabel("x")
+
+# Подписываем ось Y.
+plt.ylabel("y")
+
+# Добавляем сетку.
+plt.grid(True)
+
+# Улучшаем расположение элементов.
+plt.tight_layout()
+
+# Показываем график.
+plt.show()
+
+# Функция среднего значения.
+def mean(values) -> float:
+
+    # Если данных нет, среднее посчитать нельзя.
+    if len(values) == 0:
+        raise ValueError("mean: empty values")
+
+    # TODO: суммируйте значения и разделите на количество.
+    return float(sum(values) / len(values))
+
+
+# Функция дисперсии.
+def variance_population(values) -> float:
+
+    # TODO: посчитайте среднее.
+    m = mean(values)
+
+    # TODO: посчитайте средний квадрат отклонения от среднего.
+    result = sum((v - m) ** 2 for v in values) / len(values)
+
+    # Возвращаем дисперсию.
+    return float(result)
+
+
+# Функция ковариации.
+def cov_population(x_values, y_values) -> float:
+
+    # Проверяем, что массивы одинаковой длины.
+    if len(x_values) != len(y_values):
+        raise ValueError("x and y must have the same length")
+
+    # TODO: посчитайте среднее x.
+    mx = mean(x_values)
+
+    # TODO: посчитайте среднее y.
+    my = mean(y_values)
+
+    # TODO: посчитайте среднее произведение отклонений.
+    result = sum((xi - mx) * (yi - my)
+    for xi, yi in zip(x_values, y_values)) / len(x_values)
+
+    # Возвращаем ковариацию.
+    return float(result)
+
+
+# TODO: посчитайте дисперсию x.
+var_x = variance_population(x)
+
+# TODO: посчитайте ковариацию x и y.
+cov_xy = cov_population(x, y)
+
+# Печатаем результаты.
+print("var(x) =", round(var_x, 3))
+print("cov(x, y) =", round(cov_xy, 3))
+
+# Функция обучения простой линейной регрессии.
+def fit_linear_regression_1d(x_values, y_values):
+
+    # TODO: посчитайте дисперсию x.
+    var_x = variance_population(x_values)
+
+    # Если все x одинаковые, линию построить нельзя.
+    if var_x == 0:
+        raise ValueError("variance of x is zero")
+
+    # TODO: посчитайте ковариацию x и y.
+    cov_xy = cov_population(x_values, y_values)
+
+    # TODO: посчитайте наклон линии.
+    a = cov_xy / var_x
+
+    # TODO: посчитайте свободный коэффициент.
+    b = mean(y_values) - a * mean(x_values)
+
+    # Возвращаем коэффициенты.
+    return float(a), float(b)
+
+
+# TODO: обучите модель.
+a_hat, b_hat = fit_linear_regression_1d(x, y)
+
+# Печатаем коэффициенты.
+print("a_hat =", round(a_hat, 3))
+print("b_hat =", round(b_hat, 3))
+
+# Функция прогноза по линейной модели.
+def predict_linear_1d(x_values, a, b):
+
+    # Преобразуем x_values в numpy-массив.
+    x_values = np.asarray(x_values)
+
+    # Считаем прогноз по формуле y_hat = a*x + b.
+    y_hat = a * x_values + b
+
+    # Возвращаем прогноз.
+    return y_hat
+
+
+# Делаем прогноз для всех x.
+y_hat = predict_linear_1d(x, a_hat, b_hat)
+
+# Печатаем первые 5 прогнозов.
+print("y_hat[:5] =", y_hat[:5])
+
+# Функция MSE.
+def mse(y_true, y_pred) -> float:
+
+    # TODO: преобразуйте y_true в numpy-массив.
+    y_true = np.asarray(y_true)
+
+    # TODO: преобразуйте y_pred в numpy-массив.
+    y_pred = np.asarray(y_pred)
+
+    # Проверяем, что длины совпадают.
+    if len(y_true) != len(y_pred):
+        raise ValueError("mse: lengths differ")
+
+    # TODO: посчитайте ошибки.
+    errors = y_true - y_pred
+
+    # TODO: посчитайте квадраты ошибок.
+    squared_errors = errors ** 2
+
+    # TODO: посчитайте среднее квадратов ошибок.
+    result = np.mean(squared_errors)
+
+    # Возвращаем MSE.
+    return float(result)
+
+
+# TODO: посчитайте MSE нашей модели.
+model_mse = mse(y, y_hat)
+
+# Печатаем MSE.
+print("model MSE =", round(model_mse, 3))
+
+# Создаём график размером 8 на 5.
+plt.figure(figsize=(8, 5))
+
+# TODO: нарисуйте исходные точки.
+plt.scatter(x, y, label="data")
+
+# TODO: нарисуйте линию регрессии.
+plt.plot(x, y_hat, label="linear regression")
+
+# Добавляем заголовок.
+plt.title("Линейная регрессия 1D")
+
+# Подписываем ось X.
+plt.xlabel("x")
+
+# Подписываем ось Y.
+plt.ylabel("y")
+
+# Добавляем легенду.
+plt.legend()
+
+# Добавляем сетку.
+plt.grid(True)
+
+# Улучшаем расположение.
+plt.tight_layout()
+
+# Показываем график.
+plt.show()
+
+# TODO: посчитайте остатки модели.
+residuals = y - y_hat
+
+# TODO: посчитайте средний остаток.
+residual_mean = mean(residuals)
+
+# Печатаем первые 5 остатков.
+print("residuals[:5] =", residuals[:5])
+
+# Печатаем средний остаток.
+print("mean residual =", round(residual_mean, 6))
+
+# Создаём график размером 8 на 4.
+plt.figure(figsize=(8, 4))
+
+# TODO: постройте точки остатков.
+plt.scatter(x, residuals)
+
+# TODO: нарисуйте горизонтальную линию на уровне 0.
+plt.axhline(0, linestyle="--")
+
+# Добавляем заголовок.
+plt.title("График остатков")
+
+# Подписываем ось X.
+plt.xlabel("x")
+
+# Подписываем ось Y.
+plt.ylabel("residual = y - y_hat")
+
+# Добавляем сетку.
+plt.grid(True)
+
+# Улучшаем расположение.
+plt.tight_layout()
+
+# Показываем график.
+plt.show()
+
+

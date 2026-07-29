@@ -2328,3 +2328,180 @@ print("sims =", [round(s, 3) for s in sims])
 # Печатаем лучший результат.
 print("best_idx =", best_idx)
 print("best_score =", round(best_score, 3))
+
+# Импортируем numpy.
+# Сокращённое имя np принято использовать почти во всех проектах.
+import numpy as np
+
+# TODO: создайте первый вектор v1.
+# Подсказка: np.array([2.0, 1.0])
+v1 = np.array([2.5, 1.5])
+
+# TODO: создайте второй вектор v2.
+# Подсказка: np.array([1.0, 3.0])
+v2 = np.array([1.5, 3.5])
+
+# Печатаем первый вектор.
+print("v1 =", v1)
+
+# Печатаем второй вектор.
+print("v2 =", v2)
+
+# TODO: возьмите первую координату вектора v1.
+x1 = v1[0]
+
+# TODO: возьмите вторую координату вектора v1.
+y1 = v2[1]
+
+# Печатаем координаты.
+print("x1 =", x1)
+print("y1 =", y1)
+
+# Определяем функцию длины двумерного вектора.
+def vector_length_2d(v) -> float:
+
+    # Проверяем, что у вектора две координаты.
+    if len(v) != 2:
+        raise ValueError("vector_length_2d: нужен вектор длины 2")
+
+    # TODO: возьмите первую координату.
+    x = v[0]
+
+    # TODO: возьмите вторую координату.
+    y = v[1]
+
+    # TODO: посчитайте сумму квадратов координат.
+    squares_sum = x ** 2 + y ** 2
+
+    # TODO: возьмите квадратный корень.
+    length = squares_sum ** 0.5
+
+    # Возвращаем длину как float.
+    return float(length)
+
+
+# TODO: посчитайте длину v1.
+len_v1_manual = vector_length_2d(v1)
+
+# TODO: посчитайте длину v2.
+len_v2_manual = vector_length_2d(v2)
+
+# Печатаем результаты.
+print("Длина v1 вручную =", round(len_v1_manual, 3))
+print("Длина v2 вручную =", round(len_v2_manual, 3))
+
+# TODO: посчитайте длину v1 через NumPy.
+len_v1_np = np.linalg.norm(v1)
+
+# TODO: посчитайте длину v2 через NumPy.
+len_v2_np = np.linalg.norm(v2)
+
+# Печатаем результаты.
+print("Длина v1 через NumPy =", round(len_v1_np, 3))
+print("Длина v2 через NumPy =", round(len_v2_np, 3))
+
+# TODO: сложите векторы.
+v_sum = v1 + v2
+
+# Печатаем результат.
+print("v1 + v2 =", v_sum)
+
+# Создаём ожидаемый ответ.
+expected_sum = np.array([3.0, 4.0])
+
+# Задаём число, на которое умножаем вектор.
+k = 2.0
+
+# TODO: умножьте вектор на число.
+v_scaled = k * v1
+
+# TODO: посчитайте длину нового вектора.
+len_scaled = np.linalg.norm(v_scaled)
+
+# Печатаем результат.
+print("2 * v1 =", v_scaled)
+print("Длина 2*v1 =", round(len_scaled, 3))
+
+# Определяем функцию скалярного произведения для 2D-векторов.
+def dot_2d(a, b) -> float:
+
+    # Проверяем длину первого вектора.
+    if len(a) != 2:
+        raise ValueError("dot_2d: первый вектор должен иметь длину 2")
+
+    # Проверяем длину второго вектора.
+    if len(b) != 2:
+        raise ValueError("dot_2d: второй вектор должен иметь длину 2")
+
+    # TODO: перемножьте первые координаты.
+    first_product = a[0] * b[0]
+
+    # TODO: перемножьте вторые координаты.
+    second_product = a[1] * b[1]
+
+    # TODO: сложите произведения.
+    result = first_product + second_product
+
+    # Возвращаем результат.
+    return float(result)
+
+
+# TODO: посчитайте скалярное произведение вручную.
+dot_manual = dot_2d(v1, v2)
+
+# Печатаем результат.
+print("dot_2d(v1, v2) =", dot_manual)
+
+# TODO: посчитайте скалярное произведение через NumPy.
+dot_np = np.dot(v1, v2)
+
+# Печатаем результат.
+print("np.dot(v1, v2) =", dot_np)
+
+# Импортируем matplotlib для графиков.
+import matplotlib.pyplot as plt
+
+# Создаём график.
+plt.figure(figsize=(6, 6))
+
+# Рисуем горизонтальную ось.
+plt.axhline(0)
+
+# Рисуем вертикальную ось.
+plt.axvline(0)
+
+# TODO: нарисуйте вектор v1 как стрелку из точки (0, 0).
+plt.quiver(0, 0, v1[0], v1[1], angles="xy", scale_units="xy", scale=1)
+
+# TODO: нарисуйте вектор v2 как стрелку из точки (0, 0).
+plt.quiver(0, 0, v2[0], v2[1], angles="xy", scale_units="xy", scale=1)
+
+# TODO: нарисуйте сумму векторов.
+plt.quiver(0, 0, v_sum[0], v_sum[1], angles="xy", scale_units="xy", scale=1)
+
+# Подписываем v1.
+plt.text(v1[0], v1[1], "v1")
+
+# Подписываем v2.
+plt.text(v2[0], v2[1], "v2")
+
+# Подписываем v1 + v2.
+plt.text(v_sum[0], v_sum[1], "v1+v2")
+
+# Задаём границы по оси X.
+plt.xlim(-1, 5)
+
+# Задаём границы по оси Y.
+plt.ylim(-1, 5)
+
+# Делаем одинаковый масштаб по осям.
+plt.axis("equal")
+
+# Добавляем заголовок.
+plt.title("Векторы v1, v2 и их сумма")
+
+# Добавляем сетку.
+plt.grid(True)
+
+# Показываем график.
+plt.show()

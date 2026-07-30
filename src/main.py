@@ -353,3 +353,54 @@ summary = [
 for item in summary:
   print("-", item)
 
+from pathlib import Path
+import numpy as np
+
+from block04_linear_algebra import dot, norm2, cosine_similarity, matvec, vector_length_2d
+from block04_visualization import save_histogram, save_scatter, save_regression_plot, save_vectors_2d
+
+REPORTS_DIR = Path("reports")
+REPORTS_DIR.mkdir(exist_ok=True)
+
+def demo_linear_algebra() -> dict:
+    u = np.array([1.5, 2.5, 3.5])
+    v = np.array([2.5, 1.5, 0.5])
+    X = np.array([
+        [0.1, 0.0, 0.2],
+        [0.0, 0.2, 0.1],
+        [0.2, 0.0, 0.1],
+        [0.0, 0.1, 0.2],
+        [0.1, 0.2, 0.0],
+    ])
+    w = np.array([0.5, -1.0, 2.0])
+    v1 = np.array([2.0, 1.0])
+    v2 = np.array([1.0, 3.0])
+    v_sum = v1 + v2
+    save_vectors_2d({"v1": v1, "v2": v2, "v1+v2": v_sum}, REPORTS_DIR / "vectors.png")
+    return {
+        "dot": dot(u, v),
+        "norm_u": norm2(u),
+        "cosine": cosine_similarity(u, v),
+        "matvec": matvec(X, w).tolist(),
+        "vector_length_2d": vector_length_2d(v1),
+    }
+
+
+def main() -> None:
+    report = {
+        "linear_algebra": demo_linear_algebra(),
+    }
+
+    report_path = REPORTS_DIR / "block04_report.txt"
+    with report_path.open("w", encoding="utf-8") as file:
+        for section, values in report.items():
+            file.write(f"\n## {section}\n")
+            for key, value in values.items():
+                file.write(f"{key}: {value}\n")
+
+    print("Проект блока 4 выполнен.")
+    print("Отчёт сохранён:", report_path)
+
+
+if __name__ == "__main__":
+    main()

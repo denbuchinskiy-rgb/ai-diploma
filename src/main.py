@@ -471,4 +471,72 @@ print("Выручка без скидки:", revenue)
 print("Сумма скидки:", discount)
 print("Итог к оплате:", final_total)
 
+client_name = "  Рома Жуков  "
+product_code = "AI-COURSE-2026"
+city = "Казань"
 
+# TODO:
+# 1. Выведите client_name, product_code и city
+# 2. Создайте переменные client_name_length и product_code_length
+client_name_length = 5
+product_code_length = 5
+
+print("Исходное имя клиента:", repr(client_name))
+print("Длина строки client_name:", client_name_length)
+print("Код продукта:", product_code)
+print("Длина кода продукта:", product_code_length)
+print("Город:", city)
+
+product_code = "AI-COURSE-2026"
+
+# TODO:
+first_symbol = product_code[0]
+last_symbol = product_code[-1]
+prefix = product_code[0:2]
+year_part = product_code[-4:]
+
+print("Первый символ:", first_symbol)
+print("Последний символ:", last_symbol)
+print("Префикс:", prefix)
+print("Год:", year_part)
+
+raw_category = "  Nokia 3310  "
+
+# TODO:
+clean_category = raw_category.strip()
+lower_category = clean_category.lower()
+upper_category = clean_category.upper()
+replaced_category = lower_category.replace("-", " ")
+
+print("Исходная строка:", repr(raw_category))
+print("После strip():", repr(clean_category))
+print("После lower():", lower_category)
+print("После upper():", upper_category)
+print("После replace():", replaced_category)
+
+first_name = "Роман"
+last_name = "Жуков"
+department = "IT Lab"
+
+# TODO:
+full_name = first_name + " " + last_name
+email = first_name.lower() + "." + last_name.lower() + "@example.com"
+label = f"{full_name} | отдел: {department}"
+
+print("Полное имя:", full_name)
+print("E-mail:", email)
+print("Подпись:", label)
+
+raw_product_name = "  консоль-Playstation 5  "
+raw_brand = "  wandAVision "
+raw_category = "  Приставка "
+
+# TODO:
+product_name = raw_product_name.strip().replace("-", " ")
+brand = raw_brand.strip().upper()
+category = raw_category.strip().lower()
+card_label = f"{brand} | {product_name} | категория: {category}"
+print("Очищенное название товара:", product_name)
+print("Бренд:", brand)
+print("Категория:", category)
+print("Итоговая карточка:", card_label)

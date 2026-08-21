@@ -540,3 +540,114 @@ print("Очищенное название товара:", product_name)
 print("Бренд:", brand)
 print("Категория:", category)
 print("Итоговая карточка:", card_label)
+
+order_amount = 15200
+free_delivery_threshold = 11000
+discount_percent = 20
+
+# TODO:
+# 1. Выведите сумму заказа и порог
+# 2. Проверьте, больше ли сумма заказа порога
+# 3. Проверьте, равна ли сумма заказа порогу
+# 4. Проверьте, не равна ли скидка нулю
+# 5. Проверьте, не больше ли скидка 15%
+
+is_more_than_threshold = True
+is_equal_to_threshold = False
+discount_not_zero = True
+discount_not_more_than_15 = True
+
+print("Сумма заказа:", order_amount)
+print("Порог бесплатной доставки:", free_delivery_threshold)
+print("Сумма заказа больше порога?", is_more_than_threshold)
+print("Сумма заказа равна порогу?", is_equal_to_threshold)
+print("Скидка не равна нулю?", discount_not_zero)
+print("Скидка не больше 15%?", discount_not_more_than_15)
+
+order_amount = 9700
+free_delivery_threshold = 20000
+
+# TODO:
+# Если сумма заказа больше или равна порогу,
+# присвойте delivery_status значение "Бесплатная доставка",
+# иначе "Платная доставка"
+
+if order_amount >= free_delivery_threshold:
+    delivery_status = "Бесплатная доставка"
+else:
+    delivery_status = "Платная доставка"
+print("Сумма заказа:", order_amount)
+print("Статус доставки:", delivery_status)
+
+order_amount = 21500
+
+# TODO:
+# 1. Если сумма >= 20000, скидка 15%
+# 2. Если сумма >= 10000, скидка 10%
+# 3. Если сумма >= 5000, скидка 5%
+# 4. Иначе скидки нет
+
+if order_amount >= 20000:
+    discount_level = "Скидка 15%"
+elif order_amount >= 10000:
+    discount_level = "Скидка 10%"
+elif order_amount >= 5000:
+    discount_level = "Скидка 5%"
+else:
+    discount_level = "Скидки нет"
+
+print("Сумма заказа:", order_amount)
+print("Уровень скидки:", discount_level)
+
+order_amount = 15000
+is_new_client = True
+has_debt = False
+express_delivery = True
+
+# TODO:
+# 1. Создайте переменную manual_review
+# 2. Ручная проверка нужна, если:
+#    - сумма заказа больше 20000 И клиент новый
+#      ИЛИ
+#    - есть задолженность
+#      ИЛИ
+#    - заказ срочный
+# 3. Также выведите, что клиент без долга через not
+
+manual_review = (order_amount > 20000 and is_new_client) or (has_debt or express_delivery)
+client_without_debt = False
+
+print("Сумма заказа:", order_amount)
+print("Новый клиент:", is_new_client)
+print("Есть задолженность:", has_debt)
+print("Срочная доставка:", express_delivery)
+print("Нужна ручная проверка?", manual_review)
+print("Клиент без долга?", client_without_debt)
+
+request_amount = 25000
+documents_ready = True
+manager_approved = True
+client_blacklisted = False
+
+# TODO:
+# Определите request_status по правилам:
+# 1. Если клиент в чёрном списке -> "Отклонить заявку"
+# 2. Если документы готовы, менеджер одобрил и сумма <= 15000 -> "Одобрить автоматически"
+# 3. Если документы готовы, но менеджер не одобрил -> "Отправить менеджеру"
+# 4. Иначе -> "Запросить документы"
+
+if client_blacklisted:
+    request_status = "Отклонить заявку"
+elif documents_ready and manager_approved and request_amount <= 15000:
+    request_status = "Одобрить автоматически"
+elif documents_ready and not manager_approved:
+    request_status = "Отправить менеджеру"
+else:
+    request_status = "Запросить документы"
+
+print("Сумма заявки:", request_amount)
+print("Документы готовы:", documents_ready)
+print("Менеджер одобрил:", manager_approved)
+print("Клиент в чёрном списке:", client_blacklisted)
+print("Итоговый статус:", request_status)
+

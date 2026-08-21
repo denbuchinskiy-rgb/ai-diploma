@@ -404,3 +404,71 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+client_name = "ООО Жук"
+orders_count = 15
+check = 1860.5
+is_vip = True
+
+print("Название клиента:", client_name, "| тип:", type(client_name).__name__)
+print("Количество заказов:", orders_count, "| тип:", type(orders_count).__name__)
+print("Цена:", check, "| тип:", type(check).__name__)
+
+price = 3500
+quantity = 6
+discount_rate = 0.50
+bonus = 50
+
+subtotal = price * quantity
+discount_amount = subtotal * discount_rate
+total = subtotal - discount_amount
+
+print("Цена:", price)
+print("Количество:", quantity)
+print("Сумма без скидки:", subtotal)
+print("Сумма скидки:", discount_amount)
+print("Бонусы:", bonus)
+print("Итог к оплате:", total)
+
+price_text = "5999.90"
+qty_text = "5"
+
+price_num = float(price_text)
+qty_num = int(qty_text)
+
+total_sum = price_num * qty_num
+
+print("Исходная цена как текст:", price_text, "| тип:", type(price_text).__name__)
+print("Цена после преобразования:", price_num, "| тип:", type(price_num).__name__)
+print("Количество после преобразования:", qty_num, "| тип:", type(qty_num).__name__)
+print("Итоговая сумма:", total_sum)
+
+products = ["Телевизор", "Колонки", "Саббуфер"]
+prices = [50000, 2500, 5000]
+quantities = [6, 3, 4]
+
+print("Мини-таблица товаров:")
+for i in range(len(products)):
+    row_total = prices[i] * quantities[i]
+    print(f"{i + 1}. {products[i]} | цена: {prices[i]} | количество: {quantities[i]} | сумма: {row_total}")
+
+print("\nКоличество товаров:", len(products))
+print("Максимальная цена:", max(prices))
+
+order = {
+    "product": "Телевизор",
+    "price": 50000,
+    "quantity": 2,
+    "discount_rate": 0.50
+}
+
+revenue = order["price"] * order["quantity"]
+discount = revenue * order["discount_rate"]
+final_total = revenue - discount
+
+print("Товар:", order["product"])
+print("Выручка без скидки:", revenue)
+print("Сумма скидки:", discount)
+print("Итог к оплате:", final_total)
+
+

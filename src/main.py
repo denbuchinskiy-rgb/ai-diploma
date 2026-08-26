@@ -719,3 +719,91 @@ print("Количество дней:", days_count)
 print("Средняя продажа:", round(average_sale, 2))
 print("Дней выше порога:", days_above_threshold)
 
+products = ["Миксер", "Блендер", "Телевизор", "Саббуфер"]
+
+# TODO:
+# 1. Выведите весь список products
+# 2. Выведите первый товар
+# 3. Выведите последний товар
+# 4. Выведите количество товаров
+
+first_product = "Миксер"
+last_product = "Саббуфер"
+products_count = len(products)
+
+print("Список товаров:", products)
+print("Первый товар:", first_product)
+print("Последний товар:", last_product)
+print("Количество товаров:", products_count)
+
+products = ["Миксер", "Блендер", "Телевизор", "Саббуфер"]
+
+# TODO:
+# 1. Замените "Мышь" на "Беспроводная мышь"
+# 2. Добавьте в список "Гарнитура"
+
+products[1] = "Наушники"
+products.append("Техника")
+
+print("Обновлённый список:", products)
+
+order = {
+    "product": "Телевизор",
+    "price": 80000,
+    "quantity": 5,
+    "client": "ООО Сумрак"
+}
+
+# TODO:
+# 1. Выведите весь словарь
+# 2. Выведите значение ключа "product"
+# 3. Выведите значение ключа "price"
+# 4. Выведите список ключей
+# 5. Выведите список значений
+
+product_name = order["product"]
+product_price = order["price"]
+order_keys = list(order.keys())
+order_values = list(order.values())
+
+print("Словарь заказа:", order)
+print("Товар:", product_name)
+print("Цена:", product_price)
+print("Ключи словаря:", order_keys)
+print("Значения словаря:", order_values)
+
+orders = [
+    {"product": "Телевизор", "price": 80000, "quantity": 5},
+    {"product": "Миксер", "price": 5000, "quantity": 4},
+    {"product": "Блендер", "price": 8000, "quantity": 3},
+]
+
+# TODO:
+# 1. Пройдите циклом по orders
+# 2. Для каждой записи посчитайте total = price * quantity
+# 3. Выведите product и total
+
+for row in orders:
+    total = row["price"] * row["quantity"]
+    print("Товар:", row["product"], "| сумма:", total)
+
+orders = [
+    {"product": "Телевизор", "price": 80000, "quantity": 5},
+    {"product": "Миксер", "price": 5000, "quantity": 4},
+    {"product": "Блендер", "price": 8000, "quantity": 3},
+    {"product": "Наушники", "price": 1000, "quantity": 10},
+]
+
+total_revenue = 0
+
+# TODO:
+# 1. Пройдите циклом по orders
+# 2. Для каждой записи посчитайте row_total
+# 3. Добавьте row_total в total_revenue
+
+for row in orders:
+    row_total = row["price"] * row["quantity"]
+    total_revenue += row_total
+
+print("Количество заказов:", len(orders))
+print("Общая выручка:", total_revenue)

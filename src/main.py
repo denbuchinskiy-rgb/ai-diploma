@@ -651,3 +651,71 @@ print("Менеджер одобрил:", manager_approved)
 print("Клиент в чёрном списке:", client_blacklisted)
 print("Итоговый статус:", request_status)
 
+for day in range(2, 8):
+    print(f"День {day}: обработка данных запрещена")
+
+sales = [1600, 1300, 563, 2150, 1350]
+
+# TODO:
+# 1. Пройдите циклом по списку sales
+# 2. Выведите каждую продажу в формате:
+#    Продажа за день: ...
+
+for sale in sales:
+    print("Продажа за день:", sale)
+
+sales = [1600, 1300, 563, 2150, 1350]
+total_sales = 0
+
+# TODO:
+# 1. Пройдите циклом по sales
+# 2. Накапливайте общую сумму в total_sales
+
+for sale in sales:
+    total_sales += sale
+
+print("Общая сумма продаж:", total_sales)
+
+sales = [1600, 1300, 563, 2150, 1350]
+threshold = 1700
+count_above_threshold = 0
+
+# TODO:
+# 1. Пройдите циклом по sales
+# 2. Если sale > threshold, увеличьте count_above_threshold на 1
+
+for sale in sales:
+    if sale > threshold:
+      count_above_threshold += 1
+
+print("Порог:", threshold)
+print("Количество продаж выше порога:", count_above_threshold)
+
+sales = [1600, 1300, 563, 2150, 1350, 1800, 1400]
+threshold = 1700
+
+total_sales = 0
+days_count = 0
+days_above_threshold = 0
+
+# TODO:
+# 1. Пройдите циклом по sales
+# 2. Посчитайте total_sales
+# 3. Посчитайте days_count
+# 4. Посчитайте days_above_threshold
+# 5. После цикла найдите average_sale
+
+for sale in sales:
+    total_sales += sale
+    days_count += 1
+    if sale > threshold:
+       days_above_threshold += 1
+
+average_sale = total_sales / days_count
+
+print("Список продаж:", sales)
+print("Общая сумма:", total_sales)
+print("Количество дней:", days_count)
+print("Средняя продажа:", round(average_sale, 2))
+print("Дней выше порога:", days_above_threshold)
+

@@ -850,3 +850,84 @@ print("Общая выручка:", df_calc["revenue"].sum())
 print("Количество крупных заказов:", len(big_orders))
 
 big_orders
+
+import pandas as pd
+from pathlib import Path
+
+file_path = Path("lesson_09_groupby_pivot.xlsx")
+
+# TODO:
+# 1. Загрузите лист sales_data в DataFrame df
+# 2. Создайте столбец revenue = quantity * price
+# 3. Выведите размер таблицы
+# 4. Посчитайте количество заказов
+# 5. Посчитайте общую, среднюю, максимальную и минимальную выручку
+# 6. Покажите первые строки таблицы
+
+df = pd.read_excel(file_path, sheet_name="sales_data", header=1)
+
+df["revenue"] = df["quantity"] * df["price"]
+
+print("Размер таблицы:", df.shape)
+print("Количество заказов:", df["order_id"].count())
+print("Общая выручка:", int(df["revenue"].sum()))
+print("Средняя выручка заказа:", round(df["revenue"].mean(), 2))
+print("Максимальная выручка заказа:", int(df["revenue"].max()))
+print("Минимальная выручка заказа:", int(df["revenue"].min()))
+
+df.head()
+
+manager_summary = (
+    df.groupby("manager", as_index=False)
+       .agg(
+           total_revenue=("revenue", "sum"),
+           orders=("order_id", "count"),
+           total_quantity=("quantity", "sum"),
+           avg_revenue=("revenue","mean")
+       )
+)
+
+manager_summary["avg_revenue"] = manager_summary["avg_revenue"].round(2)
+
+manager_summary
+
+month_order = ["Январь", "Февраль", "Март", "Апрель"]
+df["month"] = pd.Categorical(df["month"], categories=month_order, ordered=True)
+month_category_summary = (
+    df.groupby(["month", "category"], as_index=False, observed=True)
+    .agg(
+        total_revenue=("revenue", "sum"),
+        total_quantity=("quantity", "sum"),
+        orders=("order_id", "count")
+    )
+    .sort_values(["month", "total_revenue"], ascending=[True, False])
+)
+
+month_category_summary
+
+manager_sorted = manager_summary.sort_values(by="total_revenue", ascending=False)
+top_manager = manager_sorted.iloc[0]["manager"]
+top_manager_revenue = int(manager_sorted.iloc[0]["total_revenue"])
+
+print("Лидер по выручке:", top_manager)
+print("Выручка лидера:", top_manager_revenue)
+
+manager_sorted
+
+pivot = pd.pivot_table(
+    df,
+    values="revenue",
+    index="manager",
+    columns="category",
+    aggfunc="sum",
+    fill_value=0
+)
+pivot = pivot[["Электроника", "Расходные материалы", "Офисная мебель", "Канцелярия"]]
+
+best_category = pivot.sum(axis=0).idxmax()
+best_electronics_manager = pivot["Электроника"].idxmax()
+
+print("Лучшая категория по выручке:", best_category)
+print("Сильнейший менеджер в категории 'Ноутбуки':", best_electronics_manager)
+
+pivot

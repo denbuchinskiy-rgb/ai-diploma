@@ -807,3 +807,46 @@ for row in orders:
 
 print("Количество заказов:", len(orders))
 print("Общая выручка:", total_revenue)
+
+import pandas as pd
+from pathlib import Path
+
+file_path = Path("lesson_08_filter_sort_calc.xlsx")
+
+# TODO:
+# 1. Загрузите лист sales_data в DataFrame df
+# 2. Выведите размер таблицы
+# 3. Выведите список столбцов
+# 4. Покажите первые строки таблицы
+
+df = pd.read_excel(file_path, sheet_name="sales_data", header=1)
+
+print("Размер таблицы:", df.shape)
+print("\nНазвания столбцов:")
+print(list(df.columns))
+
+df.head()
+
+notebooks_df = df[df["category"] == "Электроника"]
+
+print("Количество заказов в категории 'Электроника':", len(notebooks_df))
+notebooks_df
+
+moscow_online_df = df[(df['city'] == "Москва") & (df["channel"] == "Интернет-магазин")]
+
+print("Количество заказов из Москвы через онлайн-канал:", len(moscow_online_df))
+moscow_online_df
+
+sorted_by_price = df.sort_values(by="price", ascending=False)
+
+print("Первые 5 заказов после сортировки по цене:")
+sorted_by_price.head()
+
+df_calc = df.copy()
+df_calc["revenue"] = df_calc["quantity"] * df_calc["price"]
+big_orders = df_calc[df_calc["revenue"] >= 100000].sort_values(by="revenue", ascending=False)
+
+print("Общая выручка:", df_calc["revenue"].sum())
+print("Количество крупных заказов:", len(big_orders))
+
+big_orders

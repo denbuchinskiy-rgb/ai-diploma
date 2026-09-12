@@ -931,3 +931,100 @@ print("Лучшая категория по выручке:", best_category)
 print("Сильнейший менеджер в категории 'Ноутбуки':", best_electronics_manager)
 
 pivot
+
+def hello():
+    print("Привет! Это первая функция блока 6.")
+
+# TODO: вызовите функцию
+hello()
+
+def greet(name):
+  message = f"Привет, {name}! Добро пожаловать в блок анализа данных."
+# TODO: сформируйте message
+
+# TODO: верните message
+  return message
+# TODO: вызовите функцию
+result = greet("Вася")
+# TODO: выведите результат
+print(result)
+
+def square(x):
+# TODO: верните x * x
+    return x * x
+# TODO: вызовите функцию для числа 5
+result = square(10)
+# TODO: выведите результат
+print("Квадрат числа:", result)
+
+def calculate_sum(numbers):
+
+# TODO: верните sum(numbers)
+    return sum(numbers)
+# TODO: создайте список values
+values = [6, 7, 8, 9]
+# TODO: вызовите функцию
+result = calculate_sum(values)
+print("Сумма:", result)
+
+def calculate_mean(numbers):
+# TODO: верните среднее значение
+    return sum(numbers)/len(numbers)
+# TODO: создайте список values
+values = [40, 50, 60]
+mean_value = calculate_mean(values)
+# TODO: вызовите функцию
+print("Среднее значение:", mean_value)
+
+def find_max(numbers):
+
+# TODO: верните max(numbers)
+    return max(numbers)
+# TODO: создайте список values
+values = [6, 15, 2]
+max_value = find_max(values)
+
+# TODO: вызовите функцию
+print("Максимум:", max_value)
+
+def calculate_statistics(numbers):
+# TODO: внутри создайте словарь statistics
+    statistics = {
+        "min": min(numbers),
+        "max": max(numbers),
+        "mean": sum(numbers) / len(numbers)
+    }
+# TODO: верните statistics
+    return statistics
+# TODO: вызовите функцию
+stats = calculate_statistics([40, 50, 60])
+print(stats)
+
+sales = [130, 160, 210, 180, 310]
+# TODO: получите sales_stats
+sales_stats = calculate_statistics(sales)
+# TODO: выведите результат
+print("Статистика продаж:")
+print(sales_stats)
+
+calories = [260, 310, 290, 350]
+# TODO: получите calories_stats
+calories_stats = calculate_statistics(calories)
+# TODO: выведите результат
+print("Статистика тренировок:")
+print(calories_stats)
+
+def generate_report(numbers, title="Отчёт по данным"):
+# TODO: получите stats через calculate_statistics
+    stats = calculate_statistics(numbers)
+# TODO: напечатайте заголовок и статистику
+    print("=" * 40)
+    print(title)
+    print("=" * 40)
+    print("Минимум:", stats["min"])
+    print("Максимум:", stats["max"])
+    print("Среднее:", stats["mean"])
+# TODO: верните stats
+    return stats
+# TODO: вызовите функцию
+report = generate_report([50, 60, 70, 80], title="Учебный отчёт")

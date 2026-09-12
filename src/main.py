@@ -1150,3 +1150,149 @@ final_structure = {
 }
 
 print(final_structure)
+
+class Manager:
+    pass
+# TODO: создайте объект student
+manager = Manager()
+# TODO: выведите объект и его тип
+print(manager)
+print(type(manager))
+
+manager = Manager()
+# TODO: добавьте student.name
+manager.name = "Иванов А.С."
+# TODO: добавьте student.age
+manager.quantity = 5
+# TODO: выведите значения
+print("Имя:", manager.name)
+print("Кол-во:", manager.quantity)
+
+class ManagerWithInit:
+
+# TODO: добавьте __init__
+     def __init__(self, name, quantity):
+         self.name = name
+         self.quantity = quantity
+# TODO: создайте объект
+manager = ManagerWithInit("Иванов А.С.", 5)
+# TODO: выведите атрибуты
+print(manager.name)
+print(manager.quantity)
+
+class ManagerProfile:
+
+# TODO: добавьте __init__
+     def __init__(self, name, quantity):
+         self.name = name
+         self.quantity = quantity
+# TODO: добавьте метод get_info
+     def get_info(self):
+         return f"Менеджер: {self.name}, Кол-во: {self.quantity}"
+# TODO: создайте объект
+manager = ManagerProfile("Иванов А.С.", 5)
+# TODO: вызовите get_info
+info = manager.get_info()
+print(info)
+
+class Product:
+# TODO: добавьте __init__
+    def __init__(self, name, price, quantity):
+       self.name = name
+       self.price = price
+       self.quantity = quantity
+# TODO: добавьте метод get_total_price
+    def get_total_price(self):
+        return self.price * self.quantity
+# TODO: создайте объект product
+product = Product("Телевизор LG", 60000, 5)
+# TODO: получите total
+total = product.get_total_price()
+print("Общая стоимость:", total)
+
+products = [
+    Product("Телевизор", 60000, 5),
+    Product("Колонки", 2000, 10),
+    Product("Умные часы", 5000, 6)
+]
+# TODO: создайте total_sum = 0
+total_sum = 0
+# TODO: в цикле сложите стоимость товаров
+for product in products:
+    total_sum += product.get_total_price()
+    print(product.name, product.get_total_price())
+# TODO: выведите итог
+print("Итоговая сумма:", total_sum)
+
+class Dataset:
+    # TODO: добавьте __init__
+     def __init__(self, name, values):
+        self.name = name
+        self.values = values
+# TODO: добавьте get_size
+     def get_size(self):
+         return len(self.values)
+# TODO: создайте объект dataset
+dataset = Dataset("sales", [150, 250, 200, 350])
+print("Название:", dataset.name)
+print("Размер:", dataset.get_size())
+
+class DatasetAnalyzer:
+# TODO: добавьте __init__
+      def __init__(self, values):
+        self.values = values
+# TODO: добавьте get_min
+      def get_min(self):
+        return min(self.values)
+# TODO: добавьте get_max
+      def get_max(self):
+        return max(self.values)
+# TODO: добавьте get_mean
+      def get_mean(self):
+        return sum(self.values) / len(self.values)
+# TODO: создайте объект analyzer
+analyzer = DatasetAnalyzer([15, 25, 35, 45])
+print("Минимум:", analyzer.get_min())
+print("Максимум:", analyzer.get_max())
+print("Среднее:", analyzer.get_mean())
+
+# TODO: создайте класс DatasetAnalyzerWithReport
+class DatasetAnalyzerWithReport:
+# TODO: добавьте __init__
+   def __init__(self, name, values):
+       self.name = name
+       self.values = values
+# TODO: добавьте методы get_min, get_max, get_mean
+   def get_min(self):
+       return min(self.values)
+   def get_max(self):
+       return max(self.values)
+   def get_mean(self):
+       return sum(self.values) / len(self.values)
+# TODO: добавьте get_report
+   def get_report(self):
+       return {
+           "dataset": self.name,
+           "min": self.get_min(),
+           "max": self.get_max(),
+           "mean": self.get_mean()
+       }
+# TODO: создайте объект
+analyzer = DatasetAnalyzerWithReport("calories", [300, 350, 480, 520])
+# TODO: получите report
+report = analyzer.get_report()
+print(report)
+
+sales_analyzer = DatasetAnalyzerWithReport(
+    "sales",
+     [140, 160, 250, 180, 350]
+)
+# TODO: получите sales_report
+sales_report = sales_analyzer.get_report()
+# TODO: напечатайте отчёт
+print("=" * 40)
+print("Отчёт по датасету:", sales_report["dataset"])
+print("=" * 40)
+print("Минимум:", sales_report["min"])
+print("Максимум:", sales_report["max"])
+print("Среднее:", sales_report["mean"])

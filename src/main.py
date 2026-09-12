@@ -1092,3 +1092,61 @@ def analyze_dataset(name, *values):
 report = analyze_dataset("sales", 150,250,350)
 
 print(report)
+
+statistics_module = '''
+def calculate_mean(values):
+    return sum(values)/len(values)
+'''
+print(statistics_module)
+
+project_structure = [
+    "src/main.py",
+    "src/statistics_utils.py",
+    "src/report_utils.py"
+]
+
+print(project_structure)
+
+example = "from statistics_utils import calculate_mean"
+print(example)
+
+def calculate_mean(values):
+    return sum(values)/len(values)
+
+def create_report(values):
+    return {
+        "mean": sum(values)/len(values)
+    }
+
+def calculate_max(values):
+    return max(values)
+
+def analyze(values):
+    return {
+        "mean": sum(values)/len(values),
+        "max": max(values)
+    }
+
+print(analyze([15,25,35]))
+
+sales=[150, 250, 200]
+result=analyze(sales)
+
+main_example = '''
+def main():
+  print("DataAnalyzer")
+
+if __name__ == "__main__":
+   main()
+'''
+print(main_example)
+
+final_structure = {
+    "src":[
+        "main.py",
+        "statistics_utils.py",
+        "report_utils.py"
+    ]
+}
+
+print(final_structure)

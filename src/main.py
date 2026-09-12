@@ -1028,3 +1028,67 @@ def generate_report(numbers, title="Отчёт по данным"):
     return stats
 # TODO: вызовите функцию
 report = generate_report([50, 60, 70, 80], title="Учебный отчёт")
+
+def greet(name="Студент"):
+    return f"Привет, {name}!"
+
+print(greet())
+print(greet("Иван"))
+
+def create_user(name, age):
+    return {"name": name, "age": age}
+user = create_user(age=25, name="Гриша")
+print(user)
+
+def calculate_mean(a, b, c):
+  return (a+b+c)/3
+
+result = calculate_mean(15, 25, 30)
+
+def calculate_sum(*args):
+    return sum(args)
+result = calculate_sum(6,7,8,9,10)
+print(result)
+
+def print_info(**kwargs):
+    return kwargs
+info = print_info(name="Вася", city="Екатеринбург")
+
+print(info)
+
+def statistics(*values):
+    return {
+        "min": min(values),
+        "max": max(values),
+        "mean": sum(values)/len(values)
+    }
+stats = statistics(50,60,70,80)
+
+sales = [150, 250, 350, 400]
+
+stats = statistics(*sales)
+
+print(stats)
+
+calories = [300, 400, 380, 420]
+
+stats = statistics(*calories)
+
+def create_report(title="Отчёт", **data):
+    print(title)
+    for k,v in data.items():
+        print(k,":", v)
+
+create_report("Продажи", min=150, max=350)
+
+def analyze_dataset(name, *values):
+    stats = statistics(*values)
+
+    return {
+        "dataset": name,
+        **stats
+    }
+
+report = analyze_dataset("sales", 150,250,350)
+
+print(report)

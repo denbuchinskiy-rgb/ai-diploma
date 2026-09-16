@@ -1377,3 +1377,119 @@ project = {
 }
 
 print(project)
+
+import numpy as np
+# TODO: выведите сообщение
+print("Numpy подключён")
+# TODO: выведите версию NumPy
+print("Версия Numpy:", np.__version__)
+
+# TODO: создайте values_list
+quantity_list = [6, 15, 24, 35, 41]
+# TODO: создайте values_array = np.array(values_list)
+quantity_array = np.array(quantity_list)
+# TODO: выведите массив и тип
+print(quantity_list)
+print(type(quantity_array))
+# TODO: выведите размер
+print("Размер:", quantity_array.size)
+
+# TODO: создайте values
+quantity = np.array([15, 25, 35])
+# TODO: создайте double_values
+double_quantity = quantity * 2
+
+# TODO: создайте plus_values
+plus_quantity = quantity + 10
+# TODO: выведите результаты
+print("Исходные:", quantity)
+print("Умножение на 2:", double_quantity)
+print("Плюс 10:", plus_quantity)
+
+# TODO: создайте sales
+sales = np.array([130, 160, 210, 180, 320])
+# TODO: найдите min_value
+min_value = np.min(sales)
+# TODO: найдите max_value
+max_value = np.max(sales)
+# TODO: найдите mean_value
+mean_value = np.mean(sales)
+# TODO: найдите sum_value
+sum_value = np.sum(sales)
+# TODO: выведите результаты
+print("Минимум:", min_value)
+print("Максимум:", max_value)
+print("Среднее:", mean_value)
+print("Сумма:", sum_value)
+
+# TODO: создайте sales
+sales = np.array([130, 160, 210, 180, 320])
+# TODO: создайте high_sales
+high_sales = sales[sales > 180]
+# TODO: выведите high_sales
+print("Продажи больше 180:", high_sales)
+
+# TODO: создайте values
+values = np.array([6, 11, 16, 24, 27, 32])
+# TODO: получите first_value
+first_value = values[0]
+# TODO: получите last_value
+last_value = values[-1]
+# TODO: получите middle_values
+middle_values = values[2:5]
+# TODO: выведите результаты
+print("Первый:", first_value)
+print("Последний:", last_value)
+print("Срез:", middle_values)
+
+# TODO: создайте table
+table = np.array([
+    [15, 25, 35],
+    [45, 55, 65],
+    [75, 85, 95]
+])
+# TODO: выведите table и table.shape
+print(table)
+print("Форма:", table.shape)
+# TODO: создайте row_sums
+row_sums = np.sum(table, axis=1)
+column_sums = np.sum(table, axis=0)
+# TODO: создайте column_sums
+print("Суммы по строках:", row_sums)
+print("Суммы по столбцам:", column_sums)
+
+# TODO: создайте values
+values = np.array([150, 250, 350, 450, 550])
+# TODO: создайте normalized
+normalized = (values - np.min(values)) / (np.max(values) - np.min(values))
+# TODO: выведите normalized
+print("Исходные:", values)
+print("Нормализованные:", normalized)
+
+# TODO: создайте функцию analyze_array(values)
+def analyze_array(values):
+# TODO: внутри создайте array = np.array(values)
+    array = np.array(values)
+# TODO: верните словарь min, max, mean, sum
+    return {
+        "min": np.min(array),
+        "max": np.max(array),
+        "mean": np.mean(array),
+        "sum": np.sum(array)
+    }
+# TODO: вызовите функцию
+result = analyze_array([15, 25, 35, 45])
+print(result)
+
+# TODO: создайте calories
+calories = np.array([270, 320, 300, 340, 420, 240, 370])
+# TODO: получите stats
+stats = analyze_array(calories)
+# TODO: создайте high_load
+high_load = calories[calories > 300]
+# TODO: создайте normalized_calories
+normalized_calories = (calories - calories.min()) / (calories.max() - calories.min())
+# TODO: выведите результаты
+print("Статистика:", stats)
+print("Высокая нагрузка:", high_load)
+print("Нормализованные данные:", normalized_calories)

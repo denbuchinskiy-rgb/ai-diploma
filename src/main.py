@@ -1296,3 +1296,84 @@ print("=" * 40)
 print("Минимум:", sales_report["min"])
 print("Максимум:", sales_report["max"])
 print("Среднее:", sales_report["mean"])
+
+# TODO: выполните задание ячейки 1
+class Dataset:
+  def __init__(self, surname, quantity):
+      self.surname = surname
+      self.quantity = quantity
+
+dataset = Dataset("sales", [6,10,12])
+
+
+# TODO: выполните задание ячейки 2
+class Analyzer:
+  def __init__(self, quantity):
+    self.quantity = quantity
+
+  def mean(self):
+      return sum(self.quantity)/len(self.quantity)
+
+a = Analyzer([14, 20, 26])
+
+
+# TODO: выполните задание ячейки 3
+class Report:
+     def __init__(self, surname):
+         self.surname = surname
+report = Report("Иванов")
+
+# TODO: выполните задание ячейки 4
+dataset = Dataset("sales",[150, 250, 350])
+analyzer = Analyzer(dataset.quantity)
+
+# TODO: выполните задание ячейки 5
+class Analyzer:
+    def __init__(self, quantity):
+      self.quantity = quantity
+    def minimum(self):
+      return min(self.quantity)
+    def maximum(self):
+      return max(self.quantity)
+a=Analyzer([15,25,35])
+
+# TODO: выполните задание ячейки 6
+class Analyzer:
+  def __init__(self, quantity):
+      self.quantity = quantity
+  def report(self):
+      return {
+          "min": min(self.quantity),
+          "max": max(self.quantity)
+      }
+r = Analyzer([15,25,35]).report()
+
+# TODO: выполните задание ячейки 7
+class DatasetAnalyzer:
+  def __init__(self,dataset):
+    self.dataset = dataset
+
+  def report(self):
+      return {
+          "dataset": self.dataset.surname,
+          "count": len(self.dataset.quantity)
+      }
+da = DatasetAnalyzer(dataset)
+
+# TODO: выполните задание ячейки 8
+sales = Dataset("sales", [160, 180, 220])
+da = DatasetAnalyzer(sales)
+print(da.report())
+
+# TODO: выполните задание ячейки 9
+training = Dataset("training",[280, 350, 240, 370])
+da = DatasetAnalyzer(training)
+
+# TODO: выполните задание ячейки 10
+project = {
+    "Dataset":"хранение данных",
+    "Analyzer":"анализ данных",
+    "Report":"формирование отчета"
+}
+
+print(project)

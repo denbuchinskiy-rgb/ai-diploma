@@ -1493,3 +1493,131 @@ normalized_calories = (calories - calories.min()) / (calories.max() - calories.m
 print("Статистика:", stats)
 print("Высокая нагрузка:", high_load)
 print("Нормализованные данные:", normalized_calories)
+
+# TODO: импортируйте pandas как pd
+import pandas as pd
+# TODO: импортируйте matplotlib.pyplot как plt
+import matplotlib.pyplot as plt
+# TODO: выведите сообщение и версию Pandas
+print("Pandas подключён")
+print("Версия Pandas:", pd.__version__)
+
+# TODO: создайте sales
+sales = [140, 170, 220, 190, 350]
+# TODO: создайте sales_series
+sales_series = pd.Series(sales)
+# TODO: выведите sales_series
+print(sales_series)
+# TODO: посчитайте среднее
+print("Среднее:", sales_series.mean())
+
+# TODO: создайте data
+data = {
+    "product": ["Телевизор", "Тв-приставка", "Саббуфер"],
+    "price": [60000, 1000, 3500],
+    "quantity": [3, 10, 8]
+}
+# TODO: создайте df_products
+df_products = pd.DataFrame(data)
+# TODO: покажите df_products
+display(df_products)
+# TODO: выведите shape
+print("Размер:", df_products.shape)
+
+# TODO: создайте колонку total
+df_products["total"] = df_products["price"] * df_products["quantity"]
+# TODO: покажите df_products
+display(df_products)
+
+# TODO: создайте url
+from google.colab import drive
+from pathlib import Path
+drive.mount('/content/drive')
+file_path = Path("/content/drive/MyDrive/Базы/sales_data.xlsx")
+df = pd.read_excel(file_path, sheet_name="sales_data", header=0)
+# TODO: загрузите df
+
+# TODO: покажите df.head()
+display(df.head())
+
+# TODO: выведите df.shape
+print("Размер таблицы:", df.shape)
+print()
+# TODO: выведите df.columns.tolist()
+print("Колонки:")
+print(df.columns.tolist())
+print()
+# TODO: вызовите df.info()
+print("Типы данных:")
+df.info()
+print()
+# TODO: выведите df.isna().sum()
+print("Пропуски:")
+print(df.isna().sum())
+
+# TODO: создайте house_values
+price_values = df["price"]
+# TODO: создайте selected_df
+selected_df = df [["quantity", "price", "category"]]
+# TODO: выведите первые строки
+print("Первые значение стоимости товара:")
+print(price_values.head())
+print()
+print("Выбранные колонки:")
+display(selected_df.head())
+
+# TODO: создайте rich_areas
+rich_areas = df[df["quantity"] > 5]
+# TODO: создайте expensive_areas
+expensive_areas = df[df["price"] > 5000]
+# TODO: выведите количество строк
+print("Кол-во товаров больше 5:", len(rich_areas))
+print("Цена товара больше 5000:", len(expensive_areas))
+# TODO: покажите rich_areas.head()
+display(rich_areas.head())
+
+# TODO: создайте stats
+stats = df.describe()
+# TODO: покажите stats
+display(stats)
+# TODO: создайте group_report
+group_report = (
+    df.groupby("category")["price"]
+    .mean()
+    .sort_values(ascending=False)
+)
+# TODO: выведите group_report
+print("Средняя стоимость товара в зависимости от категорий:")
+print(group_report)
+
+# TODO: создайте report
+report = {
+    "rows": len(df),
+    "columns": df.shape[1],
+    "mean_price": df["price"].mean(),
+    "max_price": df["price"].max(),
+    "mean_quantity": df["quantity"].mean()
+}
+# TODO: выведите report
+for key, value in report.items():
+    print(key, ":", value)
+# TODO: постройте bar chart
+plt.figure(figsize=(8, 5))
+group_report.plot(kind="bar")
+plt.title("Средняя стоимость товара в зависимости от категорий")
+plt.xlabel("Категория товара")
+plt.ylabel("Средняя стоимость товара")
+plt.xticks(rotation=45)
+plt.grid(True)
+plt.show()
+# TODO: создайте conclusions
+conclusions = [
+    "Pandas позволяет удобно загружать и анализировать таблицы.",
+    "DataFrame похож на таблицу Excel.",
+    "Фильтрация помогает выбирать нужные строки.",
+    "Группировка помогает строить отчёты.",
+    "Pandas является основой подготовки данных для ML."
+]
+# TODO: выведите conclusions
+for item in conclusions:
+    print("-", item)

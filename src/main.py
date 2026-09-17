@@ -1621,3 +1621,73 @@ conclusions = [
 # TODO: выведите conclusions
 for item in conclusions:
     print("-", item)
+
+# TODO: выполните задание ячейки 1
+import pandas as pd
+from pathlib import Path
+from google.colab import drive
+
+drive.mount('/content/drive')
+
+file_path = Path("/content/drive/MyDrive/Базы/sales_data.xlsx")
+df = pd.read_excel(file_path, sheet_name="sales_data", header=0)
+
+print(df.shape)
+
+# TODO: выполните задание ячейки 2
+print(df.shape)
+print(df.columns.tolist())
+
+df.info()
+
+missing = df.isna().sum()
+
+print(missing)
+
+rows_with_nan = df[df.isna().any(axis=1)]
+
+display(rows_with_nan.head())
+
+# TODO: выполните задание ячейки 5
+df_dropna = df.dropna()
+
+print(df.shape)
+print(df_dropna.shape)
+
+# TODO: выполните задание ячейки 6
+df_fillna = df.copy()
+mean_quantity = df_fillna["quantity"].mean()
+df_fillna["quantity"] = df_fillna["quantity"].fillna(mean_quantity)
+print(df_fillna["quantity"].isna().sum())
+
+# TODO: выполните задание ячейки 7
+duplicates_df = pd.concat([df.head(5), df.head(5)])
+print(duplicates_df.shape)
+
+# TODO: выполните задание ячейки 8
+duplicates_count = duplicates_df.duplicated().sum()
+clean_df = duplicates_df.drop_duplicates()
+print("Дубликатов:", duplicates_count)
+print("После очистки:", clean_df.shape)
+
+# TODO: выполните задание ячейки 9
+prepared_df = df_fillna[
+    [
+        "category",
+        "price",
+        "quantity"
+    ]
+]
+display(prepared_df.head())
+
+# TODO: выполните задание ячейки 10
+report = {
+    "rows_before": len(df),
+    "rows_after_dropna": len(df_dropna),
+    "missing_before": int(df.isna().sum().sum()),
+    "missing_after_fillna": int(df_fillna.isna().sum().sum()),
+    "duplicates_removed": int(duplicates_count)
+}
+
+for k,v in report.items():
+    print(k,":", v)

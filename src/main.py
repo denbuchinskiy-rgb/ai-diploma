@@ -1750,3 +1750,81 @@ report = {
 }
 
 print(report)
+
+# TODO: выполните самостоятельно задание ячейки 1
+import pandas as pd
+from pathlib import Path
+from google.colab import drive
+
+drive.mount('/content/drive')
+
+file_path = Path("/content/drive/MyDrive/Базы/sales_data.xlsx")
+df = pd.read_excel(file_path, sheet_name="sales_data", header=0)
+
+print(df.shape)
+
+# TODO: выполните самостоятельно задание ячейки 2
+display(df.head())
+
+print(df.columns.tolist())
+
+# TODO: выполните самостоятельно задание ячейки 3
+X = df[["price","number","discount"]]
+y = df["quantity"]
+
+print(X.shape)
+print(y.shape)
+
+# TODO: выполните самостоятельно задание ячейки 4
+data = df[["price","number","discount","quantity"]].dropna()
+print(data.shape)
+
+# TODO: выполните самостоятельно задание ячейки 5
+from sklearn.model_selection import train_test_split
+
+X = data[["price","number","discount"]]
+y = data["quantity"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X,y,test_size=0.2,random_state=42
+)
+
+print(X_train.shape)
+print(X_test.shape)
+
+# TODO: выполните самостоятельно задание ячейки 6
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+print(X_train_scaled[:3])
+
+# TODO: выполните самостоятельно задание ячейки 7
+from sklearn.linear_model import LinearRegression
+
+model = LinearRegression()
+model.fit(X_train_scaled, y_train)
+
+# TODO: выполните самостоятельно задание ячейки 8
+train_score = model.score(X_train_scaled,y_train)
+test_score = model.score(X_test_scaled,y_test)
+
+print("Train:",train_score)
+print("Test:",test_score)
+
+# TODO: выполните самостоятельно задание ячейки 9
+difference = train_score - test_score
+
+print("Разница:", difference)
+
+# TODO: выполните самостоятельно задание ячейки 10
+report = {
+    "rows": len(data),
+    "features": len(X.columns),
+    "train_score": round(train_score,3),
+    "test_score": round(test_score,3)
+}
+
+print(report)

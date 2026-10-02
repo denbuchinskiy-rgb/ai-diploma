@@ -1828,3 +1828,88 @@ report = {
 }
 
 print(report)
+
+# TODO: выполните самостоятельно задание ячейки 1
+import pandas as pd
+from pathlib import Path
+from google.colab import drive
+
+drive.mount('/content/drive')
+
+file_path = Path("/content/drive/MyDrive/Базы/sales_data.xlsx")
+df = pd.read_excel(file_path, sheet_name="sales_data", header=0)
+
+print(df.shape)
+
+# TODO: выполните самостоятельно задание ячейки 2
+data=df[["price", "quantity", "discount", "number"]].dropna()
+
+X=data[["price", "quantity", "discount"]]
+y=data["number"]
+
+# TODO: выполните самостоятельно задание ячейки 3
+from sklearn.model_selection import train_test_split
+
+X_train,X_test,y_train,y_test=train_test_split(
+    X,y,test_size=0.2,random_state=42
+)
+
+# TODO: выполните самостоятельно задание ячейки 4
+from sklearn.preprocessing import StandardScaler
+
+scaler=StandardScaler()
+
+X_train_scaled=scaler.fit_transform(X_train)
+X_test_scaled=scaler.transform(X_test)
+
+# TODO: выполните самостоятельно задание ячейки 5
+from sklearn.linear_model import LinearRegression
+
+model=LinearRegression()
+model.fit(X_train_scaled, y_train)
+
+# TODO: выполните самостоятельно задание ячейки 6
+for name,coef in zip(X.columns,model.coef_):
+  print(name, round(coef, 2))
+
+print("Intercept:", round(model.intercept_,2))
+
+# TODO: выполните самостоятельно задание ячейки 7
+predictions=model.predict(X_test_scaled)
+
+print(predictions[:5])
+
+# TODO: выполните самостоятельно задание ячейки 8
+from sklearn.metrics import mean_absolute_error,mean_squared_error, r2_score
+import numpy as np
+
+mae=mean_absolute_error(y_test,predictions)
+mse=mean_squared_error(y_test,predictions)
+rmse=np.sqrt(mse)
+r2=r2_score(y_test,predictions)
+
+print("MAE",mae)
+print("MSE",mse)
+print("RMSE",rmse)
+print("R2",r2)
+
+# TODO: выполните самостоятельно задание ячейки 9
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(6,6))
+plt.scatter(y_test,predictions,alpha=0.3)
+plt.xlabel("Факт")
+plt.ylabel("Прогноз")
+plt.title("Линейная регрессия")
+plt.show()
+
+# TODO: выполните самостоятельно задание ячейки 10
+report={
+    "rows":len(data),
+    "features":len(X.columns),
+    "MAE":round(mae,2),
+    "RMSE":round(rmse,2),
+    "R2":round(r2,3)
+}
+
+print(report)

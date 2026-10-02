@@ -1691,3 +1691,62 @@ report = {
 
 for k,v in report.items():
     print(k,":", v)
+
+import pandas as pd
+
+df = pd.DataFrame({
+    "quantity":[8,9,10,11],
+    "price":[80,90,100,110]
+})
+
+display(df)
+
+X = df[["quantity"]]
+y = df["price"]
+
+print(X)
+print(y)
+
+import matplotlib.pyplot as plt
+
+plt.scatter(df["quantity"], df ["price"])
+plt.xlabel("Количество")
+plt.ylabel("Цена")
+plt.show()
+
+# TODO: выполните задание ячейки 4
+model_name = "Linear Regression"
+
+print(model_name)
+
+# TODO: выполните задание ячейки 5
+from sklearn.linear_model import LinearRegression
+
+model = LinearRegression()
+model.fit(X,y)
+
+prediction = model.predict([[90]])
+print(prediction)
+
+score = model.score(X,y)
+print(score)
+
+preds = model.predict([[75],[85],[95]])
+print(preds)
+
+pipeline = [
+"данные",
+"подготовка",
+"обучение",
+"прогноз"
+]
+
+print(pipeline)
+
+report = {
+    "rows": len(df),
+    "algorithm":"LinearRegression",
+    "score": score
+}
+
+print(report)

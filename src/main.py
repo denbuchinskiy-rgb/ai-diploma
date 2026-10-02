@@ -1913,3 +1913,97 @@ report={
 }
 
 print(report)
+
+# TODO: выполните самостоятельно задание ячейки 1
+import pandas as pd
+from pathlib import Path
+from google.colab import drive
+
+drive.mount('/content/drive')
+
+file_path = Path("/content/drive/MyDrive/Базы/sales_data.xlsx")
+df = pd.read_excel(file_path, sheet_name="sales_data", header=0)
+
+print(df.shape)
+
+# TODO: выполните самостоятельно задание ячейки 2
+display(df.head())
+print(df.columns.tolist())
+
+# TODO: выполните самостоятельно задание ячейки 3
+data=df[[
+    "number",
+    "quantity",
+    "price",
+    "discount"
+]].dropna()
+
+X=data.drop(columns=["quantity"])
+y=data["quantity"]
+
+# TODO: выполните самостоятельно задание ячейки 4
+from sklearn.model_selection import train_test_split
+
+X_train,X_test,y_train,y_test=train_test_split(
+    X,y,test_size=0.2,random_state=42
+    )
+
+# TODO: выполните самостоятельно задание ячейки 5
+from sklearn.preprocessing import StandardScaler
+
+scaler=StandardScaler()
+X_train_scaled=scaler.fit_transform(X_train)
+X_test_scaled=scaler.transform(X_test)
+
+# TODO: выполните самостоятельно задание ячейки 6
+from sklearn.linear_model import LinearRegression
+
+model=LinearRegression()
+model.fit(X_train_scaled,y_train)
+
+# TODO: выполните самостоятельно задание ячейки 7
+importance=pd.DataFrame({
+    "feature":X.columns,
+    "coefficient":model.coef_
+})
+
+importance=importance.sort_values(
+    by="coefficient",
+    ascending=False
+)
+
+display(importance)
+
+# TODO: выполните самостоятельно задание ячейки 8
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+import numpy as np
+
+pred=model.predict(X_test_scaled)
+
+mae=mean_absolute_error(y_test,pred)
+rmse=np.sqrt(mean_squared_error(y_test,pred))
+r2=r2_score(y_test,pred)
+
+print(mae,rmse,r2)
+
+# TODO: выполните самостоятельно задание ячейки 9
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(6,6))
+plt.scatter(y_test,pred,alpha=0.3)
+plt.xlabel("Факт")
+plt.ylabel("Прогноз")
+plt.title("Недвижимость: факт и прогноз")
+plt.show()
+
+# TODO: выполните самостоятельно задание ячейки 10
+report={
+    "rows":len(data),
+    "features":len(X.columns),
+    "MAE":round(mae,2),
+    "RMSE":round(rmse,2),
+    "R2":round(r2,3),
+    "best_feature":importance.iloc[0]["feature"]
+}
+
+print(report)

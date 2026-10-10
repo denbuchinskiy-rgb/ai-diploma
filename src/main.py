@@ -1498,6 +1498,7 @@ print("Нормализованные данные:", normalized_calories)
 import pandas as pd
 # TODO: импортируйте matplotlib.pyplot как plt
 import matplotlib.pyplot as plt
+from IPython.display import display
 # TODO: выведите сообщение и версию Pandas
 print("Pandas подключён")
 print("Версия Pandas:", pd.__version__)
@@ -2391,3 +2392,185 @@ report={
 }
 
 print(report)
+
+# TODO: выполните самостоятельно задание ячейки 1
+import pandas as pd
+import matplotlib.pyplot as plt
+
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
+
+print("Библиотеки подключены")
+
+# TODO: выполните самостоятельно задание ячейки 2
+from pathlib import Path
+from google.colab import drive
+
+drive.mount('/content/drive')
+
+file_path = Path("/content/drive/MyDrive/Базы/sales_data.xlsx")
+data = pd.read_excel(file_path, sheet_name="sales_data", header=0)
+X = data
+y = data['category']
+
+print("Размер X:", X.shape)
+print("Размер y:", y.shape)
+print("Классы:", y.unique())
+
+display(X.head())
+
+# TODO: выполните самостоятельно задание ячейки 3
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=55,
+    stratify=y
+)
+
+print("Train:", X_train.shape)
+print("Test:", X_test.shape)
+
+# TODO: выполните самостоятельно задание ячейки 4
+useless_columns = ['manager', 'city', 'category', 'product']
+
+X_train_numeric = X_train.drop(columns=useless_columns)
+X_test_numeric = X_test.drop(columns=useless_columns)
+
+tree_model = DecisionTreeClassifier(
+    max_depth=3,
+    random_state=55
+)
+
+tree_model.fit(X_train_numeric, y_train)
+
+tree_pred = tree_model.predict(X_test_numeric)
+
+tree_accuracy = accuracy_score(y_test, tree_pred)
+
+print("Decision Tree Accuracy:", tree_accuracy)
+
+# TODO: выполните самостоятельно задание ячейки 5
+useless_columns = ['manager', 'city', 'category', 'product']
+
+X_train_numeric = X_train.drop(columns=useless_columns)
+X_test_numeric = X_test.drop(columns=useless_columns)
+
+forest_model = RandomForestClassifier(
+    n_estimators=100,
+    max_depth=5,
+    random_state=55
+)
+
+forest_model.fit(X_train_numeric, y_train)
+
+forest_pred = forest_model.predict(X_test_numeric)
+
+forest_accuracy = accuracy_score(y_test, forest_pred)
+
+print("Random Forest Accuracy:", forest_accuracy)
+
+# TODO: выполните самостоятельно задание ячейки 6
+def calculate_metrics(y_true, y_pred):
+  return {
+      'accuracy': accuracy_score(y_true, y_pred),
+      'precision': precision_score(y_true, y_pred, average='weighted', zero_division=0),
+      'recall': recall_score(y_true, y_pred, average='weighted', zero_division=0),
+      'f1': f1_score(y_true, y_pred, average='weighted', zero_division=0)
+  }
+
+tree_metrics = calculate_metrics(y_test, tree_pred)
+forest_metrics = calculate_metrics(y_test, forest_pred)
+
+metrics_df = pd.DataFrame([
+    {"model": "Decision Tree", **tree_metrics},
+    {"model": "Random Forest", **forest_metrics}
+])
+
+display(metrics_df)
+
+# TODO: выполните самостоятельно задание ячейки 7
+feature_importance = pd.DataFrame({
+    "feature": [f'feature_{i}' for i in range(len(forest_model.feature_importances_))],
+    "importance": forest_model.feature_importances_
+})
+
+feature_importance = feature_importance.sort_values(
+    by="importance",
+    ascending=False
+)
+
+display(feature_importance.head(10))
+
+# TODO: выполните самостоятельно задание ячейки 8
+top_features = feature_importance.head(10).sort_values("importance")
+
+plt.figure(figsize=(10, 8))
+plt.barh(top_features["feature"], top_features["importance"])
+plt.title("TOP-10 важных признаков Random Forest")
+plt.xlabel("Важность")
+plt.ylabel("Признак")
+plt.grid(True)
+plt.show()
+
+# TODO: выполните самостоятельно задание ячейки 9
+estimators_list = [10, 15, 25, 55, 125, 160]
+scores = []
+
+for n in estimators_list:
+    model = RandomForestClassifier(
+        n_estimators=n,
+        max_depth=5,
+        random_state=55
+    )
+    model.fit(X_train_numeric, y_train)
+    pred = model.predict(X_test_numeric)
+    score = accuracy_score(y_test, pred)
+    scores.append(score)
+results_df = pd.DataFrame({
+    "n_estimators": estimators_list,
+    "accuracy": scores
+})
+
+display(results_df)
+
+plt.figure(figsize=(10, 8))
+plt.plot(results_df["n_estimators"], results_df["accuracy"], marker="o")
+plt.title("Accuracy при разном количестве деревьев")
+plt.xlabel("Количество деревьев")
+plt.ylabel("Accuracy")
+plt.grid(True)
+plt.show()
+
+# TODO: выполните самостоятельно задание ячейки 10
+best_model_name = "Random Forest" if forest_accuracy >= tree_accuracy else "Desicion Tree"
+
+final_report = {
+    "rows": len(X),
+    "features": X.shape[1],
+    "best_model": best_model_name,
+    "tree_accuracy": round(tree_accuracy, 4),
+    "forest_accuracy": round(forest_accuracy, 4),
+    "forest_f1": round(forest_metrics["f1"], 4),
+    "top_feature": feature_importance.iloc[0]["feature"]
+}
+
+print("Итоговый отчёт:")
+for key, value in final_report.items():
+    print(key, ":", value)
+
+conclusions = [
+    "Random Forest объединяет несколько деревьев решений.",
+    "Ансамбль часто работает устойчивее, чем одно дерево.",
+    "Количество деревьев влияет на качество модели.",
+    "Важность признаков помогает объяснять решения модели.",
+    "Random Forest хорошо подходит для табличных данных и дипломных ML-проектов."
+]
+
+print()
+print("Выводы:")
+for item in conclusions:
+    print("-", item)

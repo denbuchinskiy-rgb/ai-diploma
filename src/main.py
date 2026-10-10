@@ -2304,3 +2304,90 @@ print("Github:")
 print("git add .")
 print('git commit -m "feat: complete classification metrics lesson"')
 print("git push -u origin feature/block7-lesson06-classification-metrics")
+
+# TODO: выполните самостоятельно задание ячейки 1
+from sklearn.datasets import load_breast_cancer
+import pandas as pd
+
+data=load_breast_cancer()
+
+X=pd.DataFrame(data.data, columns=data.feature_names)
+y=pd.Series(data.target)
+
+print(X.shape)
+
+# TODO: выполните самостоятельно задание ячейки 2
+display(X.head())
+print(data.target_names)
+
+# TODO: выполните самостоятельно задание ячейки 3
+from sklearn.model_selection import train_test_split
+
+X_train,X_test,y_train,y_test=train_test_split(
+    X,y,test_size=0.2,random_state=55,stratify=y
+)
+
+# TODO: выполните самостоятельно задание ячейки 4
+from sklearn.tree import DecisionTreeClassifier
+
+tree=DecisionTreeClassifier(random_state=55)
+
+tree.fit(X_train,y_train)
+
+# TODO: выполните самостоятельно задание ячейки 5
+pred=tree.predict(X_test)
+
+print(pred[:10])
+
+# TODO: выполните самостоятельно задание ячейки 6
+from sklearn.metrics import accuracy_score
+
+accuracy=accuracy_score(y_test,pred)
+
+print("Accuracy:",accuracy)
+
+# TODO: выполните самостоятельно задание ячейки 7
+depth=tree.get_depth()
+leaves=tree.get_n_leaves()
+
+print("Depth:",depth)
+print("Leaves:",leaves)
+
+# TODO: выполните самостоятельно задание ячейки 8
+importance=pd.DataFrame({
+    "feature":X.columns,
+    "importance":tree.feature_importances_
+})
+
+importance=importance.sort_values(
+    by="importance",
+    ascending=False
+)
+
+display(importance.head(10))
+
+# TODO: выполните самостоятельно задание ячейки 9
+small_tree=DecisionTreeClassifier(
+    max_depth=3,
+    random_state=55
+)
+
+small_tree.fit(X_train,y_train)
+
+small_pred=small_tree.predict(X_test)
+
+small_accuracy=accuracy_score(y_test,small_pred)
+
+print("Полное дерево:",accuracy)
+print("Ограниченное дерево:",small_accuracy)
+
+# TODO: выполните самостоятельно задание ячейки 10
+report={
+    "rows":len(X),
+    "features":X.shape[1],
+    "accuracy":round(accuracy,3),
+    "depth":depth,
+    "best_feature":importance.iloc[0]["feature"]
+}
+
+print(report)

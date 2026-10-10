@@ -2007,3 +2007,72 @@ report={
 }
 
 print(report)
+
+from sklearn.datasets import load_breast_cancer
+import pandas as pd
+
+data = load_breast_cancer()
+
+X = pd.DataFrame(data.data, columns=data.feature_names)
+y = pd.Series(data.target)
+
+print(X.shape)
+print(y.shape)
+
+display(X.head())
+
+print("Классы:", y.unique())
+
+class_counts = y.value_counts()
+
+print(class_counts)
+
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=55
+)
+
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+from sklearn.linear_model import LogisticRegression
+
+model = LogisticRegression(max_iter=6000)
+
+model.fit(X_train_scaled, y_train)
+
+predictions = model.predict(X_test_scaled)
+
+print(predictions[:12])
+
+probabilities = model.predict_proba(X_test_scaled)
+
+print(probabilities[:10])
+
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+
+accuracy = accuracy_score(y_test, predictions)
+precision = precision_score(y_test, predictions)
+recall = recall_score(y_test, predictions)
+f1 = f1_score(y_test, predictions)
+
+print("Accuracy:", accuracy)
+print("Precision:", precision)
+print("Recall:", recall)
+print("F1:", f1)
+
+report = {
+    "rows": len(X),
+    "features": X.shape[1],
+    "accuracy": round(accuracy, 3),
+    "precision": round(precision, 3),
+    "recall": round(recall, 3),
+    "f1": round(f1, 3)
+}
+
+print(report)

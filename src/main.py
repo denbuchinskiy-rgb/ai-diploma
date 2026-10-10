@@ -2076,3 +2076,231 @@ report = {
 }
 
 print(report)
+
+# TODO: импортируйте pandas как pd
+import pandas as pd
+# TODO: импортируйте matplotlib.pyplot как plt
+import matplotlib.pyplot as plt
+# TODO: импортируйте load_breast_cancer
+from sklearn.datasets import load_breast_cancer
+# TODO: импортируйте train_test_split
+from sklearn.model_selection import train_test_split
+# TODO: импортируйте StandardScaler
+from sklearn.preprocessing import StandardScaler
+# TODO: импортируйте LogisticRegression
+from sklearn.linear_model import LogisticRegression
+# TODO: импортируйте метрики:
+# accuracy_score, precision_score, recall_score, f1_score,
+# confusion_matrix, classification_report, ConfusionMatrixDisplay
+from sklearn.metrics import (
+    accuracy_score,
+    precision_score,
+    recall_score,
+    f1_score,
+    confusion_matrix,
+    classification_report,
+    ConfusionMatrixDisplay
+)
+
+print("Библиотеки подключены")
+
+# TODO: загрузите data = load_breast_cancer()
+import pandas as pd
+from pathlib import Path
+from google.colab import drive
+
+drive.mount('/content/drive')
+
+file_path = Path("/content/drive/MyDrive/Базы/sales_data.xlsx")
+data = pd.read_excel(file_path, sheet_name="sales_data", header=0)
+# TODO: создайте X как DataFrame
+X = data
+# TODO: создайте y как Series
+y = data['category']
+# TODO: выведите размеры и классы
+print("Размер X:", X.shape)
+print("Размер y:", y.shape)
+print("Классы:", y.unique())
+
+
+# TODO: создайте class_counts
+class_counts = y.value_counts().sort_index()
+# TODO: выведите class_counts
+print("Распределение классов:")
+print(class_counts)
+# TODO: постройте bar chart
+plt.figure(figsize=(8, 10))
+class_counts.plot(kind="bar")
+plt.title("Распределение классов")
+plt.xlabel("Класс")
+plt.ylabel("Количество объектов")
+plt.grid(True)
+plt.show()
+
+
+# TODO: выполните train_test_split
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=55,
+    stratify=y
+)
+# TODO: выведите размеры train и test
+print("Train:", X_train.shape)
+print("Test:", X_test.shape)
+
+X_train_numeric = X_train.select_dtypes(include=['number'])
+X_test_numeric = X_test.select_dtypes(include=['number'])
+# TODO: создайте scaler
+scaler = StandardScaler()
+# TODO: создайте X_train_scaled
+X_train_scaled = scaler.fit_transform(X_train_numeric)
+# TODO: создайте X_test_scaled
+X_test_scaled = scaler.transform(X_test_numeric)
+# TODO: создайте model
+model = LogisticRegression(max_iter=7000)
+# TODO: обучите model
+model.fit(X_train_scaled, y_train)
+print("Модель обучена")
+
+# TODO: создайте y_pred
+# Прогноз нужно делать на тестовых данных, потому что сравниваем с y_test
+y_pred = model.predict(X_test_numeric)
+
+# TODO: создайте y_proba
+# predict_proba возвращает таблицу вероятностей:
+# столбец 0 — вероятность класса 0
+# столбец 1 — вероятность класса 1
+y_pred = model.predict(X_test_numeric)
+
+y_proba = model.predict_proba(X_test_numeric)
+
+comparison = pd.DataFrame({
+    "fact": y_test.values,
+    "prediction": y_pred,
+    "probability_class_1": y_proba[:, 1]
+})
+
+display(comparison.head(10))
+
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+
+# Обучаем модель
+model.fit(X_train_scaled, y_train)
+
+# Делаем прогноз на тестовых данных
+y_pred = model.predict(X_test_scaled)
+
+# Смотрим, какие классы есть в факте и прогнозе
+print("Классы в y_test:", sorted(set(y_test)))
+print("Классы в y_pred:", sorted(set(y_pred)))
+
+# Accuracy работает и для бинарной, и для многоклассовой классификации
+accuracy = accuracy_score(y_test, y_pred)
+
+# Для многоклассовой классификации нужно указать average
+precision = precision_score(
+    y_test,
+    y_pred,
+    average="weighted",
+    zero_division=0
+)
+
+recall = recall_score(
+    y_test,
+    y_pred,
+    average="weighted",
+    zero_division=0
+)
+
+f1 = f1_score(
+    y_test,
+    y_pred,
+    average="weighted",
+    zero_division=0
+)
+
+metrics_report = {
+    "accuracy": accuracy,
+    "precision": precision,
+    "recall": recall,
+    "f1": f1
+}
+
+for key, value in metrics_report.items():
+    print(key, ":", round(value, 4))
+
+# TODO: создайте cm = confusion_matrix(...)
+from sklearn.metrics import classification_report
+cm = confusion_matrix(y_test, y_pred)
+
+# TODO: выведите cm
+print("Confusion Matrix:")
+print(cm)
+# TODO: получите tn, fp, fn, tp
+n_classes = cm.shape[0]
+
+for i in range(n_classes):
+    tp = cm[i, i]
+    fn = cm[i, :].sum() - tp
+    fp = cm[:, i].sum() - tp
+    tn = cm.sum() - tp - fn - fp
+
+print("TN:", tn)
+print("FP:", fp)
+print("FN:", fn)
+print("TP:", tp)
+
+# TODO: создайте disp
+import numpy as np
+from sklearn.metrics import ConfusionMatrixDisplay
+class_names = sorted(data['category'].unique())
+disp = ConfusionMatrixDisplay(
+    confusion_matrix=cm,
+    display_labels=class_names
+)# TODO: вызовите disp.plot()
+disp.plot()
+# TODO: добавьте title и show()
+plt.title("Матрица ошибок")
+plt.show()
+# TODO: выведите classification_report
+print("Classification Report:")
+print(classification_report(y_test, y_pred, target_names=class_names))
+
+# TODO: создайте final_report
+final_report = {
+    "rows": len(X),
+    "features": X.shape[1],
+    "accuracy": round(accuracy, 4),
+    "precision": round(precision, 4),
+    "recall": round(recall, 4),
+    "f1": round(f1, 4),
+    "tn": int(tn),
+    "fp": int(fp),
+    "fn": int(fn),
+    "tp": int(tp)
+}
+# TODO: выведите final_report
+print("Итоговый отчёт:")
+for key, value in final_report.items():
+    print(key, ":", value)
+# TODO: создайте conclusions из 5 выводов
+conclusions = [
+    "Accuracy показывает общую долю правильных ответов.",
+    "Precision показывает точность положительных предсказаний.",
+    "Recall показывает, сколько положительных объектов модель нашла.",
+    "F1-score помогает оценить баланс Precision и Recall.",
+    "Confusion Matrix помогает увидеть конкретные типы ошибок модели."
+]
+# TODO: выведите conclusions
+print()
+print("Выводы:")
+for item in conclusions:
+  print("-", item)
+# TODO: выведите GitHub-команды
+print()
+print("Github:")
+print("git add .")
+print('git commit -m "feat: complete classification metrics lesson"')
+print("git push -u origin feature/block7-lesson06-classification-metrics")

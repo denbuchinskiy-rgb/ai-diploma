@@ -2574,3 +2574,98 @@ print()
 print("Выводы:")
 for item in conclusions:
     print("-", item)
+
+import pandas as pd
+import numpy as np
+
+np.random.seed(55)
+
+df = pd.DataFrame({
+    "income": np.random.randint(25000,125000,350),
+    "spending": np.random.randint(1500, 55000,350)
+})
+
+display(df.head())
+
+# TODO: выполните самостоятельно задание ячейки 2
+import matplotlib.pyplot as plt
+plt.figure(figsize=(8,10))
+plt.scatter(df["income"],df["spending"],alpha=0.6)
+plt.xlabel("Доход")
+plt.ylabel("Расходы")
+plt.title("Клиенты магазина")
+plt.grid(True)
+plt.show()
+
+# TODO: выполните самостоятельно задание ячейки 3
+X = df[["income", "spending"]]
+
+print(X.shape)
+
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+
+X_scaled = scaler.fit_transform(X)
+
+# TODO: выполните самостоятельно задание ячейки 5
+from sklearn.cluster import KMeans
+
+kmeans = KMeans(
+    n_clusters=5,
+    random_state=55,
+    n_init=15
+)
+
+kmeans.fit(X_scaled)
+
+# TODO: выполните самостоятельно задание ячейки 6
+clusters = kmeans.labels_
+
+df["cluster"] = clusters
+
+print(df["cluster"].value_counts())
+
+# TODO: выполните самостоятельно задание ячейки 7
+plt.figure(figsize=(8,10))
+plt.scatter(
+    df["income"],
+    df["spending"],
+    c=df["cluster"]
+)
+
+plt.xlabel("Доход")
+plt.ylabel("Расходы")
+plt.title("Кластеры клиентов")
+plt.show()
+
+# TODO: выполните самостоятельно задание ячейки 8
+inertia=[]
+
+for k in range(1,15):
+  model=KMeans(
+      n_clusters=k,
+      random_state=55,
+      n_init=15
+  )
+  model.fit(X_scaled)
+  inertia.append(model.inertia_)
+
+  # TODO: выполните самостоятельно задание ячейки 9
+plt.figure(figsize=(10,8))
+plt.plot(range(1,15),inertia,marker="o")
+plt.xlabel("Количество кластеров")
+plt.ylabel("Inertia")
+plt.title("Метод локтя")
+plt.grid(True)
+plt.show()
+
+# TODO: выполните самостоятельно задание ячейки 10
+report = {
+    "rows": len(df),
+    "clusters": len(df["cluster"].unique()),
+    "avg_income": round(df["income"].mean(),2),
+    "avg_spending": round(df["spending"].mean(),2)
+}
+
+print(report)

@@ -2669,3 +2669,183 @@ report = {
 }
 
 print(report)
+
+# TODO: импортируйте pandas как pd
+import pandas as pd
+# TODO: импортируйте numpy как np
+import numpy as np
+# TODO: импортируйте matplotlib.pyplot как plt
+import matplotlib.pyplot as plt
+# TODO: импортируйте make_blobs
+from sklearn.datasets import make_blobs
+# TODO: импортируйте StandardScaler
+from sklearn.preprocessing import StandardScaler
+# TODO: импортируйте KMeans
+from sklearn.cluster import KMeans
+print("Библиотеки подключены")
+
+# TODO: создайте X_raw, true_labels через make_blobs
+from pathlib import Path
+from google.colab import drive
+
+drive.mount('/content/drive')
+
+file_path = Path("/content/drive/MyDrive/Базы/sales_data.xlsx")
+data = pd.read_excel(file_path, sheet_name="sales_data", header=0)
+# TODO: создайте df с колонками annual_income_raw и spending_score_raw
+X_raw = data
+df = pd.DataFrame(X_raw, columns=["quantity", "price"])
+# TODO: покажите df.head()
+display(df.head())
+print("Размер таблицы:", df.shape)
+
+# TODO: создайте функцию scale_to_range(values, new_min, new_max)
+def scale_to_range(values, new_min, new_max):
+    old_min = values.min()
+    old_max = values.max()
+    scaled = (values - old_min) / (old_max - old_min)
+    return scaled * (new_max - new_min) + new_min
+# TODO: создайте annual_income
+df["quantity1"] = scale_to_range(df["quantity"], 20, 120).round(1)
+# TODO: создайте spending_score
+df["price1"] = scale_to_range(df["price"], 1, 100).round(1)
+# TODO: оставьте в df только annual_income и spending_score
+df = df[["quantity1", "price1"]]
+display(df.head())
+
+# TODO: создайте column_description
+column_description = {
+    "quantity": "Кол-во товара",
+    "price": "Цена товара"
+}
+# TODO: выведите описание колонок
+for column, description in column_description.items():
+    print(column, "-", description)
+# TODO: покажите df.describe()
+print()
+print("Статистика:")
+display(df.describe())
+# TODO: выведите df.isna().sum()
+print("Пропуски:")
+print(df.isna().sum())
+
+# TODO: создайте figure
+plt.figure(figsize=(10,5))
+# TODO: постройте scatter annual_income и spending_score
+plt.scatter(
+    df["quantity1"],
+    df["price1"],
+    alpha=0.75
+)
+# TODO: добавьте title, xlabel, ylabel, grid
+plt.title("Клиенты: Кол-во и цена товара")
+plt.xlabel("Кол-во")
+plt.ylabel("Цена")
+plt.grid(True)
+
+# TODO: show()
+plt.show()
+
+# TODO: создайте features
+features = ["quantity1", "price1"]
+# TODO: создайте X
+X = df[features]
+# TODO: создайте scaler
+scaler = StandardScaler()
+# TODO: создайте X_scaled
+X_scaled = scaler.fit_transform(X)
+print("Размер X:", X.shape)
+print("Размер X_scaled:", X_scaled.shape)
+
+# TODO: создайте inertia
+inertia = []
+# TODO: создайте k_values
+k_values = range(1, 10)
+# TODO: в цикле обучите KMeans для разных K
+for k in k_values:
+    model = KMeans(
+        n_clusters=k,
+        random_state=55,
+        n_init=10
+    )
+    model.fit(X_scaled)
+    inertia.append(model.inertia_)
+# TODO: постройте график метода локтя
+plt.figure(figsize=(10, 8))
+plt.plot(list(k_values), inertia, marker="o")
+plt.title("Метод локтя")
+plt.xlabel("Количество кластеров K")
+plt.ylabel("Inertia")
+plt.grid(True)
+plt.show()
+
+# TODO: создайте kmeans
+kmeans = KMeans(
+    n_clusters=5,
+    random_state=55,
+    n_init=10
+)
+# TODO: обучите kmeans
+kmeans.fit(X_scaled)
+# TODO: добавьте df["cluster"]
+df["cluster"] = kmeans.labels_
+# TODO: выведите value_counts()
+print("Количество клиентов в каждом кластере")
+print(df["cluster"].value_counts().sort_index())
+
+# TODO: создайте figure
+plt.figure(figsize=(10, 8))
+# TODO: постройте scatter с c=df["cluster"]
+plt.scatter(
+    df["quantity1"],
+    df["price1"],
+    c=df["cluster"],
+    alpha=0.8
+)
+# TODO: добавьте title, xlabel, ylabel, grid
+plt.title("Сегменты клиентов по K-Means")
+plt.xlabel("Кол-во")
+plt.ylabel("Цена")
+plt.grid(True)
+# TODO: show()
+plt.show()
+
+# TODO: создайте cluster_report
+cluster_report = (
+    df.groupby("cluster")
+    .agg(
+        quantity_count=("quantity1", "count"),
+        avg_income=("quantity1", "mean"),
+        avg_price=("price1", "mean")
+    )
+    .sort_values(by="avg_price", ascending=False)
+)
+# TODO: покажите cluster_report
+display(cluster_report)
+# TODO: найдите best_cluster
+best_cluster = cluster_report["avg_price"].idxmax()
+
+# TODO: найдите low_cluster
+low_cluster = cluster_report["avg_price"].idxmin()
+# TODO: создайте final_report
+final_report = {
+    "rows": len(df),
+    "clusters": df["cluster"].nunique(),
+    "best_cluster": int(best_cluster),
+    "low_spending_cluster": int(low_cluster)
+}
+print("Итоговый отчёт:")
+for key, value in final_report.items():
+  print(key, ":", value)
+# TODO: создайте conclusions
+conclusions = [
+   "K-Means нашёл группы клиентов без заранее заданных ответов.",
+   "Масштабирование признаков важно для алгоритмов, основанных на расстояниях.",
+   "Метод локтя помогает выбирать количество кластеров.",
+   "Кластеры нужно интерпретировать как бизнес-сегменты.",
+   "Ноутбук стабилен, потому что не зависит от внешнего CSV-файла."
+]
+print()
+print("Выводы:")
+for item in conclusions:
+    print("-", item)
